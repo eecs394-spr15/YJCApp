@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+  window.addEventListener('WebComponentsReady', function() {
+    supersonic.app.splashscreen.hide();
+  });
+  </script>
+  <!-- Cloud resource definition file for Supersonic Data -->
+  <script src="/cloud-resources.js"></script>
+  <meta charset="utf8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  <title>index</title>
+
+  <link rel="stylesheet" href="/components/supersonic/css/supersonic.css" />
+  <link rel="stylesheet" href="/app/common/stylesheets/application.css" />
+  <link rel="stylesheet" href="/app/common/stylesheets/home.css" />
+  <link rel="import" href="/components/supersonic/components/import.html">
+
+  <script src="http://localhost/cordova.js"></script>
+  <script src="/components/steroids-js/steroids.js"></script>
+  <script src="/components/angular/angular.js"></script>
+  <script src="/components/supersonic/supersonic.js"></script>
+  <script src="/components/webcomponentsjs/webcomponents.js"></script>
+
+  
+  <script src="/app/common.js"></script>
+  
+  <script src="/app/home.js"></script>
+  
+</head>
+<body ng-app="home">
+
+<div ng-controller="IndexController">
+
+    <div class="list" >
+        <label class="item item-input" id="yjcbar">
+            <img id="yjclogo" src="/imags/yjclogo.jpg" onclick="location.reload()" width="50px"; height="40px"> <!-- Add the refresh function when click the WildCat-->
+            <div style="margin-left:20px; color:#ffffff; font-weight:bold; font-size:120%">
+                Youth Job Center
+            </div>
+        </label>
+    </div>
+
+  <div class="padding">
+    <h1>Pow! Here's your fresh module!</h1>
+  </div>
+
+</div>
+
+</body>
+</html>
