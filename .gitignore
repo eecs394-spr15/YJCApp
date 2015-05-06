@@ -1,1 +1,7 @@
 cloudcode/config/global.json
+.DS_Store
+/dist
+node_modules
+bower_components
+.sass-cache
+logs/
