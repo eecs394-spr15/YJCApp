@@ -12,7 +12,7 @@ var profile = require('cloud/profile');
 // the app and io as arguments to the returned functions.
 require('cloud/config')(app);
 require('cloud/routes')(app);
-
+app.set('view options', { layout:'cloud/layout.ejs' });
 
 //define actions
 app.post('/createJob', job.create);
@@ -21,3 +21,4 @@ app.get('/logout', profile.logout);
 
 // Attach the Express app to Cloud Code.
 app.listen();
+

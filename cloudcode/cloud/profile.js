@@ -5,7 +5,7 @@
       // parseExpressCookieSession will automatically set cookie.
       var curUser = Parse.User.current();
       if(curUser.get('admin')){
-      	res.render('index');
+      	res.render('index', { username: curUser.get('username') });
       }else{
       	res.render('login', {error: 'Sorry please login with admin accout' });
       }
