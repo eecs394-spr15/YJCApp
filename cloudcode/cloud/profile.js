@@ -4,8 +4,9 @@
       // Login succeeded, redirect to homepage.
       // parseExpressCookieSession will automatically set cookie.
       var curUser = Parse.User.current();
+      user = Parse.User.current().get("username");
       if(curUser.get('admin')){
-      	res.render('index', { username: curUser.get('username') });
+      	res.render('index', { username: curUser.get("username") });
       }else{
       	Parse.User.logOut();
       	res.render('login', { error: 'Sorry please login with admin accout' });
@@ -20,5 +21,5 @@
   // You could have a "Log Out" link on your website pointing to this.
   exports.logout = function(req, res) {
     Parse.User.logOut();
-    res.render('login');
+        res.render('login', { error: "" });
   };
