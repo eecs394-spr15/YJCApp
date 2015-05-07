@@ -1,11 +1,18 @@
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>YJC CMS</title>
-  </head>
-  <body>
-    <h1>Hello World</h1>
-    <p><%= message %></p>
-  </body>
-</html>
+<div id="job">
+  <form method="POST" action="/createJob">
+    <div class="home">
+      <h2>CREATE A <strong>Job</h2>
+
+      <input type="text" name="text1" placeholder="JobTitle" maxlength="65" />
+      
+<!--       <input type="hidden" name="data" />
+ -->
+      <div class="buttons">
+        <button>CREATE Job</button>
+        <div style="display:none" class="error"></div>
+      </div>
+    </div>
+  </form>
+
+</div>
