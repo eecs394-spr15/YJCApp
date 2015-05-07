@@ -3,8 +3,8 @@
 var express = require('express'),
 		app = express();
 
-var job = require('cloud/job');
-var profile = require('cloud/profile');
+app.job = require('cloud/job');
+app.profile = require('cloud/profile');
 
 user = null;
 
@@ -12,13 +12,8 @@ user = null;
 // the app and io as arguments to the returned functions.
 require('cloud/config')(app);
 require('cloud/routes')(app);
-app.set('view options', { layout:'cloud/layout.ejs' });
 
-//define actions
 
-app.post('/createJob', job.create);
-app.post('/login', profile.login);
-app.get('/logout', profile.logout);
 // Attach the Express app to Cloud Code.
 app.listen();
 
