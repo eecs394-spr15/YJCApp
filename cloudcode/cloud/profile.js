@@ -7,12 +7,13 @@
       if(curUser.get('admin')){
       	res.render('index');
       }else{
-      	res.render('login', {error: 'Sorry please login with admin accout' });
+      	Parse.User.logOut();
+      	res.render('login', { error: 'Sorry please login with admin accout' });
       }
     },
     function(error) {
       // Login failed, redirect back to login form.
-      res.render('login', {error: 'No correspond user record found' });
+      res.render('login', { error: 'No correspond user record found' });
     });
   };
 
