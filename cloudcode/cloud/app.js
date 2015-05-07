@@ -4,6 +4,8 @@ var express = require('express'),
 		app = express();
 
 var job = require('cloud/job');
+var profile = require('cloud/profile');
+
 
 
 // Require the configuration and the routes files, and pass
@@ -14,6 +16,8 @@ require('cloud/routes')(app);
 
 //define actions
 app.post('/createJob', job.create);
+app.post('/login', profile.login);
+app.get('/logout', profile.logout);
 
 // Attach the Express app to Cloud Code.
 app.listen();

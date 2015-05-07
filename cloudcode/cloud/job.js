@@ -7,7 +7,7 @@ exports.new = function(req, res) {
   });
 };
 
-// Creates a meme
+// Creates a job
 exports.create = function(req, res) {
   var job = new Job();
 
