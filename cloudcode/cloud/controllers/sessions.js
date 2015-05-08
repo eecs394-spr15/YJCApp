@@ -3,9 +3,12 @@ module.exports = function(app){
   app.get('/login', function(req, res){
     // render new login page here
     // check if already logged in??
-    res.render('sessions/new', {
-      notice: (req.session.notice) ? req.session.notice : '' 
-    });
+    if (req.session.user)
+      res.redirect('/jobs');
+    else 
+      res.render('sessions/new', {
+        notice: (req.session.notice) ? req.session.notice : '' 
+      });
   });
 
   app.post('/login', function(req, res){
@@ -15,6 +18,8 @@ module.exports = function(app){
       var curUser = Parse.User.current();
       req.session.notice = 'Login successful!';
       req.session.user = curUser;
+      //req.session.userId = curUser.id;
+      //req.session.username = curUser.get('username');
       res.redirect('/jobs');
       /*
       var curUser = Parse.User.current();
@@ -34,6 +39,8 @@ module.exports = function(app){
       // Login failed, redirect back to login form.
       req.session.notice = 'No corresponding user record found';
       req.session.user = null;
+      //req.session.userId = null;
+      //req.session.username = null;
       res.redirect('/login');
     });
   });
@@ -43,6 +50,8 @@ module.exports = function(app){
     Parse.User.logOut();
     req.session.notice = 'Logged out successfully.';
     req.session.user = null;
+    //req.session.userId = null;
+    //req.session.username = null;
     res.redirect('/login');
   });
 };

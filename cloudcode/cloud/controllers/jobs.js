@@ -9,6 +9,8 @@ module.exports = function(app){
         res.render('jobs/index', { 
           notice: req.session.notice ? req.session.notice : '',
           user: req.session.user,
+          //userId: req.session.userId,
+          //username: req.session.username,
           jobs: results
         });
       },
@@ -21,7 +23,9 @@ module.exports = function(app){
   app.get('/jobs/new', function(req, res){
     // render new job form
     res.render('jobs/new', {
-      user: req.session.user
+      user: req.session.user,
+      //userId: req.session.userId,
+      //username: req.session.username
     });
   });
 
@@ -31,10 +35,7 @@ module.exports = function(app){
 
     Job.create(req, {
       success: function(job) {
-        res.render('jobs/index', { 
-          user: req.session.user, 
-          errors: jobErrors
-        });
+        res.redirect('/jobs');
       },
       error: function(job, error) {
         res.send('Error saving job!' + error.message);

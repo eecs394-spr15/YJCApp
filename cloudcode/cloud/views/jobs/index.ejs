@@ -8,7 +8,7 @@
   	<div class="container-fluid">
 
 	  	<br><br>
-      <% if (user && user.get('admin')){ %>
+      <% if (user && user['admin']){ %>
         <a href="/jobs/new">Add new job</a>
       <% } %>
       <br>
@@ -16,8 +16,8 @@
 	  	<br>
 
       <ul>
-        <% for(var i = 0; i < jobs.length; i++){ %>
-          <% var job = jobs[i]; %>
+        <% for(var i = 0; i < jobs.length; i++ ){ %>
+          <% var job = jobs[i] %>
           <% include _job %>
         <% } %>
       </ul>
