@@ -1,3 +1,5 @@
+var Job = require('cloud/models/job');
+
 module.exports = function(app){
 
   app.get('/jobs', function(req, res){
@@ -31,7 +33,19 @@ module.exports = function(app){
   app.post('/jobs', function(req, res){
     // create new job
     // then redirect to jobs index
-    var Job = Parse.Object.extend("Job");
+
+    Job.create(req, {
+      success: function(job) {
+        res.render('jobs/index', { username: 'sysadmin', errors: jobErrors});
+
+      },
+      error: function(job, error) {
+        res.send('Error saving job!' + error.message);
+      }
+    });
+
+
+    var Job = Parse.Object.extend('Job');
     var job = new Job();
     var jobErrors = {};
     var numErrors = 0;
@@ -41,7 +55,7 @@ module.exports = function(app){
       numErrors++;
     }
     if (!req.body.company)
-      jobErrors.company = "Invalid Company";
+      jobErrors.company = 'Invalid Company';
 
     if (numErrors > 0)
       res.render('jobs/index', {username: 'sysadmin', errors: jobErrors});
