@@ -10,6 +10,22 @@ exports.new = function(req, res) {
 exports.create = function(req, res) {
   var Job = Parse.Object.extend("Job");
   var job = new Job();
+  var jobErrors = {};
+  var numErrors = 0;
+  // check null
+  if (req.body.jobTitle === '' || req.body.jobTitle === null || req.body.jobTitle === undefined)
+  {
+    jobErrors.jobTitle = "Invalid Job Title";
+    numErrors++;
+  }
+  if (!req.body.company)
+  {
+    jobErrors.company = "Invalid Company";
+  }
+
+  if (numErrors > 0)
+    res.render('index', {username: 'sysadmin', errors: jobErrors});
+
 
   // if (req.body.text1 === "") {
   //   res.status(403).send('Top text cannot be blank');
@@ -37,9 +53,13 @@ exports.create = function(req, res) {
   // acl.setPublicReadAccess(true);
   // job.setACL(acl);
   
+  // no errors
+  jobErrors = {
+    jobTitle: ''
+  };
   job.save(null, {
     success: function(job) {
-      res.render('index', {username: 'sysadmin'});
+      res.render('index', { username: 'sysadmin', errors: jobErrors});
 
     },
     error: function(job, error) {

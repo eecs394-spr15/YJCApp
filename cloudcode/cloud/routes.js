@@ -8,8 +8,11 @@ module.exports = function(app){
     //*
     if (Parse.User.current()) {
       user = "sysadmin";
+      jobErrors = {
+        jobTitle: ''
+      };
       // No need to fetch the current user for querying Note objects.
-        res.render('index', { username: user});
+        res.render('index', { username: user, errors: jobErrors});
 
     } else {
       // Render a public welcome page, with a link to the '/login' endpoint.

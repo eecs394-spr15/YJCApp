@@ -6,7 +6,10 @@
       var curUser = Parse.User.current();
       user = Parse.User.current().get("username");
       if(curUser.get('admin')){
-      	res.render('index', { username: curUser.get("username") });
+        jobErrors = {
+          jobTitle: ''
+        };
+        res.render('index', { username: curUser.get("username"), errors: jobErrors});
       }else{
       	Parse.User.logOut();
       	res.render('login', { error: 'Sorry please login with admin accout' });
