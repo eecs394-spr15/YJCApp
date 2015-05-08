@@ -8,7 +8,7 @@ module.exports = function(app){
       success: function (results) {
         res.render('jobs/index', { 
           notice: req.session.notice ? req.session.notice : '',
-          username: req.session.username,
+          user: req.session.user,
           jobs: results
         });
       },
@@ -21,7 +21,7 @@ module.exports = function(app){
   app.get('/jobs/new', function(req, res){
     // render new job form
     res.render('jobs/new', {
-      username: req.session.username
+      user: req.session.user
     });
   });
 
@@ -32,7 +32,7 @@ module.exports = function(app){
     Job.create(req, {
       success: function(job) {
         res.render('jobs/index', { 
-          username: req.session.username, 
+          user: req.session.user, 
           errors: jobErrors
         });
       },

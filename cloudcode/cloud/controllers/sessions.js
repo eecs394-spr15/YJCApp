@@ -14,7 +14,7 @@ module.exports = function(app){
     Parse.User.logIn(req.body.username, req.body.password).then(function() {
       var curUser = Parse.User.current();
       req.session.notice = 'Login successful!';
-      req.session.username = curUser.get('username');
+      req.session.user = curUser;
       res.redirect('/jobs');
       /*
       var curUser = Parse.User.current();
@@ -33,7 +33,7 @@ module.exports = function(app){
     function(error) {
       // Login failed, redirect back to login form.
       req.session.notice = 'No corresponding user record found';
-      req.session.username = null;
+      req.session.user = null;
       res.redirect('/login');
     });
   });
@@ -42,7 +42,7 @@ module.exports = function(app){
     // destroy session here
     Parse.User.logOut();
     req.session.notice = 'Logged out successfully.';
-    req.session.username = null;
+    req.session.user = null;
     res.redirect('/login');
   });
 };

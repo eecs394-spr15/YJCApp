@@ -8,7 +8,9 @@
   	<div class="container-fluid">
 
 	  	<br><br>
-      <a href="/jobs/new">Add new job</a>
+      <% if (user && user.get('admin')){ %>
+        <a href="/jobs/new">Add new job</a>
+      <% } %>
       <br>
 	  	DISPLAY ALL JOBS HERE (and make it pretty)
 	  	<br>
