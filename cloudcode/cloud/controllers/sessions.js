@@ -33,6 +33,7 @@ module.exports = function(app){
     function(error) {
       // Login failed, redirect back to login form.
       req.session.notice = 'No corresponding user record found';
+      req.session.username = null;
       res.redirect('/login');
     });
   });
@@ -41,6 +42,7 @@ module.exports = function(app){
     // destroy session here
     Parse.User.logOut();
     req.session.notice = 'Logged out successfully.';
+    req.session.username = null;
     res.redirect('/login');
   });
 };

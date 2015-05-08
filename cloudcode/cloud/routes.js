@@ -8,7 +8,8 @@ module.exports = function(app){
         jobTitle: ''
       };
       // No need to fetch the current user for querying Note objects.
-      res.render('jobs/index', { username: user, errors: jobErrors});
+      //res.render('jobs/index', { username: user, errors: jobErrors});
+      res.redirect('/jobs');
 
     } else {
       // Redirect to login page

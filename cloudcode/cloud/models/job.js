@@ -1,5 +1,14 @@
+var Job = Parse.Object.extend('Job');
+
+
+// get all jobs
+exports.all = function(callback){
+	var query = new Parse.Query(Job);
+	query.find(callback);
+};
+
+// create new job
 exports.create = function(req, callback){
-	var Job = Parse.Object.extend('Job');
   var job = new Job();
   var jobErrors = {};
   var numErrors = 0;

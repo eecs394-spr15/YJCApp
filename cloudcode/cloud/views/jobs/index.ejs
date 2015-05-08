@@ -1,16 +1,25 @@
 <html>
   <head>
-    <% include ../shared/header %>
+    <% include ../shared/_header %>
   </head>
   <body>
-  	<% include ../shared/navbar %>
+  	<% include ../shared/_navbar %>
 
   	<div class="container-fluid">
+
 	  	<br><br>
+      <a href="/jobs/new">Add new job</a>
+      <br>
 	  	DISPLAY ALL JOBS HERE (and make it pretty)
 	  	<br>
 
-	  	<a href="/jobs/new">Add new job</a>
+      <ul>
+        <% for(var i = 0; i < jobs.length; i++){ %>
+          <% var job = jobs[i]; %>
+          <% include _job %>
+        <% } %>
+      </ul>
+
   	</div>
  	</body>
 </html>
