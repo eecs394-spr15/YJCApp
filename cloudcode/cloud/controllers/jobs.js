@@ -9,8 +9,6 @@ module.exports = function(app){
         res.render('jobs/index', { 
           notice: req.session.notice ? req.session.notice : '',
           user: req.session.user,
-          //userId: req.session.userId,
-          //username: req.session.username,
           jobs: results
         });
       },
@@ -21,18 +19,22 @@ module.exports = function(app){
   });
 
   app.get('/jobs/new', function(req, res){
-    // render new job form
+    // redirect to jobs if not admin
+    if (!req.session.user['admin'])
+      res.redirect('/jobs');
+
     res.render('jobs/new', {
-      user: req.session.user,
-      //userId: req.session.userId,
-      //username: req.session.username
+      user: req.session.user
     });
   });
 
   app.post('/jobs', function(req, res){
+    // redirect to jobs if not admin
+    if (!req.session.user['admin'])
+      res.redirect('/jobs');
+
     // create new job
     // then redirect accordingly
-
     Job.create(req, {
       success: function(job) {
         res.redirect('/jobs');
@@ -41,6 +43,22 @@ module.exports = function(app){
         res.send('Error saving job!' + error.message);
       }
     });
+  });
+
+  app.get('/job/:id', function(req, res){
+    // render page to show job listing with more details
+  });
+
+  app.get('/job/:id/edit', function(req, res){
+    // render form for editing job listing
+  };
+
+  app.put('/job/:id', function(req, res){
+    // call edit function in model
+  });
+
+  app.delete('/job/:id', function(req, res){
+    // call delete function in model
   });
 };
 

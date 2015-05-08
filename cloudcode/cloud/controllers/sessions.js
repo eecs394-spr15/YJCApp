@@ -16,10 +16,8 @@ module.exports = function(app){
     // then redirect to jobs index
     Parse.User.logIn(req.body.username, req.body.password).then(function() {
       var curUser = Parse.User.current();
-      req.session.notice = 'Login successful!';
+      req.session.notice = 'Logged in successfully!';
       req.session.user = curUser;
-      //req.session.userId = curUser.id;
-      //req.session.username = curUser.get('username');
       res.redirect('/jobs');
       /*
       var curUser = Parse.User.current();
@@ -39,8 +37,6 @@ module.exports = function(app){
       // Login failed, redirect back to login form.
       req.session.notice = 'No corresponding user record found';
       req.session.user = null;
-      //req.session.userId = null;
-      //req.session.username = null;
       res.redirect('/login');
     });
   });
@@ -50,8 +46,6 @@ module.exports = function(app){
     Parse.User.logOut();
     req.session.notice = 'Logged out successfully.';
     req.session.user = null;
-    //req.session.userId = null;
-    //req.session.username = null;
     res.redirect('/login');
   });
 };
