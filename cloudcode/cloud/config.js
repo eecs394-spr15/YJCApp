@@ -14,6 +14,7 @@ module.exports = function(app){
   app.use(express.bodyParser());    // Middleware for reading request body
   app.use(parseExpressHttpsRedirect());  // Require user to be on HTTPS.
   app.use(express.cookieParser('yjcpurple'));
+  app.use(express.cookieSession());
   app.use(parseExpressCookieSession({ cookie: { maxAge: 3600000 } }));
 
 	// Setup parse app keys 

@@ -1,13 +1,13 @@
 <html>
   <head>
-    <% include partials/header %>
+    <% include ../shared/header %>
   </head>
   <body>
     <div class="container">
       <form class="form-signin" method="post" action="/login">
         <h2 class="form-signin-heading">Youth Job Center</h2>
         <div class="error" style="color: red">  
-         <%= error %>
+         <%= notice %>
         </div>  
         <label for="inputUser" class="sr-only">Username</label>
         <input type="text" id="inputUser" name="username" class="form-control" placeholder="Username" required autofocus>
