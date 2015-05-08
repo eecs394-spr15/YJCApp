@@ -13,3 +13,16 @@ The system uses the following to work properly:
 * [Express](http://expressjs.com/) - fast node.js network app framework
 * [jQuery](https://jquery.com/) - easy DOM manipulation
 * [Twitter Bootstrap](http://getbootstrap.com/) - responsive HTML/CSS/JS framework
+
+
+### Web App Structure
+
+cloudcode/					--
+	cloud/						--
+		controllers/		--
+		models/					--
+		views/					--
+		app.js 					--
+		config.js 			--
+		main.js 				--
+		routes.js 			--
