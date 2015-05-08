@@ -17,7 +17,7 @@
     },
     function(error) {
       // Login failed, redirect back to login form.
-      res.render('login', { error: 'No correspond user record found' });
+      res.render('login', { error: 'No corresponding user record found' });
     });
   };
 
