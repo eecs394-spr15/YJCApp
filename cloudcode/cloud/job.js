@@ -19,9 +19,9 @@ exports.create = function(req, res) {
   job.set('jobTitle', req.body.jobTitle);
   job.set('company', req.body.company);
   job.set('salary', req.body.salary);
-  job.set('address', req.body.address);
+  job.set('address', String(req.body.address));
   job.set('zipcode', parseInt(req.body.zipcode) || 0);
-  job.set('educationRequirement', req.body.educationRequirement);
+  job.set('educationRequirement', String(req.body.educationRequirement));
   job.set('numOpenings', parseInt(req.body.numOpenings) || 0);
   job.set('workSchedule', req.body.workSchedule);
   job.set('startDate', new Date(req.body.startDate));
