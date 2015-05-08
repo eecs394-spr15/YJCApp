@@ -1,9 +1,9 @@
 // This file handles the configuration of the app.
 // Place all express configurations in this file.
 
-var express = require('express');
-var parseExpressHttpsRedirect = require('parse-express-https-redirect');
-var parseExpressCookieSession = require('parse-express-cookie-session');
+var express = require('express'),
+    parseExpressHttpsRedirect = require('parse-express-https-redirect'),
+    parseExpressCookieSession = require('parse-express-cookie-session');
 
 module.exports = function(app){
 
