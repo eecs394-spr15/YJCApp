@@ -1,0 +1,183 @@
+<div ng-controller="IndexController">
+
+  <super-navbar>
+    <super-navbar-title>
+      Edit
+    </super-navbar-title>
+  </super-navbar>
+
+  <div class="padding">
+  	<form>
+
+		<ul class="list">
+
+			<div class="item item-divider">
+        	About Me
+    		</div>
+
+    	<label class="item item-input">
+    		<input type="text" placeholder="First Name" ng-model="Account['firstName']">
+  		</label>
+  		<label class="item item-input">
+    		<input type="text" placeholder="Last Name" ng-model="Account['lastName']">
+  		</label>
+
+  		<label class="item item-input">
+    		<input type="text" placeholder="Date Of Birth" ng-model="Account['dateOfBirth']">
+  		</label>
+
+  		<label class="item item-input">
+    		<input type="text" placeholder="Phone Number" ng-model="Account['phoneNumber']">
+  		</label>
+
+  		<label class="item item-input">
+    		<input type="text" placeholder="Zipcode" ng-model="Account['zipcode']">
+  		</label>
+
+		<div class="item item-divider">
+        	Interests 
+    	</div>
+
+    	<li class="item item-checkbox">
+        	<label class="checkbox">
+          		<input id="Technology" type="checkbox" ng-click = "addInterest('Technology')">
+        	</label>
+      		Technology 
+    	</li>
+
+     	<li class="item item-checkbox">
+        	<label class="checkbox">
+          		<input id = "Journalism" type="checkbox" ng-click = "addInterest('Journalism')">
+        	</label>
+      		Journalism  
+    	</li>
+
+    	<li class="item item-checkbox">
+        	<label class="checkbox">
+          		<input id="Business" type="checkbox" ng-click = "addInterest('Business')">
+        	</label>
+      	Business  
+    	</li>
+
+    	<div ng-hide="addedInterest">
+    		<li class="item" ng-repeat="i in interests">
+    			{{i}}
+    		</li>
+    	</div>
+
+    	<div class="item item-input-inset">
+    		<label class="item-input-wrapper">
+      			<input type="text" placeholder="Other Interests" id="interest">
+    		</label>
+    		<button class="button button-small" ng-click="showInterestInput()">
+    			Submit
+    		</button>
+  		</div>
+
+		<div class="item item-divider">
+        	Higher Education 
+    	</div>
+
+    	<li class="item item-checkbox">
+        	<label class="checkbox">
+          	<input id="High School Diploma" type="checkbox" ng-click="addEducation('High School Diploma')">
+        	</label>
+      	High School Diploma
+    	</li>
+
+    	<li class="item item-checkbox">
+        	<label class="checkbox">
+          		<input id="Associate Degree" type="checkbox" ng-click="addEducation('Associate Degree')">
+        	</label>
+      	Associate's Degree
+    	</li>
+
+    	<li class="item item-checkbox">
+        	<label class="checkbox">
+          	<input id="Bachelor Degree" type="checkbox" ng-click="addEducation('Bachelor Degree')">
+        	</label>
+      		Bachelor's Degree
+    	</li>
+
+    	<li class="item item-checkbox">
+        	<label class="checkbox">
+          	<input id="Graduate School Degree" type="checkbox" ng-click="addEducation('Graduate School Degree')">
+        	</label>
+    		Graduate School Degree
+    	</li>
+
+    	<div class="item item-divider">
+        	Skills
+    	</div>
+
+     	<li class="item item-checkbox">
+        	<label class="checkbox">
+          	<input id="Computer Programming" type="checkbox" ng-click="addSkill('Computer Programming')">
+        	</label>
+      	Computer Programming
+    	</li>
+
+     	<li class="item item-checkbox">
+        	<label class="checkbox">
+          	<input id="Bilingual" type="checkbox" ng-click="addSkill('Bilingual')">
+        	</label>
+      	Bilingual
+    	</li>
+
+     	<li class="item item-checkbox">
+        	<label class="checkbox">
+          		<input id="Microsoft Office" type="checkbox" ng-click="addSkill('Microsoft Office')">
+        	</label>
+      		Microsoft Office 
+    	</li>
+
+    	<div ng-hide="addedSkill">
+    		<li class="item" ng-repeat="s in skills">
+    			{{s}}
+    		</li>
+    	</div>
+
+    	<div class="item item-input-inset">
+    		<label class="item-input-wrapper">
+      			<input type="text" placeholder="Other Skills" id="skill">
+    		</label>
+    		<button class="button button-small" ng-click="showSkillsInput()">
+    			Submit
+    		</button>
+  		</div>
+
+    	<div class= "item item-divider">
+        	Times Available
+    	</div>
+
+    	<li class="item item-checkbox">
+        	<label class="checkbox">
+          	<input type="checkbox">
+        	</label>
+      	Nightshift
+    	</li>
+
+     	<li class="item item-checkbox">
+        	<label class="checkbox">
+          		<input type="checkbox">
+        	</label>
+      	Weekends
+    	</li>
+
+    	<li class="item item-checkbox">
+        	<label class="checkbox">
+          	<input type="checkbox">
+        	</label>
+      	Part-Time Position
+    	</li>
+
+  		</ul>
+  		<super-navigate location="Account#profile" ng-click="addNewAccount()">
+
+  		<button class="button button-block" style="background-color: #348f92">Save</button>
+  	</super-navigate>
+
+	</form>
+
+</div>
+</div>

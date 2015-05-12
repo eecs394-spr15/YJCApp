@@ -1,0 +1,63 @@
+<div ng-controller="LoginPageController">
+  <super-navbar>
+    <super-navbar-title>
+      Login
+    </super-navbar-title>
+  </super-navbar>
+
+  <div class="padding">
+    <form>
+      <ul class="list">
+        <div ng-hide="currentUser">
+          <div class="item item-divider">
+          Existing Users
+          </div>
+
+          <label class="item item-input">
+            <input type="text" placeholder="Username" ng-model="existingUser.username">
+          </label>
+
+          <label class="item item-input">
+            <input type="text" placeholder="Password" ng-model="existingUser.password">
+          </label>
+          <super-navigate location="Account#profile">
+            <button ng-click= "logIn()" class="button button-block" style="background-color: #348f92">Log In</button>
+          </super-navigate>
+        </div>
+
+        <div ng-hide="currentUser"> 
+          <div class="item item-divider">
+          New Users
+          </div>  
+          <label class="item item-input">
+            <input type="text" placeholder="Username" ng-model="newUser.username">
+          </label>
+
+          <label class="item item-input">
+            <input type="text" placeholder="Password" ng-model="newUser.password">
+          </label>
+
+          <label class="item item-input">
+            <input type="text" placeholder="Email" ng-model="newUser.email">
+          </label>
+
+          <super-navigate location= "Account#index"> 
+            <button ng-click= "signUp()" class="button button-block" style="background-color: #348f92">Sign Up</button>
+          </super-navigate>
+        </div>
+        <div ng-show="currentUser">
+          <h1> Welcome {{currentUser.get('firstName')}}</h1>
+          <super-navigate location="Account#profile">
+            <button class="button button-block" style="background-color: #348f92" >View Profile</button>
+          </super-navigate>
+          <super-navigate location="Account#login">
+            <button ng-click= "logOut()" class="button button-block" style="background-color: #348f92">Log Out</button>
+          </super-navigate>
+        </div>  
+      </ul>
+    </form>
+  </div>
+</div>
+
+
+

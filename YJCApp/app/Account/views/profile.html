@@ -1,0 +1,67 @@
+<div ng-controller="ProfileController">
+  <super-navbar>
+    <super-navbar-title>
+      My Profile
+    </super-navbar-title>
+    <super-navbar-button side="right" location="Account#index">Edit</super-navbar-button>
+  </super-navbar>
+  <div class="padding">
+  	<ul>
+    	<div class="card">
+  			<div class="item item-text-wrap">
+  				<a class= "item item-thumbnail-left" href="#">
+  					<img src="profile.jpg">
+    				<h2>{{currentUser.get('firstName')}} {{currentUser.get('lastName')}}
+    				</h2>
+    				<p><b>Date of Birth:</b> {{currentUser.get('dateOfBirth')}}
+    				</p>
+    				<p><b>Phone Number:</b> {{currentUser.get('phoneNumber')}}
+    				</p>
+    				<p> <b>Email:</b> {{currentUser.get('email')}}
+    				</p>
+    			</a>
+  			</div>
+		</div>
+		<div class="card">
+  			<div class="item item-text-wrap">
+  				<div class="item item-divider">
+        		<center>Interests</center>
+    			</div>
+    			<li class="item" ng-repeat="i in interests">
+    			{{i}}
+    			</li>
+    		</div>
+    	</div>
+    	<div class="card">
+  			<div class="item item-text-wrap">
+  				<div class="item item-divider">
+        		<center>Skills</center>
+    			</div>
+    			<li class="item" ng-repeat="s in skills">
+    			{{s}}
+    			</li>
+    		</div>
+    	</div>
+    	<div class="card">
+  			<div class="item item-text-wrap">
+  				<div class="item item-divider">
+        		<center>Education</center>
+    			</div>
+    			<li class="item" ng-repeat="e in education">
+    			{{e}}
+    			</li>
+    		</div>
+    	</div>
+    	<div class="card">
+  			<div class="item item-text-wrap">
+  				<div class="item item-divider">
+        		<center>Times Available</center>
+    			</div>
+    			<li ng-bind>
+    				Night shift?
+    		</div>
+    	</div>
+
+	</ul>
+</div>
+</div>
