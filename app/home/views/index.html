@@ -1,5 +1,5 @@
 <div ng-controller="IndexController">
-
+  
     <div class="list" >
         <label class="item item-input" id="yjcbar">
             <img id="yjclogo" src="/imags/yjclogo.jpg" onclick="location.reload()" width="50px"; height="40px"> <!-- Add the refresh function when click the WildCat-->
@@ -9,8 +9,20 @@
         </label>
     </div>
 
-  <div class="padding">
-    <h1>Pow! Here's your fresh module!</h1>
-  </div>
+    <div class="card" ng-repeat = "job in jobs">
+        
+      <div class="item">
+        <h2>{{job.get('jobTitle')}}</h2>
+        <p>Company: {{job.get('company')}}</p>
+        <p>Salary: {{job.get('salary')}}</p>
+        <p>Type: {{job.get('fullTime')}}</p>
+      </div>
+
+      <a class="item item-icon-left assertive" href="#">
+        <i class="icon super-email"></i>
+        Contact {{job.get('company')}}
+      </a>
+
+    </div>
 
 </div>
