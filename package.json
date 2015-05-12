@@ -1,0 +1,11 @@
+{
+  "name": "YJCApp",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "express": "^4.12.3"
+  },
+  "devDependencies": {
+    "grunt-steroids": "1.x"
+  }
+}

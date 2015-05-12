@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <% include ../shared/_header %>
+  </head>
+  <body>
+  	<% include ../shared/_navbar %>
+
+  	<div class="container-fluid">
+
+	  	<br><br>
+      <% if (user && user['admin']){ %>
+        <a href="/jobs/new">Add new job</a>
+      <% } %>
+      <br>
+	  	DISPLAY ALL JOBS HERE (and make it pretty)
+	  	<br>
+
+      <ul>
+        <% for(var i = 0; i < jobs.length; i++ ){ %>
+          <% var job = jobs[i] %>
+          <% include _job %>
+        <% } %>
+      </ul>
+
+  	</div>
+ 	</body>
+</html>
