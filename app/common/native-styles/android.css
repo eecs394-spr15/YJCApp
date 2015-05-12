@@ -1,5 +1,5 @@
 navigation-bar {
-  background-color: #00B5FF;
+  background-color: #348f92;
   color: #ffffff;
 }
 
@@ -29,7 +29,12 @@ tab-bar tab-bar-item:selected {
   color: #1596f7;
 }
 
-tab-bar-item#index {
-  background-image: url(icons/homes.png);
-  background-size: 512;
+tab-bar-item#account {
+  background-image: url(/icons/cog.svg);
 }
+
+
+tab-bar-item#home {
+  background-image: url(/icons/search.svg);
+}
+

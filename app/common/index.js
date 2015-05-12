@@ -4,8 +4,7 @@ angular.module('common', [
 ]);
 
 
-
-
+    //username = null;
 
     var pushNotification;
     document.addEventListener("deviceready", function() {

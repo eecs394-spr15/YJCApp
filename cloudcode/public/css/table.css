@@ -1,0 +1,25 @@
+/* Sortable tables */
+table.tablesorter thead {
+    cursor: pointer;
+}
+
+th.headerSortUp { 
+  background-image: url(/imgs/small_asc.gif); 
+} 
+
+
+th.headerSortDown { 
+  background-image: url(/imgs/small_desc.gif); 
+} 
+
+th{
+  background-image: url(/imgs/small.gif); 
+  cursor: pointer; 
+  font-weight: bold; 
+  background-repeat: no-repeat; 
+  background-position: center right; 
+} 
+
+.table th {
+  width: 300px;
+}

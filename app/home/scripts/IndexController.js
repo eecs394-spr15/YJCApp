@@ -24,6 +24,7 @@ angular
 
   //   }
 
+  supersonic.ui.views.current.whenVisible( function () {
     var Job = Parse.Object.extend("Job");
     var query = new Parse.Query(Job);
     
@@ -31,11 +32,17 @@ angular
       success: function(results) {
         //alert("Successfully retrieved " + results.length + " scores.");
         // Do something with the returned Parse.Object values
+        
         $scope.jobs = results;
+        $scope.$apply();
       },
       error: function(error) {
         alert("Error: " + error.code + " " + error.message);
       }
     });
+  });
+
+
+    
 
 });

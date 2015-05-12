@@ -1,9 +1,12 @@
 <div ng-controller="LoginPageController">
-  <super-navbar>
-    <super-navbar-title>
-      Login
-    </super-navbar-title>
-  </super-navbar>
+  <div class="list" >
+      <label class="item item-input" id="yjcbar">
+          <img id="yjclogo" src="/imags/yjclogo.jpg" onclick="location.reload()" width="50px"; height="40px"> <!-- Add the refresh function when click the WildCat-->
+          <div style="margin-left:20px; color:#ffffff; font-weight:bold; font-size:120%">
+              Login
+          </div>
+      </label>
+  </div>
 
   <div class="padding">
     <form>
@@ -13,45 +16,41 @@
           Existing Users
           </div>
 
-          <label class="item item-input">
-            <input type="text" placeholder="Username" ng-model="existingUser.username">
+          <label id="login-username-lbl" class="item item-input">
+            <input id="login-username" type="text" placeholder="Username" ng-model="existingUser.username">
           </label>
 
-          <label class="item item-input">
-            <input type="text" placeholder="Password" ng-model="existingUser.password">
+          <label id="login-password-lbl" class="item item-input">
+            <input id="login-password" type="password" placeholder="Password" ng-model="existingUser.password">
           </label>
-          <super-navigate location="Account#profile">
-            <button ng-click= "logIn()" class="button button-block" style="background-color: #348f92">Log In</button>
-          </super-navigate>
+            <button ng-click= "logIn()" class="button button-block" style="background-color: #348f92; color: #ffffff;">Log In</button>
         </div>
 
         <div ng-hide="currentUser"> 
           <div class="item item-divider">
           New Users
           </div>  
-          <label class="item item-input">
-            <input type="text" placeholder="Username" ng-model="newUser.username">
+          <label id="signup-username-lbl" class="item item-input">
+            <input id="signup-username" type="text" placeholder="Username" ng-model="newUser.username">
           </label>
 
-          <label class="item item-input">
-            <input type="text" placeholder="Password" ng-model="newUser.password">
+          <label id="signup-password-lbl" class="item item-input">
+            <input id="signup-password" type="password" placeholder="Password" ng-model="newUser.password">
           </label>
 
-          <label class="item item-input">
-            <input type="text" placeholder="Email" ng-model="newUser.email">
+          <label id="signup-email-lbl" class="item item-input">
+            <input id="signup-email" type="email" placeholder="Email" ng-model="newUser.email">
           </label>
 
-          <super-navigate location= "Account#index"> 
-            <button ng-click= "signUp()" class="button button-block" style="background-color: #348f92">Sign Up</button>
-          </super-navigate>
+          <button ng-click= "signUp()" class="button button-block" style="background-color: #348f92; color: #ffffff;">Sign Up</button>
         </div>
         <div ng-show="currentUser">
           <h1> Welcome {{currentUser.get('firstName')}}</h1>
           <super-navigate location="Account#profile">
-            <button class="button button-block" style="background-color: #348f92" >View Profile</button>
+            <button class="button button-block" style="background-color: #348f92; color: #ffffff;" >View Profile</button>
           </super-navigate>
           <super-navigate location="Account#login">
-            <button ng-click= "logOut()" class="button button-block" style="background-color: #348f92">Log Out</button>
+            <button ng-click= "logOut()" class="button button-block" style="background-color: #348f92; color: #ffffff;">Log Out</button>
           </super-navigate>
         </div>  
       </ul>

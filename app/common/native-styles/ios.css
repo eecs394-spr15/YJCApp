@@ -35,8 +35,11 @@ tab-bar tab-bar-item:selected {
 }
 
 tab-bar-item#account {
-  background-image: url(icons/user.svg);
+  background-image: url(/icons/home.svg);
 }
 
 
+tab-bar-item#home {
+  background-image: url(/icons/home.svg);
+}
 

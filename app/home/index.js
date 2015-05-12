@@ -4,5 +4,5 @@ angular.module('home', [
   'common'
 ]);
 
-currUser = Parse.User.current();
+//currUser = Parse.User.current();
 

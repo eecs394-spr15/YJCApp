@@ -1,21 +1,26 @@
 angular
   .module('Account')
-  .controller("IndexController", function ($scope, supersonic) {
-  	$scope.Account = {};
-  	$scope.skills = [];
-    $scope.skills2 = [];
-  	$scope.interests = [];
-    $scope.interests2 = [];
-    $scope.education = [];
-  	$scope.currentUser = Parse.User.current();
-  	$scope.addedInterest = true;
-    $scope.addedSkill = true;
-    $scope.Account.firstName = $scope.currentUser.get('firstName');
-    $scope.Account.lastName = $scope.currentUser.get('lastName');
-    $scope.Account.phoneNumber = $scope.currentUser.get('phoneNumber');
-    $scope.Account.zipcode = $scope.currentUser.get('zipcode');
-    $scope.Account.dateOfBirth = $scope.currentUser.get('dateOfBirth');
+  .controller("IndexController", function ($scope, supersonic) {    
 
+
+    supersonic.ui.views.current.whenVisible( function () {
+      $scope.Account = {};
+      $scope.skills = [];
+      $scope.skills2 = [];
+      $scope.interests = [];
+      $scope.interests2 = [];
+      $scope.education = [];
+      $scope.currentUser = Parse.User.current();
+      $scope.addedInterest = true;
+      $scope.addedSkill = true;
+      $scope.Account.firstName = $scope.currentUser.get('firstName');
+      $scope.Account.lastName = $scope.currentUser.get('lastName');
+      $scope.Account.phoneNumber = $scope.currentUser.get('phoneNumber');
+      $scope.Account.zipcode = $scope.currentUser.get('zipcode');
+      $scope.Account.dateOfBirth = $scope.currentUser.get('dateOfBirth');
+      $scope.$apply();
+    });
+  	
 
     // Controller functionality here
 
@@ -42,12 +47,6 @@ angular
 
 	};	
 
-	$scope.logOut = function() {
-    	Parse.User.logOut();
-    	$scope.currentUser = null;
-  };
-
-
   $scope.addInterest = function(id) {
     var interest = document.getElementById(id);
     $scope.interests2.push(interest.id);
@@ -55,7 +54,7 @@ angular
     $scope.currentUser.set("interests", $scope.interests2);
     $scope.currentUser.save(null, {
       success: function(user) {
-        alert("added interest to interests arrar for current user");
+        alert("added interest to interests array for current user");
       },
       error: function(user, error) {
         alert("didn't added interest");
