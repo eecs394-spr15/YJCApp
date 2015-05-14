@@ -47,6 +47,17 @@ module.exports = function(app){
 
   app.get('/job/:id', function(req, res){
     // render page to show job listing with more details
+    Job.get(req.params.id, {
+      success: function(result){
+        res.render('jobs/show', {
+          user: req.session.user,
+          job: result
+        });
+      },
+      error: function(error){
+        // send error message(s)
+      }
+    });
   });
 
   app.get('/job/:id/edit', function(req, res){
