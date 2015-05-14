@@ -1,0 +1,141 @@
+<html>
+  <head>
+    <% include ../shared/_header %>
+  </head>
+  <body>
+
+    <% include ../shared/_navbar %>
+
+
+    <div class="container-fluid" style="padding-top: 70px;">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Update Job Opening</h3>
+        </div>
+        <div class="panel-body">
+          <form method="PUT" action="/job/<%= job.id %>">
+            <div class="form-group">
+              <div class="col-xs-12">
+
+                <div class="row">
+                  <div class="col-md-4"> 
+                    <label for="ex1">Job Title:<span style="color:red;"></span></label>
+
+                    <input class="form-control" name="jobTitle" id="jobTitle" type="text" value="<%= job.get('jobTitle') %>">
+                    <br>
+
+                    <label for="ex1">Number of Openings:<span style="color:red;"></span></label>
+                    <input class="form-control" name="numOpenings" id="numOpenings" type="text" value="<%= job.get('numOpenings') %>">
+                    <br>
+                    
+                    <label for="ex1">Company:<span style="color:red;"></span></label>
+                    <input class="form-control" name="company" id="company" type="text" value="<%= job.get('company') %>">
+                    <br>
+
+                    <label for="ex1">Address:<span style="color:red;"></span></label>
+                    <input class="form-control" name="address" id="address" type="text" value="<%= job.get('address') %>">
+                    <br>
+
+                    <label for="ex1">City:<span style="color:red;"></span></label>
+                    <input class="form-control" name="city" id="city" type="text" value="<%= job.get('city') %>">
+                    <br>
+
+                    <label for="ex1">Zip:<span style="color:red;"></span></label>
+                    <input class="form-control" name="zipcode" id="zipcode" type="text" value="<%= job.get('zipcode') %>">
+                    <br>
+                  </div>
+                  <div class="col-md-4"> 
+
+                      <label for="ex1">Education Requirement:<span style="color:red;"></span></label>
+                    <select class="form-control" name="educationRequirement" id="educationRequirement">
+                      <option>High School</option>
+                      <option>Associate</option>
+                      <option>Bachelor's</option>
+                      <option>Graduate</option>
+                    </select>
+                    <br>
+                    
+
+                    <label for="ex1">Work Schedule:<span style="color:red;"></span></label>
+                    <input class="form-control" name="workSchedule" id="workSchedule" type="text">
+                    <br>
+
+                    <% var formattedDate = (function(){
+                      var date = job.get('startDate');
+                      var year = date.getFullYear();
+                      var month = (1 + date.getMonth()).toString();
+                      month = month.length > 1 ? month : '0' + month;
+                      var day = date.getDate().toString();
+                      day = day.length > 1 ? day : '0' + day;
+                      return month + '/' + day + '/' + year;
+                    })() %>
+                    <label for="ex1">Start Date:<span style="color:red;"></span></label>
+                    <input id="datepicker" class="form-control" name="startDate" id="startDate" type="text">
+                    <script>
+                    $(function() {
+                      var startDate =  new Date(<%- JSON.stringify(job.get('startDate')) %>);
+                      $("#datepicker").datepicker();
+                      $("#datepicker").datepicker('setDate', startDate);
+                    });
+                    </script>
+                    <br>
+
+                    <label for="ex1">Hours/Week:<span style="color:red;"></span></label>
+                    <input class="form-control" name="hoursPerWeek" id="hoursPerWeek" type="text">
+                    <br>
+
+                    <label for="ex1">Salary:<span style="color:red;"></span></label>
+                    <select class="form-control" name="salary" name="salary">
+                      <option>$8.00/hr - $10.00/hr</option>
+                      <option>$10.00/hr - $12.00/hr</option>
+                      <option>$12.00/hr - $14.00/hr</option>
+                      <option>$14.00/hr - $16.00/hr</option>
+                      <option>$16.00/hr - $18.00/hr</option>
+                      <option>$18.00/hr - $20.00/hr</option>
+                      <option>$20.00/hr - $22.00/hr</option>
+                      <option>$22.00/hr - $24.00/hr</option>
+                      <option>$24.00/hr - $26.00/hr</option>
+                    </select>
+                    <br>
+               
+                
+                    <label for="ex1">Full/Part Time:<span style="color:red;"></span></label>
+                     <select class="form-control" name="fullTime" name="fullTime">
+                       <option>Full Time</option>
+                       <option>Part Time</option>
+                     </select>
+                    <br>
+                    
+                  </div>
+                  
+                  <div class="col-md-4"> 
+                    <label for="ex1">Contact:<span style="color:red;"></span></label>
+                    <input class="form-control" id="contact" name="contact" type="text" value="<%= job.get('contact') %>">
+                    <br>
+
+                    <label for="comment">Job Description:<span style="color:red;"></span></label>
+                    <textarea class="form-control" rows="5" id="jobDescription" name="jobDescription"><%= job.get('jobDescription') %></textarea>
+                    <br>
+
+                    <label for="comment">Comment:<span style="color:red;"></span></label>
+                    <textarea class="form-control" rows="5" id="comment" name="comment"><%= job.get('comment') %></textarea>
+                    <br>
+                    <br>
+
+                  
+                     <div style="padding-left: 250px;">
+                     <button type="submit" class="btn btn-primary">Update Job</button>
+                     </div>
+                  </div>
+
+                   
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>  
+      </div>
+    </div>
+  </body>
+</html>
