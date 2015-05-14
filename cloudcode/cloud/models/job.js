@@ -7,6 +7,12 @@ exports.all = function(callback){
 	query.find(callback);
 };
 
+// get job with matching id
+exports.get = function(id, callback){
+  var query = new Parse.Query(Job);
+  query.get(id, callback);
+};
+
 // create new job
 exports.create = function(req, callback){
   var job = new Job();
@@ -21,7 +27,7 @@ exports.create = function(req, callback){
     jobErrors.company = 'Invalid Company';
 
   if (numErrors > 0)
-    res.render('jobs/index', {username: 'sysadmin', errors: jobErrors});
+    res.render('jobs/index', { username: 'sysadmin', errors: jobErrors });
 
 
   // if (req.body.text1 === "") {
@@ -33,6 +39,7 @@ exports.create = function(req, callback){
   job.set('company', req.body.company);
   job.set('salary', req.body.salary);
   job.set('address', String(req.body.address));
+  job.set('city', String(req.body.city));
   job.set('zipcode', parseInt(req.body.zipcode) || 0);
   job.set('educationRequirement', String(req.body.educationRequirement));
   job.set('numOpenings', parseInt(req.body.numOpenings) || 0);
@@ -43,7 +50,7 @@ exports.create = function(req, callback){
   job.set('jobDescription', req.body.jobDescription);
   //job.set('qualifications', req.body.qualifications);
   job.set('contact', req.body.contact); 
-  job.set('Comment', req.body.Comment);
+  job.set('comment', req.body.comment);
   
   // // Jobs are read only
   // var acl = new Parse.ACL();
@@ -55,4 +62,42 @@ exports.create = function(req, callback){
     jobTitle: ''
   };
   job.save(null, callback);
+};
+
+exports.update = function(req, callback){
+  var id = req.params.id;
+  var query = new Parse.Query(Job);
+  query.get(id, {
+    success: function(result){
+      result.set('jobTitle', req.body.jobTitle);
+      result.set('company', req.body.company);
+      result.set('salary', req.body.salary);
+      result.set('address', String(req.body.address));
+      result.set('city', String(req.body.city));
+      result.set('zipcode', parseInt(req.body.zipcode) || 0);
+      result.set('educationRequirement', String(req.body.educationRequirement));
+      result.set('numOpenings', parseInt(req.body.numOpenings) || 0);
+      result.set('workSchedule', req.body.workSchedule);
+      result.set('startDate', new Date(req.body.startDate));
+      result.set('hoursPerWeek', parseFloat(req.body.hoursPerWeek) || 0.0);
+      result.set('fullTime', req.body.fullTime);
+      result.set('jobDescription', req.body.jobDescription);
+      //result.set('qualifications', req.body.qualifications);
+      result.set('contact', req.body.contact); 
+      result.set('comment', req.body.comment);
+      result.save(null, callback);
+    },
+    error: callback.error
+  });
+};
+
+exports.destroy = function(req, callback){
+  var id = req.params.id;
+  var query = new Parse.Query(Job);
+  query.get(id, {
+    success: function(result){
+      result.destroy(callback);
+    },
+    error: callback.error
+  });
 };

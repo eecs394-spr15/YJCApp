@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <% include ../shared/_header %>
+    <link rel="stylesheet" href="/css/jobs.css">
+  </head>
+  <body>
+  	<% include ../shared/_navbar %>
+
+  	<div class="container-fluid">
+  		<div class="container">
+  			<div class="col-md-8">
+  				<h1 class="title"><%= job.get('jobTitle') %></h1>
+  				<p class="sector"><%= job.get('sector') %></p>
+  				<span style="margin-left: 5px; margin-right: 5px; font-weight: bold;">&middot;</span>
+  				<p class="location"><%= job.get('address') %>, <%= job.get('city') %></p>
+  				<p><%= job.get('jobDescription') %></p>
+				</div>
+				<div class="col-md-4">
+				
+				</div>
+  		</div>
+  	</div>
+  </body>
+ </html>

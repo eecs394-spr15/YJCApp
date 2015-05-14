@@ -6,7 +6,7 @@
   <td><%= job.get('jobTitle') %></td>
   <td><%= job.createdAt.getMonth() + 1 + "/" + job.createdAt.getDate() + "/" + job.createdAt.getFullYear() %></td>  
   <td><%= job.get('company') %></td>  
-  <td><%= job.get('City') %></td>  
+  <td><%= job.get('city') %></td>  
   <td><%= job.get('educationRequirement') %></td>  
   <td><%= job.get('salary') %></td>  
   <td><%= job.get('numOpenings') %></td>  
@@ -15,12 +15,12 @@
   <td><%= job.get('startDate').getMonth() + 1 + "/" + job.get('startDate').getDate() + "/" + job.get('startDate').getFullYear() %></td>  
   <td><%= job.get('contact') %></td>
   <td>
-  <%- "<a href=\"/jobs/" + job.id + "\">More</a>" %>
+  	<a href="/job/<%= job.id %>" >More</a>
   </td>
   <td>
-  <%- "<a href=\"/jobs/" + job.id + "/edit" + "\">Edit</a>" %>
+  	<a href="/job/<%= job.id %>/edit" >Edit</a>
   </td>
   <td>
-  <%- "<a href=\"/jobs/" + job.id + "\">Delete</a>" %>
+  	<a href="/job/<%= job.id %>" >Delete</a>
   </td>
 </tr>

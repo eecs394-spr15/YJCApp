@@ -1,0 +1,11 @@
+p {
+	padding-bottom: 25px;
+}
+
+.title {
+  text-align: left;
+}
+
+.sector, .location {
+	display: inline-block;
+}
