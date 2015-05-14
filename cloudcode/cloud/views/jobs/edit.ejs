@@ -14,12 +14,13 @@
           <h3 class="panel-title">Update Job Opening</h3>
         </div>
         <div class="panel-body">
-          <form method="PUT" action="/job/<%= job.id %>">
+          <form method="POST" action="/job/<%= job.id %>">
             <div class="form-group">
               <div class="col-xs-12">
 
                 <div class="row">
-                  <div class="col-md-4"> 
+                  <div class="col-md-4">    
+                                   
                     <label for="ex1">Job Title:<span style="color:red;"></span></label>
 
                     <input class="form-control" name="jobTitle" id="jobTitle" type="text" value="<%= job.get('jobTitle') %>">
@@ -58,23 +59,15 @@
                     
 
                     <label for="ex1">Work Schedule:<span style="color:red;"></span></label>
-                    <input class="form-control" name="workSchedule" id="workSchedule" type="text">
+                    <input class="form-control" name="workSchedule" id="workSchedule" type="text" value="<%= job.get('workSchedule') %>">
                     <br>
 
-                    <% var formattedDate = (function(){
-                      var date = job.get('startDate');
-                      var year = date.getFullYear();
-                      var month = (1 + date.getMonth()).toString();
-                      month = month.length > 1 ? month : '0' + month;
-                      var day = date.getDate().toString();
-                      day = day.length > 1 ? day : '0' + day;
-                      return month + '/' + day + '/' + year;
-                    })() %>
+                    
                     <label for="ex1">Start Date:<span style="color:red;"></span></label>
                     <input id="datepicker" class="form-control" name="startDate" id="startDate" type="text">
                     <script>
                     $(function() {
-                      var startDate =  new Date(<%- JSON.stringify(job.get('startDate')) %>);
+                      var startDate =  new Date(<%- JSON.stringify(job.get('startDate').toDateString()) %>);
                       $("#datepicker").datepicker();
                       $("#datepicker").datepicker('setDate', startDate);
                     });
@@ -82,7 +75,7 @@
                     <br>
 
                     <label for="ex1">Hours/Week:<span style="color:red;"></span></label>
-                    <input class="form-control" name="hoursPerWeek" id="hoursPerWeek" type="text">
+                    <input class="form-control" name="hoursPerWeek" id="hoursPerWeek" type="text" value="<%= job.get('hoursPerWeek') %>">
                     <br>
 
                     <label for="ex1">Salary:<span style="color:red;"></span></label>
