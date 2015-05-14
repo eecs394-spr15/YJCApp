@@ -65,28 +65,32 @@ module.exports = function(app){
   });
 
   app.post('/job/:id', function(req, res){
-    // call edit function in model
-    Job.update(req, {
-      success: function(){
-        //res.redirect('/job/'+req.params.id);
-        res.redirect('/jobs');
-      },
-      error: function(){
-        // send error message(s)
-      }
-    });
-  });
 
-  app.delete('/job/:id', function(req, res){
-    // call delete function in model
-    Job.destroy(req, {
-      success: function(){
-        res.redirect('/jobs');
-      },
-      error: function(){
-        // send error message(s)
-      }
-    });
+    var method = req.body._method;
+    if (method == 'PUT') {
+      // call edit function in model
+      Job.update(req, {
+        success: function(){
+          //res.redirect('/job/'+req.params.id);
+          res.redirect('/jobs');
+        },
+        error: function(){
+          // send error message(s)
+        }
+      });
+    } else if (method == 'DELETE') {
+      // call delete function in model
+      Job.destroy(req, {
+        success: function(){
+          res.redirect('/jobs');
+        },
+        error: function(){
+          // send error message(s)
+        }
+      });
+    } else {
+      res.redirect('/');
+    }
   });
 };
 

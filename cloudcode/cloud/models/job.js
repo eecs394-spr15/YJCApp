@@ -69,7 +69,6 @@ exports.update = function(req, callback){
   var query = new Parse.Query(Job);
   query.get(id, {
     success: function(result){
-      console.log(result);
       result.set('jobTitle', req.body.jobTitle);
       result.set('company', req.body.company);
       result.set('salary', req.body.salary);

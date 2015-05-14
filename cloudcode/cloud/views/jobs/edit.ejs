@@ -19,8 +19,9 @@
               <div class="col-xs-12">
 
                 <div class="row">
-                  <div class="col-md-4">    
-                                   
+                  <div class="col-md-4">
+                    <input type="hidden" name="_method" id="requestType" value="PUT" />
+
                     <label for="ex1">Job Title:<span style="color:red;"></span></label>
 
                     <input class="form-control" name="jobTitle" id="jobTitle" type="text" value="<%= job.get('jobTitle') %>">
@@ -48,7 +49,7 @@
                   </div>
                   <div class="col-md-4"> 
 
-                      <label for="ex1">Education Requirement:<span style="color:red;"></span></label>
+                    <label for="ex1">Education Requirement:<span style="color:red;"></span></label>
                     <select class="form-control" name="educationRequirement" id="educationRequirement">
                       <option>High School</option>
                       <option>Associate</option>
@@ -117,12 +118,12 @@
                     <br>
 
                   
-                     <div style="padding-left: 250px;">
-                     <button type="submit" class="btn btn-primary">Update Job</button>
-                     </div>
+                    <div style="margin-left: auto; margin-right: auto;">
+                      <button type="submit" class="btn btn-primary" onclick="$('#requestType').attr('value','PUT')">Update Job</button>
+                      <button type="submit" class="btn btn-primary" onclick="$('#requestType').attr('value','DELETE')">Delete Job</button>
+                    </div>
                   </div>
 
-                   
                 </div>
               </div>
             </div>
@@ -130,5 +131,6 @@
         </div>  
       </div>
     </div>
+
   </body>
 </html>
