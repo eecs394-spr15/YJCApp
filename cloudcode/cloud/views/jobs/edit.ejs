@@ -56,6 +56,15 @@
                       <option>Bachelor's</option>
                       <option>Graduate</option>
                     </select>
+                    <script>
+                      $(function(){
+                        var educationRequirement = <%- JSON.stringify(job.get('educationRequirement')) %>;
+                        $.each($('#educationRequirement').children('option'), function(index, option){
+                          if (option.text == educationRequirement)
+                            option.selected = true;
+                        });
+                      });
+                    </script>
                     <br>
                     
 
@@ -67,11 +76,11 @@
                     <label for="ex1">Start Date:<span style="color:red;"></span></label>
                     <input id="datepicker" class="form-control" name="startDate" id="startDate" type="text">
                     <script>
-                    $(function() {
-                      var startDate =  new Date(<%- JSON.stringify(job.get('startDate').toDateString()) %>);
-                      $("#datepicker").datepicker();
-                      $("#datepicker").datepicker('setDate', startDate);
-                    });
+                      $(function() {
+                        var startDate =  new Date(<%- JSON.stringify(job.get('startDate').toDateString()) %>);
+                        $("#datepicker").datepicker();
+                        $("#datepicker").datepicker('setDate', startDate);
+                      });
                     </script>
                     <br>
 
@@ -80,7 +89,7 @@
                     <br>
 
                     <label for="ex1">Salary:<span style="color:red;"></span></label>
-                    <select class="form-control" name="salary" name="salary">
+                    <select class="form-control" name="salary" id="salary">
                       <option>$8.00/hr - $10.00/hr</option>
                       <option>$10.00/hr - $12.00/hr</option>
                       <option>$12.00/hr - $14.00/hr</option>
@@ -91,14 +100,32 @@
                       <option>$22.00/hr - $24.00/hr</option>
                       <option>$24.00/hr - $26.00/hr</option>
                     </select>
+                    <script>
+                      $(function(){
+                        var salary = <%- JSON.stringify(job.get('salary')) %>;
+                        $.each($('#salary').children('option'), function(index, option){
+                          if (option.text == salary)
+                            option.selected = true;
+                        });
+                      });
+                    </script>
                     <br>
                
                 
                     <label for="ex1">Full/Part Time:<span style="color:red;"></span></label>
-                     <select class="form-control" name="fullTime" name="fullTime">
+                     <select class="form-control" name="fullTime" id="fullTime">
                        <option>Full Time</option>
                        <option>Part Time</option>
                      </select>
+                     <script>
+                      $(function(){
+                        var fullTime = <%- JSON.stringify(job.get('fullTime')) %>;
+                        $.each($('#fullTime').children('option'), function(index, option){
+                          if (option.text == fullTime)
+                            option.selected = true;
+                        });
+                      });
+                    </script>
                     <br>
                     
                   </div>
