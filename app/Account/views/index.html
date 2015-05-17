@@ -9,175 +9,293 @@
   <div class="padding">
   	<form>
 
-		<ul class="list">
+  		<ul class="list">
 
-			<div class="item item-divider">
-        	About Me
-    		</div>
+  			<div class="item item-divider">
+          	About Me
+      	</div>
 
-    	<label class="item item-input">
-    		<input type="text" placeholder="First Name" ng-model="Account['firstName']">
-  		</label>
-  		<label class="item item-input">
-    		<input type="text" placeholder="Last Name" ng-model="Account['lastName']">
-  		</label>
-
-  		<label class="item item-input">
-    		<input type="text" placeholder="Date Of Birth" ng-model="Account['dateOfBirth']">
-  		</label>
-
-  		<label class="item item-input">
-    		<input type="tel" placeholder="Phone Number" ng-model="Account['phoneNumber']">
-  		</label>
-
-  		<label class="item item-input">
-    		<input type="text" placeholder="Zipcode" ng-model="Account['zipcode']">
-  		</label>
-
-		<div class="item item-divider">
-        	Interests 
-    	</div>
-
-    	<li class="item item-checkbox">
-        	<label class="checkbox">
-          		<input id="Technology" type="checkbox" ng-click = "addInterest('Technology')">
-        	</label>
-      		Technology 
-    	</li>
-
-     	<li class="item item-checkbox">
-        	<label class="checkbox">
-          		<input id = "Journalism" type="checkbox" ng-click = "addInterest('Journalism')">
-        	</label>
-      		Journalism  
-    	</li>
-
-    	<li class="item item-checkbox">
-        	<label class="checkbox">
-          		<input id="Business" type="checkbox" ng-click = "addInterest('Business')">
-        	</label>
-      	Business  
-    	</li>
-
-    	<div ng-hide="addedInterest">
-    		<li class="item" ng-repeat="i in interests">
-    			{{i}}
-    		</li>
-    	</div>
-
-    	<div class="item item-input-inset">
-    		<label class="item-input-wrapper">
-      			<input type="text" placeholder="Other Interests" id="interest">
+      	<label id="firstname-lbl" class="item item-input">
+      		<input id="firstname" type="text" placeholder="First Name" ng-model="Account['firstName']">
     		</label>
-    		<button class="button button-small" ng-click="showInterestInput()">
-    			Submit
-    		</button>
-  		</div>
-
-		<div class="item item-divider">
-        	Higher Education 
-    	</div>
-
-    	<li class="item item-checkbox">
-        	<label class="checkbox">
-          	<input id="High School Diploma" type="checkbox" ng-click="addEducation('High School Diploma')">
-        	</label>
-      	High School Diploma
-    	</li>
-
-    	<li class="item item-checkbox">
-        	<label class="checkbox">
-          		<input id="Associate Degree" type="checkbox" ng-click="addEducation('Associate Degree')">
-        	</label>
-      	Associate's Degree
-    	</li>
-
-    	<li class="item item-checkbox">
-        	<label class="checkbox">
-          	<input id="Bachelor Degree" type="checkbox" ng-click="addEducation('Bachelor Degree')">
-        	</label>
-      		Bachelor's Degree
-    	</li>
-
-    	<li class="item item-checkbox">
-        	<label class="checkbox">
-          	<input id="Graduate School Degree" type="checkbox" ng-click="addEducation('Graduate School Degree')">
-        	</label>
-    		Graduate School Degree
-    	</li>
-
-    	<div class="item item-divider">
-        	Skills
-    	</div>
-
-     	<li class="item item-checkbox">
-        	<label class="checkbox">
-          	<input id="Computer Programming" type="checkbox" ng-click="addSkill('Computer Programming')">
-        	</label>
-      	Computer Programming
-    	</li>
-
-     	<li class="item item-checkbox">
-        	<label class="checkbox">
-          	<input id="Bilingual" type="checkbox" ng-click="addSkill('Bilingual')">
-        	</label>
-      	Bilingual
-    	</li>
-
-     	<li class="item item-checkbox">
-        	<label class="checkbox">
-          		<input id="Microsoft Office" type="checkbox" ng-click="addSkill('Microsoft Office')">
-        	</label>
-      		Microsoft Office 
-    	</li>
-
-    	<div ng-hide="addedSkill">
-    		<li class="item" ng-repeat="s in skills">
-    			{{s}}
-    		</li>
-    	</div>
-
-    	<div class="item item-input-inset">
-    		<label class="item-input-wrapper">
-      			<input type="text" placeholder="Other Skills" id="skill">
+    		<label id="lastname-lbl" class="item item-input">
+      		<input id="lastname" type="text" placeholder="Last Name" ng-model="Account['lastName']">
     		</label>
-    		<button class="button button-small" ng-click="showSkillsInput()">
-    			Submit
-    		</button>
-  		</div>
 
-    	<div class= "item item-divider">
-        	Times Available
-    	</div>
+    		<label id="dateofbirth-lbl" class="item item-input">
+      		<input id="dateofbirth" type="date" placeholder="Date Of Birth">
+    		</label>
 
-    	<li class="item item-checkbox">
-        	<label class="checkbox">
-          	<input type="checkbox">
-        	</label>
-      	Nightshift
-    	</li>
+    		<label id="phonenumber-lbl" class="item item-input">
+      		<input id="phonenumber" type="tel" placeholder="Phone Number" ng-model="Account['phoneNumber']">
+    		</label>
 
-     	<li class="item item-checkbox">
-        	<label class="checkbox">
-          		<input type="checkbox">
-        	</label>
-      	Weekends
-    	</li>
+    		<label id="zipcode-lbl" class="item item-input">
+      		<input id="zipcode" type="tel" placeholder="Zipcode" ng-model="Account['zipcode']">
+    		</label>
 
-    	<li class="item item-checkbox">
-        	<label class="checkbox">
-          	<input type="checkbox">
-        	</label>
-      	Part-Time Position
-    	</li>
+        <!-- start job industries of interest -->
+  		  <div class="item item-divider">
+          	Industries 
+      	</div>
+        <div id="industries">
+          <li class="item item-checkbox">
+              <label class="checkbox">
+                  <input id="all" type="checkbox" ng-click="selectAll()">
+              </label>
+              All 
+          </li>
+        	<li class="item item-checkbox">
+            	<label class="checkbox">
+              		<input id="automotive" type="checkbox">
+            	</label>
+          		Automotive
+        	</li>
 
-  		</ul>
-  		<super-navigate location="Account#profile" ng-click="addNewAccount()">
+         	<li class="item item-checkbox">
+            	<label class="checkbox">
+              		<input id = "clericaladministrative" type="checkbox">
+            	</label>
+          		Clerical/Administrative
+        	</li>
 
-  		<button class="button button-block" style="background-color: #348f92; color: #ffffff;">Save</button>
-  	</super-navigate>
+        	<li class="item item-checkbox">
+            	<label class="checkbox">
+              		<input id="cosmetology" type="checkbox">
+            	</label>
+          	Cosmetology
+        	</li>
+          <li class="item item-checkbox">
+              <label class="checkbox">
+                  <input id="educationandchildcare" type="checkbox">
+              </label>
+            Education and Child Care
+          </li>
+          <li class="item item-checkbox">
+              <label class="checkbox">
+                  <input id="financialservices" type="checkbox">
+              </label>
+            Financial Services
+          </li>
+          <li class="item item-checkbox">
+              <label class="checkbox">
+                  <input id="foodservice" type="checkbox">
+              </label>
+            Food Service
+          </li>
+          <li class="item item-checkbox">
+              <label class="checkbox">
+                  <input id="healthcare" type="checkbox">
+              </label>
+            Healthcare
+          </li>
+          <li class="item item-checkbox">
+              <label class="checkbox">
+                  <input id="hospitality" type="checkbox">
+              </label>
+            Hospitality
+          </li>
+          <li class="item item-checkbox">
+              <label class="checkbox">
+                  <input id="ittechnical" type="checkbox">
+              </label>
+            IT/Technical
+          </li>
+          <li class="item item-checkbox">
+              <label class="checkbox">
+                  <input id="manufacturing" type="checkbox">
+              </label>
+            Manufacturing
+          </li>
+          <li class="item item-checkbox">
+              <label class="checkbox">
+                  <input id="marketingsocialmedia" type="checkbox">
+              </label>
+            Marketing/Social Media
+          </li>
+          <li class="item item-checkbox">
+              <label class="checkbox">
+                  <input id="publicadministration" type="checkbox">
+              </label>
+            Public Administration
+          </li>
+          <li class="item item-checkbox">
+              <label class="checkbox">
+                  <input id="retail" type="checkbox">
+              </label>
+            Retail
+          </li>
+          <li class="item item-checkbox">
+              <label class="checkbox">
+                  <input id="security" type="checkbox">
+              </label>
+            Security
+          </li>
+          <li class="item item-checkbox">
+              <label class="checkbox">
+                  <input id="services" type="checkbox">
+              </label>
+            Services
+          </li>
+          <li class="item item-checkbox">
+              <label class="checkbox">
+                  <input id="transportation" type="checkbox">
+              </label>
+            Transportation
+          </li>
+          <li class="item item-checkbox">
+              <label class="checkbox">
+                  <input id="wholesaletrade" type="checkbox">
+              </label>
+            Wholesale Trade
+          </li>
+          <li class="item item-checkbox">
+              <label class="checkbox">
+                  <input id="oddjobsummerjob" type="checkbox">
+              </label>
+            Odd-Job/Summer Job
+          </li>
+          <li class="item item-checkbox">
+              <label class="checkbox">
+                  <input id="other" type="checkbox">
+              </label>
+            Other
+          </li>
+        </div><!-- end job industries -->
 
-	</form>
+        <!-- start higher education -->
+  		  <div class="item item-divider">
+          	Education 
+      	</div>
+        <div id="education"> 
+          <li class="item item-checkbox">
+              <label class="checkbox">
+                <input id="ged" type="checkbox">
+              </label>
+            GED
+          </li>
+        	<li class="item item-checkbox">
+            	<label class="checkbox">
+              	<input id="highschooldiploma" type="checkbox">
+            	</label>
+          	High School Diploma
+        	</li>
+          <li class="item item-checkbox">
+              <label class="checkbox">
+                <input id="tradeschool" type="checkbox">
+              </label>
+              Trade School
+          </li>
+        	<li class="item item-checkbox">
+            	<label class="checkbox">
+              		<input id="associatesdegree" type="checkbox">
+            	</label>
+          	Associate's Degree
+        	</li>
+        	<li class="item item-checkbox">
+            	<label class="checkbox">
+              	<input id="bachelorsdegree" type="checkbox">
+            	</label>
+          		Bachelor's Degree
+        	</li>
+        	<li class="item item-checkbox">
+            	<label class="checkbox">
+              	<input id="graduateschooldegree" type="checkbox">
+            	</label>
+        		Graduate School Degree
+        	</li>
+        </div><!-- end higher education -->
 
-</div>
+        <!-- start skills section -->
+      	<div class="item item-divider">
+          	Skills
+      	</div>
+        <div id="standardskills">
+         	<li class="item item-checkbox">
+            	<label class="checkbox">
+              	<input id="computerprogramming" type="checkbox">
+            	</label>
+          	Computer Programming
+        	</li>
+         	<li class="item item-checkbox">
+            	<label class="checkbox">
+              	<input id="bilingual" type="checkbox">
+            	</label>
+          	Bilingual
+        	</li>
+         	<li class="item item-checkbox">
+            	<label class="checkbox">
+              		<input id="microsoftoffice" type="checkbox">
+            	</label>
+          		Microsoft Office 
+        	</li>
+        </div>
+      	<div class="item item-input-inset">
+      		<label class="item-input-wrapper">
+        			<input type="text" placeholder="Other Skills" id="skill">
+      		</label>
+      		<button class="button button-small" ng-click="showSkillsInput()">
+      			Submit
+      		</button>
+    		</div><!-- end skills section -->
+
+        <!-- start crminal history section -->
+        <div class= "item item-divider">
+            Criminal History
+        </div>
+        <li class="item item-checkbox">
+            <label class="checkbox">
+                <input id="hascriminal" type="checkbox">
+            </label>
+          Yes
+        </li><!-- end crminal history section -->
+
+        <!-- start times available section -->
+      	<div class= "item item-divider">
+          	Times Available
+      	</div>
+        <div id="timeavailable">
+          <li class="item item-checkbox">
+              <label class="checkbox">
+                  <input id="1stshift" type="checkbox">
+              </label>
+            1st Shift
+          </li>
+          <li class="item item-checkbox">
+              <label class="checkbox">
+                  <input id="2ndshift" type="checkbox">
+              </label>
+            2nd Shift
+          </li>
+          <li class="item item-checkbox">
+              <label class="checkbox">
+                  <input id="3rdshift" type="checkbox">
+              </label>
+            3rd Shift
+          </li>
+          <li class="item item-checkbox">
+              <label class="checkbox">
+                  <input id="weekends" type="checkbox">
+              </label>
+            Weekends
+          </li>
+         	<li class="item item-checkbox">
+            	<label class="checkbox">
+              		<input id="fulltime" type="checkbox">
+            	</label>
+          	Full-Time
+        	</li>
+
+        	<li class="item item-checkbox">
+            	<label class="checkbox">
+              	<input id="parttime" type="checkbox">
+            	</label>
+          	Part-Time
+        	</li>
+        </div><!-- end times available section -->
+
+    	</ul>
+      <button class="button button-block" style="background-color: #348f92; color: #ffffff;" ng-click="checkForm()">Save</button>
+  	</form>
+  </div>
 </div>

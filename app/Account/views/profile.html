@@ -11,13 +11,14 @@
   			<div class="item item-text-wrap">
   				<a class= "item item-thumbnail-left" href="#">
   					<img src="profile.jpg">
-    				<h2>{{currentUser.get('firstName')}} {{currentUser.get('lastName')}}
+    				<h2>
+              <span ng-bind="Account['firstName']"></span> <span ng-bind="Account['lastName']"></span>
     				</h2>
-    				<p><b>Date of Birth:</b> {{currentUser.get('dateOfBirth')}}
+    				<p><b>Date of Birth:</b> <span ng-bind="Account['dateOfBirthStr']"></span>
     				</p>
-    				<p><b>Phone Number:</b> {{currentUser.get('phoneNumber')}}
+    				<p><b>Phone Number:</b> <span ng-bind="Account['phoneNumber']"></span>
     				</p>
-    				<p> <b>Email:</b> {{currentUser.get('email')}}
+    				<p> <b>Email:</b> <span ng-bind="Account['email']"></span>
     				</p>
     			</a>
   			</div>
@@ -27,8 +28,8 @@
   				<div class="item item-divider">
         		<center>Interests</center>
     			</div>
-    			<li class="item" ng-repeat="i in interests">
-    			{{i}}
+    			<li class="item" ng-repeat="i in Account['interests']">
+    		    <span ng-bind="i"></span>
     			</li>
     		</div>
     	</div>
@@ -37,8 +38,8 @@
   				<div class="item item-divider">
         		<center>Skills</center>
     			</div>
-    			<li class="item" ng-repeat="s in skills">
-    			{{s}}
+    			<li class="item" ng-repeat="s in Account['skills']">
+            <span ng-bind="s"></span>
     			</li>
     		</div>
     	</div>
@@ -47,8 +48,8 @@
   				<div class="item item-divider">
         		<center>Education</center>
     			</div>
-    			<li class="item" ng-repeat="e in education">
-    			{{e}}
+    			<li class="item" ng-repeat="e in Account['education']">
+            <span ng-bind="e"></span>
     			</li>
     		</div>
     	</div>
@@ -57,8 +58,9 @@
   				<div class="item item-divider">
         		<center>Times Available</center>
     			</div>
-    			<li ng-bind>
-    				Night shift?
+          <li class="item" ng-repeat="t in Account['timeAvailable']">
+            <span ng-bind="t"></span>
+          </li>
     		</div>
     	</div>
 

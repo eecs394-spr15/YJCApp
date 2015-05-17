@@ -2,134 +2,253 @@ angular
   .module('Account')
   .controller("IndexController", function ($scope, supersonic) {    
 
-
+    $scope.intialload = false;
     supersonic.ui.views.current.whenVisible( function () {
-      $scope.Account = {};
-      $scope.skills = [];
-      $scope.skills2 = [];
-      $scope.interests = [];
-      $scope.interests2 = [];
-      $scope.education = [];
-      $scope.currentUser = Parse.User.current();
-      $scope.addedInterest = true;
-      $scope.addedSkill = true;
-      $scope.Account.firstName = $scope.currentUser.get('firstName');
-      $scope.Account.lastName = $scope.currentUser.get('lastName');
-      $scope.Account.phoneNumber = $scope.currentUser.get('phoneNumber');
-      $scope.Account.zipcode = $scope.currentUser.get('zipcode');
-      $scope.Account.dateOfBirth = $scope.currentUser.get('dateOfBirth');
-      $scope.$apply();
+      
+      var user = Parse.Object.extend("User");
+      var query = new Parse.Query(user);
+      query.equalTo("objectId", Parse.User.current().id);
+      query.first({
+        success: function(results) {
+
+          $scope.Account = {};
+          $scope.Account.skills = [];
+          $scope.interests = [];
+          $scope.Account.education = [];
+          $scope.Account.timeAvailable = [];
+          $scope.currentUser = results;
+          $scope.Account.firstName = $scope.currentUser.get('firstName');
+          $scope.Account.lastName = $scope.currentUser.get('lastName');
+          $scope.Account.phoneNumber = $scope.currentUser.get('phoneNumber');
+          $scope.Account.zipcode = $scope.currentUser.get('zipcode');
+          $scope.Account.dateOfBirth = $scope.currentUser.get('dateOfBirth');
+          $scope.Account.criminalHistory = $scope.currentUser.get('criminalHistory');
+
+          // array values
+          $scope.Account.interests = $scope.currentUser.get("interests");
+          $scope.Account.education = $scope.currentUser.get("education");
+          $scope.Account.timeAvailable = $scope.currentUser.get("timeAvailable");
+          $scope.Account.skills = $scope.currentUser.get("skills");
+
+
+          // if date of birth is not set, set todays date as a value
+          if ($scope.Account.dateOfBirth === null || $scope.Account.dateOfBirth === undefined)
+            $('#dateofbirth').val(new Date().toDateInputValue());
+          else
+            $('#dateofbirth').val($scope.Account.dateOfBirth.toDateInputValue());
+
+          // get interests array data
+          for (var i = 0; i < $scope.Account.interests.length; i++)
+          {
+            var id = $scope.Account.interests[i].replace(/ /g,'').toLowerCase().replace(/[^a-z]/g, "");
+            id = '#' + id;
+            $(id).prop("checked", true);
+          }
+          // get education array data
+          for (i = 0; i < $scope.Account.education.length; i++)
+          {
+            var id = $scope.Account.education[i].replace(/ /g,'').toLowerCase().replace(/[^a-z]/g, "");
+            id = '#' + id;
+            $(id).prop("checked", true);
+          }
+          // get time available 
+          for (i = 0; i < $scope.Account.timeAvailable.length; i++)
+          {
+            var id = $scope.Account.timeAvailable[i].replace(/ /g,'').toLowerCase().replace(/[^a-z1-9]/g, "");
+            id = '#' + id;
+            $(id).prop("checked", true);
+          }
+          // get criminal history
+          if ($scope.Account.criminalHistory === true)
+            $('#hascriminal').prop("checked", true);
+          else
+            $('#hascriminal').prop("checked", false);
+          
+          /* get skills */
+          // get preset skills
+          var index = 0;
+          if ((index = $scope.Account.skills.indexOf("Computer Programming")) > -1)
+          {
+            $("#computerprogramming").prop("checked", true);
+            $scope.Account.skills.splice(index, 1);
+          }
+          if ((index = $scope.Account.skills.indexOf("Bilingual")) > -1)
+          {
+            $("#bilingual").prop("checked", true);
+            $scope.Account.skills.splice(index, 1);
+          }
+          if ((index = $scope.Account.skills.indexOf("Microsoft Office")) > -1)
+          {
+            $("#microsoftoffice").prop("checked", true);
+            $scope.Account.skills.splice(index, 1);
+          }
+          // get remaining skills
+          if ($scope.intialload === false)
+          {
+            for (i = 0; i < $scope.Account.skills.length; i++)
+            {
+              var newli = document.createElement("li");
+              newli.className = "item item-checkbox";
+
+              var text = document.createTextNode($scope.Account.skills[i]);
+
+              var newlbl = document.createElement("label");
+              newlbl.className = "checkbox";
+
+              var newinput = document.createElement("input");
+              newinput.setAttribute("id", $scope.Account.skills[i].replace(/ /g,'').toLowerCase().replace(/[^a-z1-9]/g, ""));
+              newinput.setAttribute("type", "checkbox");
+              newinput.setAttribute("checked", true);
+
+              newlbl.appendChild(newinput);
+              newli.appendChild(newlbl);
+              newli.appendChild(text);
+              document.getElementById("standardskills").appendChild(newli);
+            }
+            $scope.intialload = true;
+          }
+          $scope.$apply();
+        },
+        error: function(error) {
+          //alert("Error: " + error.code + " " + error.message);
+        }
+      });
     });
-  	
 
     // Controller functionality here
+    $scope.selectAll = function () {
+      if ($('#all').prop("checked") === true)
+        $("#industries :input").prop("checked", true);
+      else
+        $("#industries :input").prop("checked", false);
+    };  
 
+    $scope.checkForm = function () {
+      var numErrors = 0;
+      $('#firstname-lbl').removeClass('error-input');
+      $('#lastname-lbl').removeClass('error-input');
+      $('#phonenumber-lbl').removeClass('error-input');
+      $('#zipcode-lbl').removeClass('error-input');
+
+      if ($('#firstname').val() === '' || $('#firstname').val() === undefined || $('#firstname').val() === null)
+      {
+        numErrors++;
+        $('#firstname-lbl').addClass('error-input');
+      }
+      if ($('#lastname').val() === '' || $('#lastname').val() === undefined || $('#lastname').val() === null)
+      {
+        numErrors++;
+        $('#lastname-lbl').addClass('error-input');
+      }
+      if ($('#phonenumber').val() === '' || $('#phonenumber').val() === undefined || $('#phonenumber').val() === null)
+      {
+        numErrors++;
+        $('#phonenumber-lbl').addClass('error-input');
+      }
+      if ($('#zipcode').val() === '' || $('#zipcode').val() === undefined || $('#zipcode').val() === null)
+      {
+        numErrors++;
+        $('#zipcode-lbl').addClass('error-input');
+      }
+      if (numErrors === 0)
+      {
+        $scope.addNewAccount();
+      }
+    };
     
     $scope.addNewAccount = function () {   
-    	$scope.currentUser.set("firstName", $scope.Account.firstName);
-    	$scope.currentUser.set("lastName", $scope.Account.lastName);
-    	$scope.currentUser.set("phoneNumber", $scope.Account.phoneNumber);
-    	$scope.currentUser.set("dateOfBirth", $scope.Account.dateOfBirth);
-    	$scope.currentUser.set("zipcode", $scope.Account.zipcode);
+      // get new dob
+      var startDate = $('#dateofbirth').val().split("-");
+      startDate[0] = parseInt(startDate[0]);
+      startDate[1] = parseInt(startDate[1]) - 1;
+      startDate[2] = parseInt(startDate[2]);
+      $scope.Account.dateOfBirth = new Date(startDate[0], startDate[1], startDate[2]);
+      // get industries
+      $scope.Account.interests = [];
+      $('#industries').find('input').each(function(i, element)
+      {
+        if ($(element).prop("checked"))
+        {
+          var parent = element.parentNode.parentNode;
+          $scope.Account.interests.push($(parent).text().trim());
+        }
+      });
+      // get education
+      $scope.Account.education = [];
+      $('#education').find('input').each(function(i, element)
+      {
+        if ($(element).prop("checked"))
+        {
+          var parent = element.parentNode.parentNode;
+          $scope.Account.education.push($(parent).text().trim());
+        }
+      });
+      // get skills
+      $scope.Account.skills = [];
+      $('#standardskills').find('input').each(function(i, element)
+      {
+        if ($(element).prop("checked"))
+        {
+          var parent = element.parentNode.parentNode;
+          $scope.Account.skills.push($(parent).text().trim());
+        }
+      });
+      // criminal history
+      if ($('#hascriminal').prop("checked"))
+        $scope.Account.criminalHistory = true;
+      // get time available
+      $scope.Account.timeAvailable = [];
+      $('#timeavailable').find('input').each(function(i, element)
+      {
+        if ($(element).prop("checked"))
+        {
+          var parent = element.parentNode.parentNode;
+          $scope.Account.timeAvailable.push($(parent).text().trim());
+        }
+      });
+      $scope.currentUser.set("firstName", $scope.Account.firstName);
+      $scope.currentUser.set("lastName", $scope.Account.lastName);
+      $scope.currentUser.set("phoneNumber", $scope.Account.phoneNumber);
+      $scope.currentUser.set("dateOfBirth", $scope.Account.dateOfBirth);
+      $scope.currentUser.set("zipcode", $scope.Account.zipcode);
+      $scope.currentUser.set("criminalHistory", $scope.Account.criminalHistory);
+      $scope.currentUser.set("interests", $scope.Account.interests);
+      $scope.currentUser.set("skills", $scope.Account.skills);
+      $scope.currentUser.set("education", $scope.Account.education);
+      $scope.currentUser.set("timeAvailable", $scope.Account.timeAvailable);
 
-    	$scope.currentUser.save(null, {
-          	success: function(user) {
-            	alert("You have updated your profile successfully!");
-              //$scope.currentUser = user;
-            },
-            error: function(user, error) {
-              alert("You have not updated your profile successfully");
-              supersonic.ui.dialog.alert("Error: " + error.message);
-            }
-    	}); 
-      supersonic.ui.layers.pop();
-      
-
-	};	
-
-  $scope.addInterest = function(id) {
-    var interest = document.getElementById(id);
-    $scope.interests2.push(interest.id);
- 
-    $scope.currentUser.set("interests", $scope.interests2);
-    $scope.currentUser.save(null, {
-      success: function(user) {
-        alert("added interest to interests array for current user");
-      },
-      error: function(user, error) {
-        alert("didn't added interest");
-        supersonic.ui.dialog.alert("Error: " + error.message);
-      }
-
-    });
-  };
-
-  $scope.addSkill = function(id) {
-    var skill = document.getElementById(id);
-    $scope.skills2.push(skill.id);
-    $scope.currentUser.set("skills", $scope.skills2);
-    $scope.currentUser.save(null, {
-      success: function(user) {
-        alert("added skill to skills array for current user");
-      },
-      error: function(user, error) {
-        alert("didn't added skill");
-        supersonic.ui.dialog.alert("Error: " + error.message);
-      }
-
-    });
-  };
-
-  $scope.addEducation = function(id) {
-    var ed = document.getElementById(id);
-    $scope.education.push(ed.id);
- 
-    $scope.currentUser.set("education", $scope.education);
-    $scope.currentUser.save(null, {
-      success: function(user) {
-        alert("added education to education array for current user");
-      },
-      error: function(user, error) {
-        alert("didn't added education");
-        supersonic.ui.dialog.alert("Error: " + error.message);
-      }
-
-    });
-  };
-
-  	$scope.showInterestInput = function() {
-  		var interest = document.getElementById("interest");
-  		$scope.interests.push(interest.value);
-      $scope.addedInterest = false;
-      $scope.interests2.push(interest.value); 
-      $scope.currentUser.set("interests", $scope.interests2);
       $scope.currentUser.save(null, {
         success: function(user) {
-          alert("added interest to interests arrar for current user");
         },
         error: function(user, error) {
-          alert("didn't added interest");
-          supersonic.ui.dialog.alert("Error: " + error.message);
         }
-      });	
-      document.getElementById("interest").value = ''; 	
-  	};
+      }); 
+      supersonic.ui.layers.pop();
+    };	
 
     $scope.showSkillsInput = function() {
       var skill = document.getElementById("skill");
-      $scope.skills.push(skill.value);
-      $scope.addedSkill = false;
-      $scope.currentUser.set("skills", $scope.skills2);
-      $scope.currentUser.save(null, {
-      success: function(user) {
-        alert("added skill to skills array for current user");
-      },
-      error: function(user, error) {
-        alert("didn't added skill");
-        supersonic.ui.dialog.alert("Error: " + error.message);
-      }
+      var skillval = skill.value;
 
-    });
+      var newli = document.createElement("li");
+      newli.className = "item item-checkbox";
+
+      var text = document.createTextNode(skillval);
+
+      var newlbl = document.createElement("label");
+      newlbl.className = "checkbox";
+
+      var newinput = document.createElement("input");
+      newinput.setAttribute("id", skillval.replace(/ /g,'').toLowerCase().replace(/[^a-z1-9]/g, ""));
+      newinput.setAttribute("type", "checkbox");
+      newinput.setAttribute("checked", true);
+
+      newlbl.appendChild(newinput);
+      newli.appendChild(newlbl);
+      newli.appendChild(text);
+      document.getElementById("standardskills").appendChild(newli);
+
+      
       document.getElementById("skill").value = '';     
     };
 });

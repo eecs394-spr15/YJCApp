@@ -32,7 +32,7 @@ angular.module('common', [
 
     // result contains any error description text returned from the plugin call
     function errorHandler (error) {
-        supersonic.ui.dialog.alert('error = ' + error);
+        //supersonic.ui.dialog.alert('error = ' + error);
     }
 
     function messageInForegroundHandler (notification) {
@@ -54,7 +54,7 @@ angular.module('common', [
 
     // result contains any error description text returned from the plugin call
     function errorHandler (error) {
-        supersonic.ui.dialog.alert('error = ' + error);
+        //supersonic.ui.dialog.alert('error = ' + error);
     }
 
     function messageInBackgroundHandler (notification) {
