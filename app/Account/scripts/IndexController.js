@@ -23,6 +23,7 @@ angular
           $scope.Account.zipcode = $scope.currentUser.get('zipcode');
           $scope.Account.dateOfBirth = $scope.currentUser.get('dateOfBirth');
           $scope.Account.criminalHistory = $scope.currentUser.get('criminalHistory');
+          $scope.Account.advisorEmail = $scope.currentUser.get('advisorEmail');
 
           // array values
           $scope.Account.interests = $scope.currentUser.get("interests");
@@ -129,6 +130,7 @@ angular
       $('#lastname-lbl').removeClass('error-input');
       $('#phonenumber-lbl').removeClass('error-input');
       $('#zipcode-lbl').removeClass('error-input');
+      $('#advisor-lbl').removeClass('error-input');
 
       if ($('#firstname').val() === '' || $('#firstname').val() === undefined || $('#firstname').val() === null)
       {
@@ -149,6 +151,17 @@ angular
       {
         numErrors++;
         $('#zipcode-lbl').addClass('error-input');
+      }
+      if ($('#advisor').val() === '' || $('#advisor').val() === undefined || $('#advisor').val() === null)
+      {
+        numErrors++;
+        $('#advisor-lbl').addClass('error-input');
+      }
+      var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+      if (!testEmail.test($('#advisor').val()))
+      {
+        numErrors++;
+        $('#advisor-lbl').addClass('error-input');
       }
       if (numErrors === 0)
       {
@@ -216,6 +229,7 @@ angular
       $scope.currentUser.set("skills", $scope.Account.skills);
       $scope.currentUser.set("education", $scope.Account.education);
       $scope.currentUser.set("timeAvailable", $scope.Account.timeAvailable);
+      $scope.currentUser.set("advisorEmail", $scope.Account.advisorEmail);
 
       $scope.currentUser.save(null, {
         success: function(user) {

@@ -1,0 +1,40 @@
+<div ng-controller="ShowController">
+  <super-navbar>
+    <super-navbar-title>
+      Show
+    </super-navbar-title>
+  </super-navbar>
+
+  <div class="card">
+    <div class="item item-divider" ng-bind="job.get('jobTitle')">
+    </div>
+    <div class="item item-text-wrap">
+      <p>Company: {{job.get('company')}}</p>
+      <p>Salary: {{job.get('salary')}}</p>
+      <p>Location: {{job.get("address")}}, {{job.get('city')}} {{job.get('zipcode')}}</p>
+      <p>Type: {{job.get('fullTime')}}</p>
+    </div>
+    <div class="item item-divider">
+      Requirements
+    </div>
+    <div class="item item-text-wrap">
+      <p>Education: {{job.get('educationRequirement')}}</p>
+      <p>Age:</p>
+      <p>Background Check:</p>
+      <p>Driver's License:</p>
+    </div>
+    <div class="item item-divider">
+      Details
+    </div>
+    <div class="item item-text-wrap">
+      <p>Number of Openings: {{job.get('numOpenings')}}</p>
+      <p>Work Schedule: {{job.get('workSchedule')}}</p>
+      <p>Time Available: {{job.get('fullTime')}}</p>
+      <p>Job Description: {{job.get('jobDescription')}}</p>
+    </div>
+    <button class="item item-icon-left assertive" ng-click="showInterest(job)">
+        <i class="icon super-email"></i>
+        Contact about {{job.get('company')}}
+    </button>
+  </div>
+</div>
