@@ -9,18 +9,17 @@
   	<ul>
     	<div class="card">
   			<div class="item item-text-wrap">
-  				<a class= "item item-thumbnail-left" href="#">
-  					<img src="profile.jpg">
     				<h2>
               <span ng-bind="Account['firstName']"></span> <span ng-bind="Account['lastName']"></span>
     				</h2>
     				<p><b>Date of Birth:</b> <span ng-bind="Account['dateOfBirthStr']"></span>
     				</p>
+            <p><b>Location:</b> <span ng-bind="Account['zipcode']"></span>
+            </p>
     				<p><b>Phone Number:</b> <span ng-bind="Account['phoneNumber']"></span>
     				</p>
     				<p> <b>Email:</b> <span ng-bind="Account['email']"></span>
     				</p>
-    			</a>
   			</div>
 		</div>
 		<div class="card">

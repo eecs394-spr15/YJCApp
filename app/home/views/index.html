@@ -15,12 +15,13 @@
         <h2>{{job.get('jobTitle')}}</h2>
         <p>Company: {{job.get('company')}}</p>
         <p>Salary: {{job.get('salary')}}</p>
+        <p>Location: {{job.get('city')}}</p>
         <p>Type: {{job.get('fullTime')}}</p>
       </div>
 
       <a class="item item-icon-left assertive" href="#">
         <i class="icon super-email"></i>
-        Contact {{job.get('company')}}
+        Contact about {{job.get('company')}}
       </a>
 
     </div>
