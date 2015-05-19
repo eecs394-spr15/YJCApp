@@ -20,48 +20,31 @@
 
                 <div class="row">
                   <div class="col-md-4"> 
-                    <label for="ex1">Job Title:<span style="color:red;"></span></label>
-
-                    <input class="form-control" name="jobTitle" id="jobTitle" type="text">
-                    <br>
-
-                    <label for="ex1">Number of Openings:<span style="color:red;"></span></label>
-                    <input class="form-control" name="numOpenings" id="numOpenings" type="text">
-                    <br>
-                    
-                    <label for="ex1">Company:<span style="color:red;"></span></label>
-                    <input class="form-control" name="company" id="company" type="text">
-                    <br>
-
-                    <label for="ex1">Address:<span style="color:red;"></span></label>
-                    <input class="form-control" name="address" id="address" type="text">
-                    <br>
-
-                    <label for="ex1">City:<span style="color:red;"></span></label>
-                    <input class="form-control" name="city" id="city" type="text">
-                    <br>
-
-                    <label for="ex1">Zip:<span style="color:red;"></span></label>
-                    <input class="form-control" name="zipcode" id="zipcode" type="text">
-                    <br>
-                  </div>
-                  <div class="col-md-4"> 
-
-                    <label for="ex1">Education Requirement:<span style="color:red;"></span></label>
-                    <select class="form-control" name="educationRequirement" id="educationRequirement">
-                      <option>High School</option>
-                      <option>Associate</option>
-                      <option>Bachelor's</option>
-                      <option>Graduate</option>
+                    <label for="ex1">Employer Industry Types:<span style="color:red;"></span></label>
+                    <select class="form-control" name="employerIndustryTypes" id="employerIndustryTypes">
+                      <option>Automotive</option>
+                      <option>Clerical/administrative</option>
+                      <option>Cosmetology</option>
+                      <option>Education and child-care</option>
+                      <option>Financial Services</option>
+                      <option>Food Service</option>
+                      <option>Healthcare</option>
+                      <option>Hospitality</option>
+                      <option>IT/Technical</option>
+                      <option>Manufacturing</option>
+                      <option>Marketing/Social Media</option>
+                      <option>Public Administration</option>
+                      <option>Retail</option>
+                      <option>Security</option>
+                      <option>Services</option>
+                      <option>Transportation/Logistics</option>
+                      <option>Wholesale Trade</option>
+                      <option>Odd-Job/Summer Job</option>
+                      <option>Other</option>
                     </select>
                     <br>
-                    
 
-                    <label for="ex1">Work Schedule:<span style="color:red;"></span></label>
-                    <input class="form-control" name="workSchedule" id="workSchedule" type="text">
-                    <br>
-
-                    <label for="ex1">Start Date:<span style="color:red;"></span></label>
+                    <label for="ex1">Date:<span style="color:red;"></span></label>
                     <input id="datepicker" class="form-control" name="startDate" id="startDate" type="text">
                     <script>
                     $(function() {
@@ -69,11 +52,82 @@
                     });
                     </script>
                     <br>
+                    <label for="ex1">Company:<span style="color:red;"></span></label>
+                    <input class="form-control" name="company" id="company" type="text">
+                    <br>
+
+                    <label for="ex1">City:<span style="color:red;"></span></label>
+                    <input class="form-control" name="city" id="city" type="text">
+                    <br>
+
+                    <label for="ex1">Address:<span style="color:red;"></span></label>
+                    <input class="form-control" name="address" id="address" type="text">
+                    <br>
+
+                    <label for="ex1">Zip:<span style="color:red;"></span></label>
+                    <input class="form-control" name="zipcode" id="zipcode" type="text">
+                    <br>
+
+                     <label for="ex1">Contact:<span style="color:red;"></span></label>
+                    <input class="form-control" id="contact" name="contact" type="text">
+                    <br>
+
+                    <label for="ex1">Email:<span style="color:red;"></span></label>
+                    <input class="form-control" id="email" name="email" type="text">
+                    <br>
+
+                    <label for="ex1">Phone:<span style="color:red;"></span></label>
+                    <input class="form-control" id="phone" name="phone" type="text">
+                    <br>
+
+                    <label for="ex1">Hiring Process:<span style="color:red;"></span></label>
+                    <input class="form-control" id="hiringProcess" name="hiringProcess" type="text">
+                    <br>
+                
+              
+                   
+                  </div>
+                  <div class="col-md-4"> 
+                    <label for="ex1">Job Title:<span style="color:red;"></span></label>
+                    <input class="form-control" name="jobTitle" id="jobTitle" type="text">
+                    <br>
+
+                    <label for="comment">Job Description:<span style="color:red;"></span></label>
+                    <textarea class="form-control" rows="5" id="jobDescription" name="jobDescription"></textarea>
+                    <br>
+
+                    <label for="ex1">Full/Part Time:<span style="color:red;"></span></label>
+                    <select class="form-control" name="fullTime" id="fullTime">
+                       <option>Full Time</option>
+                       <option>Part Time</option>
+                     </select>
+                    <br>
+                    
+
+                    <label for="ex1">Min. Age:<span style="color:red;"></span></label>
+                    <select class="form-control" name="minAge">
+                     <option>16</option>
+                     <option>17</option>
+                     <option>18</option>
+                     <option>19</option>
+                     <option>20</option>
+                     <option>21</option>
+                     <option>22</option>
+                     <option>23</option>
+                     <option>24</option>
+                     <option>25</option>
+                    </select>
+                    <br>
+
+                    <label for="ex1">Number of Openings:<span style="color:red;"></span></label>
+                    <input class="form-control" name="numOpenings" id="numOpenings" type="text">
+                    <br>
 
                     <label for="ex1">Hours/Week:<span style="color:red;"></span></label>
                     <input class="form-control" name="hoursPerWeek" id="hoursPerWeek" type="text">
                     <br>
 
+                    
                     <label for="ex1">Salary:<span style="color:red;"></span></label>
                     <select class="form-control" name="salary" id="salary">
                       <option>$8.00/hr - $10.00/hr</option>
@@ -87,25 +141,59 @@
                       <option>$24.00/hr - $26.00/hr</option>
                     </select>
                     <br>
-               
-                
-                    <label for="ex1">Full/Part Time:<span style="color:red;"></span></label>
-                     <select class="form-control" name="fullTime" id="fullTime">
-                       <option>Full Time</option>
-                       <option>Part Time</option>
-                     </select>
-                    <br>
                     
+                    
+                
+                    
+
+                    <!-- <label for="ex1">Work Schedule:<span style="color:red;"></span></label>
+                    <input class="form-control" name="workSchedule" id="workSchedule" type="text">
+                    <br>
+ -->
+              
+                    <label for="ex1">Background Check:<span style="color:red;"></span></label>
+                    <input class="form-control" name="backgroundCheck" id="backgroundCheck" type="text">
+                    <br>
+
+                    <label for="ex1">Drug Test:<span style="color:red;"></span></label>
+                    <input class="form-control" id="drugTest" name="drugTest" type="text">
+                    <br>
+                
+
+                 
+                   
                   </div>
                   
                   <div class="col-md-4"> 
-                    <label for="ex1">Contact:<span style="color:red;"></span></label>
-                    <input class="form-control" id="contact" name="contact" type="text">
+
+                    <label for="ex1">GED or HS Diploma Required:<span style="color:red;"></span></label>
+                    <select class="form-control" name="ged">
+                      <option>GED</option>
+                      <option>HS</option>
+                  
+                    </select>
+
+                    <br>
+                   
+                    <label for="ex1">Education Requirement:<span style="color:red;"></span></label>
+                    <select class="form-control" name="educationRequirement" id="educationRequirement">
+                      <option>High School</option>
+                      <option>Associate</option>
+                      <option>Bachelor's</option>
+                      <option>Graduate</option>
+                    </select>
                     <br>
 
-                    <label for="comment">Job Description:<span style="color:red;"></span></label>
-                    <textarea class="form-control" rows="5" id="jobDescription" name="jobDescription"></textarea>
+
+                    <label for="ex1">Driver's License:<span style="color:red;"></span></label>
+                    <select class="form-control" name="driver">
+                      <option>Yes</option>
+                      <option>No</option>
+            
+                    </select>
                     <br>
+
+
 
                     <label for="comment">Comment:<span style="color:red;"></span></label>
                     <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
