@@ -1,33 +1,67 @@
 angular
   .module('home')
-  .controller('IndexController', function($scope, supersonic) {
+  .controller('IndexController', function($http, $scope, supersonic) {
     // Controller functionality here
     supersonic.ui.navigationBar.hide();
+
+
 
 
     //find jobs that match
 
   //   if(currUser){
-  //   	var interests = currUser.get("Interests");
-  //   	var zipcode = currUser.get("zipcode");
-  //   	var skills = currUser.get("skills");
-  //   	var degree = currUser.get("degree");
+  //    var interests = currUser.get("Interests");
+  //    var zipcode = currUser.get("zipcode");
+  //    var skills = currUser.get("skills");
+  //    var degree = currUser.get("degree");
 
-  //   	//start query
+  //    //start query
 
 
-  //   	var Job = Parse.Object.extend("Job");
-		// var query = new Parse.Query(Job);
+  //    var Job = Parse.Object.extend("Job");
+    // var query = new Parse.Query(Job);
 
-		// query.equalTo("zipcode", zipcode);
-		
+    // query.equalTo("zipcode", zipcode);
+    
 
   //   }
 
   supersonic.ui.views.current.whenVisible( function () {
+    var postcodesResult = [];
+    var postcodeResultMap = {};
+    var user = Parse.User.current();
+    var userCountry = "US";
+    var userPostcode
+    var userRadius
+    if (user != null){
+     userPostcode = user.get('zipcode');
+     userRadius = user.get('jobRadius');
+    }else{
+     userPostcode = "60201";
+     userRadius = 30;
+    }
+    if (userRadius == null){
+         userRadius = 30;
+    }
+    var userNameForGeoQuery = "YJCApp";
+    var callURL = "http://api.geonames.org/findNearbyPostalCodesJSON?postalcode=" + userPostcode + "&country=" + userCountry + "&radius=" + userRadius + "&username=" + userNameForGeoQuery;
+    $http.get(callURL).success(function(data, status, headers, config) {
+      for (var item in data.postalCodes){
+          postcodesResult.push(data.postalCodes[item].postalCode); 
+          postcodeResultMap[data.postalCodes[item].postalCode] = data.postalCodes[item].distance;
+          steroids.logger.log(postcodeResultMap[data.postalCodes[item].postalCode]);
+
+      }
+
+    }).
+    error(function(data, status, headers, config) {
+      alert("Error: " + status + " ");
+      steroids.logger.log(status);
+    });
+
     var Job = Parse.Object.extend("Job");
     var query = new Parse.Query(Job);
-    
+
     query.find({
       success: function(results) {
         //alert("Successfully retrieved " + results.length + " scores.");
