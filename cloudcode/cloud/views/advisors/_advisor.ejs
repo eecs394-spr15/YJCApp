@@ -1,0 +1,19 @@
+<tr>  
+  <td>
+  <%- "<input type=\"checkbox\" name=\"" + advisor.id + "\" value=\"" + advisor.id + "\">"
+  %>
+  </td>
+  <td><%= advisor.get('firstName') %></td>
+  <td><%= advisor.get('lastName') %></td>  
+  <td><%= advisor.get('email') %></td>  
+  <td><%= advisor.createdAt.getMonth() + 1 + "/" + advisor.createdAt.getDate() + "/" + advisor.createdAt.getFullYear() %></td>  
+  <td>
+  	<a href="/advisor/<%= advisor.id %>" >More</a>
+  </td>
+  <td>
+  	<a href="/advisor/<%= advisor.id %>/edit" >Edit</a>
+  </td>
+  <td>
+  	<a href="/advisor/<%= advisor.id %>" >Delete</a>
+  </td>
+</tr>
