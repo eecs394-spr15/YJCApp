@@ -34,6 +34,33 @@
       		<input id="zipcode" type="tel" placeholder="Zipcode" ng-model="Account['zipcode']">
     		</label>
 
+        <!-- start search distance -->
+        <div class="item item-divider">
+          Max Job Search Distance
+        </div>
+        <div id="distance">
+          <label class="item item-radio">
+              <input id="d20" type="radio" name="distance" checked="checked" value="20">
+              <div class="item-content">
+                20 miles
+              </div>
+              <i class="radio-icon super-checkmark"></i>
+          </label>
+          <label class="item item-radio">
+              <input id="d15" type="radio" name="distance" value="15">
+              <div class="item-content">
+                15 miles
+              </div>
+              <i class="radio-icon super-checkmark"></i>
+          </label>
+          <label class="item item-radio">
+              <input id="d10" type="radio" name="distance" value="10">
+              <div class="item-content">
+                10 miles
+              </div>
+              <i class="radio-icon super-checkmark"></i>
+          </label>
+        </div>
         <!-- start job industries of interest -->
   		  <div class="item item-divider">
           	Industries 
@@ -51,31 +78,17 @@
             	</label>
           		Automotive
         	</li>
-
          	<li class="item item-checkbox">
             	<label class="checkbox">
               		<input id = "clericaladministrative" type="checkbox">
             	</label>
           		Clerical/Administrative
         	</li>
-
-        	<li class="item item-checkbox">
-            	<label class="checkbox">
-              		<input id="cosmetology" type="checkbox">
-            	</label>
-          	Cosmetology
-        	</li>
           <li class="item item-checkbox">
               <label class="checkbox">
                   <input id="educationandchildcare" type="checkbox">
               </label>
-            Education and Child Care
-          </li>
-          <li class="item item-checkbox">
-              <label class="checkbox">
-                  <input id="financialservices" type="checkbox">
-              </label>
-            Financial Services
+            Child Care and Counseling
           </li>
           <li class="item item-checkbox">
               <label class="checkbox">
@@ -103,24 +116,6 @@
           </li>
           <li class="item item-checkbox">
               <label class="checkbox">
-                  <input id="manufacturing" type="checkbox">
-              </label>
-            Manufacturing
-          </li>
-          <li class="item item-checkbox">
-              <label class="checkbox">
-                  <input id="marketingsocialmedia" type="checkbox">
-              </label>
-            Marketing/Social Media
-          </li>
-          <li class="item item-checkbox">
-              <label class="checkbox">
-                  <input id="publicadministration" type="checkbox">
-              </label>
-            Public Administration
-          </li>
-          <li class="item item-checkbox">
-              <label class="checkbox">
                   <input id="retail" type="checkbox">
               </label>
             Retail
@@ -133,33 +128,9 @@
           </li>
           <li class="item item-checkbox">
               <label class="checkbox">
-                  <input id="services" type="checkbox">
-              </label>
-            Services
-          </li>
-          <li class="item item-checkbox">
-              <label class="checkbox">
-                  <input id="transportation" type="checkbox">
-              </label>
-            Transportation
-          </li>
-          <li class="item item-checkbox">
-              <label class="checkbox">
-                  <input id="wholesaletrade" type="checkbox">
-              </label>
-            Wholesale Trade
-          </li>
-          <li class="item item-checkbox">
-              <label class="checkbox">
                   <input id="oddjobsummerjob" type="checkbox">
               </label>
             Odd-Job/Summer Job
-          </li>
-          <li class="item item-checkbox">
-              <label class="checkbox">
-                  <input id="other" type="checkbox">
-              </label>
-            Other
           </li>
         </div><!-- end job industries -->
 
@@ -180,64 +151,13 @@
             	</label>
           	High School Diploma
         	</li>
-          <li class="item item-checkbox">
-              <label class="checkbox">
-                <input id="tradeschool" type="checkbox">
-              </label>
-              Trade School
-          </li>
         	<li class="item item-checkbox">
             	<label class="checkbox">
               		<input id="associatesdegree" type="checkbox">
             	</label>
           	Associate's Degree
         	</li>
-        	<li class="item item-checkbox">
-            	<label class="checkbox">
-              	<input id="bachelorsdegree" type="checkbox">
-            	</label>
-          		Bachelor's Degree
-        	</li>
-        	<li class="item item-checkbox">
-            	<label class="checkbox">
-              	<input id="graduateschooldegree" type="checkbox">
-            	</label>
-        		Graduate School Degree
-        	</li>
         </div><!-- end higher education -->
-
-        <!-- start skills section -->
-      	<div class="item item-divider">
-          	Skills
-      	</div>
-        <div id="standardskills">
-         	<li class="item item-checkbox">
-            	<label class="checkbox">
-              	<input id="computerprogramming" type="checkbox">
-            	</label>
-          	Computer Programming
-        	</li>
-         	<li class="item item-checkbox">
-            	<label class="checkbox">
-              	<input id="bilingual" type="checkbox">
-            	</label>
-          	Bilingual
-        	</li>
-         	<li class="item item-checkbox">
-            	<label class="checkbox">
-              		<input id="microsoftoffice" type="checkbox">
-            	</label>
-          		Microsoft Office 
-        	</li>
-        </div>
-      	<div class="item item-input-inset">
-      		<label class="item-input-wrapper">
-        			<input type="text" placeholder="Other Skills" id="skill">
-      		</label>
-      		<button class="button button-small" ng-click="showSkillsInput()">
-      			Submit
-      		</button>
-    		</div><!-- end skills section -->
 
         <!-- start crminal history section -->
         <div class= "item item-divider">
@@ -257,21 +177,21 @@
         <div id="timeavailable">
           <li class="item item-checkbox">
               <label class="checkbox">
-                  <input id="1stshift" type="checkbox">
+                  <input id="1stshift700am300pm" type="checkbox">
               </label>
-            1st Shift
+            1st Shift (7:00am - 3:00pm)
           </li>
           <li class="item item-checkbox">
               <label class="checkbox">
-                  <input id="2ndshift" type="checkbox">
+                  <input id="2ndshift200pm1000pm" type="checkbox">
               </label>
-            2nd Shift
+            2nd Shift (2:00pm-10:00pm)
           </li>
           <li class="item item-checkbox">
               <label class="checkbox">
-                  <input id="3rdshift" type="checkbox">
+                  <input id="3rdshift1100pm700am" type="checkbox">
               </label>
-            3rd Shift
+            3rd Shift (11:00pm - 7:00am)
           </li>
           <li class="item item-checkbox">
               <label class="checkbox">
@@ -298,8 +218,10 @@
         <div class= "item item-divider">
         Career Advisor
         </div>
-        <label id="advisor-lbl" class="item item-input">
-          <input id="advisor" type="email" placeholder="Email" ng-model="Account['advisorEmail']">
+        <label id="event-type-lbl" class="item item-select event-type">
+          <select ng-model="Account['advisorFullName']"
+              ng-options="opt as opt for opt in advisorFullName">
+          </select>
         </label><!-- end peer advisor section -->
 
     	</ul>

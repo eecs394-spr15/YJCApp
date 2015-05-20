@@ -21,6 +21,9 @@
   	<a href="/job/<%= job.id %>/edit" >Edit</a>
   </td>
   <td>
-  	<a href="/job/<%= job.id %>" >Delete</a>
+    <form id="delete<%= job.id %>" method="POST" action="/job/<%= job.id %>" onsubmit="return confirm('Are you sure you want to delete this job opening?')">
+      <input type="hidden" name="_method" id="requestType" value="DELETE" />
+      <a onclick="document.getElementById('delete<%= job.id %>').submit();">Delete</a>
+    </form>
   </td>
 </tr>

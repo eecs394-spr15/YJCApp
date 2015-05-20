@@ -23,9 +23,9 @@
                 <p ng-if="!((job.get('city') == undefined) || (job.get('city') == null) || (job.get('city') == ''))">Location: {{job.get('city')}}</p>
                 <p ng-if="!((job.get('fullTime') == undefined) || (job.get('fullTime') == null) || (job.get('fullTime') == ''))">Type: {{job.get('fullTime')}}</p>
         </super-navigate>
-        <button class="item item-icon-left assertive" ng-click="showInterest(job)" ng-class-odd="'odd'" ng-class-even="'even'">
+        <button id="contact-btn" class="item item-icon-left assertive" ng-click="showInterest(job)">
             <i class="icon super-email"></i>
-            Contact {{job.get('company')}}
+            <span>Contact about </span><span ng-bind="job.get('company')"></span>
         </button>
     </div>
 </div>

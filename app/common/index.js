@@ -21,7 +21,7 @@ angular.module('common', [
     });
     // the result contains any error description text returned from the plugin call
     function errorHandler (error) {
-        supersonic.ui.dialog.alert('error = ' + error);
+        //supersonic.ui.dialog.alert('error = ' + error);
     }
 
     function registrationHandler (deviceToken) {
