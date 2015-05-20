@@ -5,16 +5,7 @@ angular
     // Controller functionality here
     supersonic.ui.navigationBar.hide();
 
-    $scope.filterFunction = function(element){
-      return true;
-    }
-
-    $scope.interested = function(){
-      $scope.filterFunction = function(element){
-        return ;
-      };
-      return;
-    }
+    
 
 
 
@@ -39,7 +30,7 @@ angular
 
   supersonic.ui.views.current.whenVisible( function () {
 
-    var postcodesResult = [];
+    postcodesResult = [];
     var postcodeResultMap = {};
     var user = Parse.User.current();
     var userCountry = "US";
@@ -66,7 +57,8 @@ angular
       for (var item in data.postalCodes){
           postcodesResult.push(data.postalCodes[item].postalCode); 
           postcodeResultMap[data.postalCodes[item].postalCode] = data.postalCodes[item].distance;
-          // steroids.logger.log(postcodeResultMap[data.postalCodes[item].postalCode]);
+          //steroids.logger.log(postcodeResultMap[data.postalCodes[item].postalCode]);
+          //steroids.logger.log(postcodesResult[0]);
       }
 
     }).
@@ -92,6 +84,24 @@ angular
       }
     });
   });
+
+  // $scope.filterFunction = function(element){
+  //     return true;
+  //   }
+
+  $scope.interested = function(){
+    $scope.filterFunction = function(element){
+      
+      var now = element.get("zipcode").toString();
+
+      if(postcodesResult.indexOf(now) == -1) return false;
+      else return true;
+      
+
+    };
+    return;
+  }
+
 
   $scope.showInterest = function (job) {
     var user = Parse.Object.extend("User");
