@@ -31,11 +31,16 @@ angular
     var postcodeResultMap = {};
     var user = Parse.User.current();
     var userCountry = "US";
+    var userMaxRows = 10;
     var userPostcode
     var userRadius
     if (user != null){
      userPostcode = user.get('zipcode');
      userRadius = user.get('jobRadius');
+     userRadius = userRadius*1.666;
+     if(userRadius > 30){
+        userRadius = 30;
+     }
     }else{
      userPostcode = "60201";
      userRadius = 30;
@@ -44,13 +49,12 @@ angular
          userRadius = 30;
     }
     var userNameForGeoQuery = "YJCApp";
-    var callURL = "http://api.geonames.org/findNearbyPostalCodesJSON?postalcode=" + userPostcode + "&country=" + userCountry + "&radius=" + userRadius + "&username=" + userNameForGeoQuery;
+    var callURL = "http://api.geonames.org/findNearbyPostalCodesJSON?postalcode=" + userPostcode + "&country=" + userCountry + "&radius=" + userRadius + "&username=" + userNameForGeoQuery + "&maxRows=" + userMaxRows;
     $http.get(callURL).success(function(data, status, headers, config) {
       for (var item in data.postalCodes){
           postcodesResult.push(data.postalCodes[item].postalCode); 
           postcodeResultMap[data.postalCodes[item].postalCode] = data.postalCodes[item].distance;
-          steroids.logger.log(postcodeResultMap[data.postalCodes[item].postalCode]);
-
+          // steroids.logger.log(postcodeResultMap[data.postalCodes[item].postalCode]);
       }
 
     }).
