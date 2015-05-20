@@ -6,10 +6,15 @@
             <div style="margin-left:20px; color:#ffffff; font-weight:bold; font-size:120%">
                 Youth Job Center
             </div>
+
+            
+            <button class="button icon-right button-calm" ng-click = "interested()">Interested jobs</button>
+            
+            
         </label>
     </div> 
 
-    <div class="repeatcard" ng-repeat = "job in jobs" >
+    <div class="repeatcard" ng-repeat = "job in jobs | filter: filterFunction">
     <div class="card" ng-class-odd="'odd'" ng-class-even="'even'" >
         <super-navigate class="item" location="home#show" data-params-id="{{ job.id }}" ng-class-odd="'odd'" ng-class-even="'even'">  
                 <h2 ng-if="!((job.get('jobTitle') == undefined) || (job.get('jobTitle') == null) || (job.get('jobTitle') == ''))">{{job.get('jobTitle')}}</h2>
