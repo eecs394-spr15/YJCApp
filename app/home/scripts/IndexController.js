@@ -1,9 +1,19 @@
 angular
   .module('home')
-  .controller('IndexController', function($scope, supersonic) {
+  .controller('IndexController', function($scope, $http, supersonic) {
     // Controller functionality here
     supersonic.ui.navigationBar.hide();
 
+    $scope.filterFunction = function(element){
+      return true;
+    }
+
+    $scope.interested = function(){
+      $scope.filterFunction = function(element){
+        return ;
+      };
+      return;
+    }
 
     //find jobs that match
 
@@ -25,6 +35,9 @@ angular
   //   }
 
   supersonic.ui.views.current.whenVisible( function () {
+
+    
+
     var Job = Parse.Object.extend("Job");
     var query = new Parse.Query(Job);
     
