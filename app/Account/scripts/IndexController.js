@@ -2,16 +2,53 @@ angular
   .module('Account')
   .controller("IndexController", function ($scope, supersonic) {    
 
-    $scope.intialload = false;
+
+    $scope.advisorFirstName = [];
+    $scope.advisorLastName = [];
+    $scope.advisorFullName = [];
+    $scope.advisorEmail = [];
+    $scope.Account = {};
+
     supersonic.ui.views.current.whenVisible( function () {
       
+      var advisor = Parse.Object.extend("Advisor");
+      var query = new Parse.Query(advisor);
+      query.find({
+        success: function(results) {
+          $scope.advisorFirstName = [];
+          $scope.advisorLastName = [];
+          $scope.advisorFullName = [];
+          $scope.advisorEmail = [];
+          if (results.length === 0)
+          {
+            $scope.advisorFullName.push("No Advisors");
+            $scope.advisorFirstName.push("No Advisors");
+            $scope.advisorLastName.push("No Advisors");
+            $scope.advisorEmail.push("No Advisors");
+          }
+
+          for (var i = 0; i < results.length; i++)
+          {
+            $scope.advisorFirstName.push(results[i].get("firstName"));
+            $scope.advisorLastName.push(results[i].get("lastName"));
+            $scope.advisorFullName.push(results[i].get("firstName") + " " + results[i].get("lastName"));
+            $scope.advisorEmail.push(results[i].get("email")); 
+            $scope.Account.advisorFullName = $scope.advisorFullName[0];
+            $scope.$apply();
+          }
+        },
+        error: function(results) {
+
+        }
+      });
+
       var user = Parse.Object.extend("User");
-      var query = new Parse.Query(user);
+      query = new Parse.Query(user);
+
+
       query.equalTo("objectId", Parse.User.current().id);
       query.first({
         success: function(results) {
-
-          $scope.Account = {};
           $scope.Account.skills = [];
           $scope.interests = [];
           $scope.Account.education = [];
@@ -24,13 +61,19 @@ angular
           $scope.Account.dateOfBirth = $scope.currentUser.get('dateOfBirth');
           $scope.Account.criminalHistory = $scope.currentUser.get('criminalHistory');
           $scope.Account.advisorEmail = $scope.currentUser.get('advisorEmail');
+          $scope.Account.jobRadius = $scope.currentUser.get('jobRadius');
+          // get job radius
+          if ($scope.Account.jobRadius)
+          {
+            var id = $scope.currentUser.get('jobRadius');
+            id = "#d" + id;
+            $(id).prop("checked", true);
+          }
 
           // array values
           $scope.Account.interests = $scope.currentUser.get("interests");
           $scope.Account.education = $scope.currentUser.get("education");
           $scope.Account.timeAvailable = $scope.currentUser.get("timeAvailable");
-          $scope.Account.skills = $scope.currentUser.get("skills");
-
 
           // if date of birth is not set, set todays date as a value
           if ($scope.Account.dateOfBirth === null || $scope.Account.dateOfBirth === undefined)
@@ -55,7 +98,7 @@ angular
           // get time available 
           for (i = 0; i < $scope.Account.timeAvailable.length; i++)
           {
-            var id = $scope.Account.timeAvailable[i].replace(/ /g,'').toLowerCase().replace(/[^a-z1-9]/g, "");
+            var id = $scope.Account.timeAvailable[i].replace(/ /g,'').toLowerCase().replace(/[^a-z0-9]/g, "");
             id = '#' + id;
             $(id).prop("checked", true);
           }
@@ -64,50 +107,6 @@ angular
             $('#hascriminal').prop("checked", true);
           else
             $('#hascriminal').prop("checked", false);
-          
-          /* get skills */
-          // get preset skills
-          var index = 0;
-          if ((index = $scope.Account.skills.indexOf("Computer Programming")) > -1)
-          {
-            $("#computerprogramming").prop("checked", true);
-            $scope.Account.skills.splice(index, 1);
-          }
-          if ((index = $scope.Account.skills.indexOf("Bilingual")) > -1)
-          {
-            $("#bilingual").prop("checked", true);
-            $scope.Account.skills.splice(index, 1);
-          }
-          if ((index = $scope.Account.skills.indexOf("Microsoft Office")) > -1)
-          {
-            $("#microsoftoffice").prop("checked", true);
-            $scope.Account.skills.splice(index, 1);
-          }
-          // get remaining skills
-          if ($scope.intialload === false)
-          {
-            for (i = 0; i < $scope.Account.skills.length; i++)
-            {
-              var newli = document.createElement("li");
-              newli.className = "item item-checkbox";
-
-              var text = document.createTextNode($scope.Account.skills[i]);
-
-              var newlbl = document.createElement("label");
-              newlbl.className = "checkbox";
-
-              var newinput = document.createElement("input");
-              newinput.setAttribute("id", $scope.Account.skills[i].replace(/ /g,'').toLowerCase().replace(/[^a-z1-9]/g, ""));
-              newinput.setAttribute("type", "checkbox");
-              newinput.setAttribute("checked", true);
-
-              newlbl.appendChild(newinput);
-              newli.appendChild(newlbl);
-              newli.appendChild(text);
-              document.getElementById("standardskills").appendChild(newli);
-            }
-            $scope.intialload = true;
-          }
           $scope.$apply();
         },
         error: function(error) {
@@ -151,17 +150,6 @@ angular
       {
         numErrors++;
         $('#zipcode-lbl').addClass('error-input');
-      }
-      if ($('#advisor').val() === '' || $('#advisor').val() === undefined || $('#advisor').val() === null)
-      {
-        numErrors++;
-        $('#advisor-lbl').addClass('error-input');
-      }
-      var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
-      if (!testEmail.test($('#advisor').val()))
-      {
-        numErrors++;
-        $('#advisor-lbl').addClass('error-input');
       }
       if (numErrors === 0)
       {
@@ -229,6 +217,15 @@ angular
       $scope.currentUser.set("skills", $scope.Account.skills);
       $scope.currentUser.set("education", $scope.Account.education);
       $scope.currentUser.set("timeAvailable", $scope.Account.timeAvailable);
+
+      var index = $scope.advisorFullName.indexOf($scope.Account.advisorFullName);
+      $scope.currentUser.set("advisorFirstName", $scope.advisorFirstName[index]);
+      $scope.currentUser.set("advisorLastName", $scope.advisorLastName[index]);
+      $scope.currentUser.set("advisorEmail", $scope.advisorEmail[index]);
+      $scope.Account.jobRadius = parseInt($('input[name=distance]:checked').val());
+      $scope.currentUser.set("jobRadius", $scope.Account.jobRadius);
+
+
       $scope.currentUser.set("advisorEmail", $scope.Account.advisorEmail);
 
       $scope.currentUser.save(null, {

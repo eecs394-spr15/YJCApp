@@ -17,9 +17,9 @@
                 <p>Location: {{job.get('city')}}</p>
                 <p>Type: {{job.get('fullTime')}}</p>
         </super-navigate>
-        <button class="item item-icon-left assertive" ng-click="showInterest(job)">
+        <button id="contact-btn" class="item item-icon-left assertive" ng-click="showInterest(job)">
             <i class="icon super-email"></i>
-            Contact about {{job.get('company')}}
+            <span>Contact about </span><span ng-bind="job.get('company')"></span>
         </button>
     </div>
 </div>
