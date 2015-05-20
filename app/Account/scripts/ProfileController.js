@@ -10,7 +10,6 @@ angular
       query.first({
         success: function(results) {
           $scope.Account = {};
-          $scope.Account.skills = [];
           $scope.interests = [];
           $scope.Account.education = [];
           $scope.Account.timeAvailable = [];
@@ -31,7 +30,6 @@ angular
           $scope.Account.interests = $scope.currentUser.get("interests");
           $scope.Account.education = $scope.currentUser.get("education");
           $scope.Account.timeAvailable = $scope.currentUser.get("timeAvailable");
-          $scope.Account.skills = $scope.currentUser.get("skills");
           $scope.$apply();
         },
         error: function(error) {

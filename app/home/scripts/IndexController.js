@@ -11,9 +11,9 @@ angular
     var user = Parse.User.current();
     var userCountry = "US";
     var userMaxRows = 10;
-    var userPostcode
-    var userRadius
-    if (user != null){
+    var userPostcode;
+    var userRadius;
+    if (user !== null){
      userPostcode = user.get('zipcode');
      userRadius = user.get('jobRadius');
      userRadius = userRadius*1.666;
@@ -24,7 +24,7 @@ angular
      userPostcode = "60201";
      userRadius = 30;
     }
-    if (userRadius == null){
+    if (userRadius === null){
          userRadius = 30;
     }
     var userNameForGeoQuery = "YJCApp";
@@ -76,10 +76,24 @@ angular
 
     };
     return;
-  }
+  };
 
 
   $scope.showInterest = function (job) {
+    var labels = {
+        buttonLabels: ["Yes", "No"]
+    };
+    supersonic.ui.dialog.confirm("Star this job, and send email to advisor about interview?", labels)
+      .then( function(answer) {
+        if ( answer===0 ) {
+          $scope.sendEmail(job);
+        }
+        else {
+        }
+      });
+  };
+
+  $scope.sendEmail = function (job) {
     var user = Parse.Object.extend("User");
     var query = new Parse.Query(user);
     query.equalTo("objectId", Parse.User.current().id);
@@ -106,7 +120,6 @@ angular
         $scope.Account.timeAvailable = $scope.currentUser.get("timeAvailable");
         $scope.Account.skills = $scope.currentUser.get("skills");
         $scope.$apply();
-
         var ClientInterest = Parse.Object.extend("ClientInterest");
         var query = new Parse.Query(ClientInterest);
         query.equalTo("userId", $scope.currentUser.id);
@@ -115,25 +128,23 @@ angular
           success: function(result) {
             if (result === null || result === undefined)
             {
-              supersonic.ui.dialog.alert("Interest saved, click OK to email your advisor about interview.").then(function () {
-                var newinterest = new ClientInterest();
-                newinterest.set("userId", $scope.currentUser.id);
-                newinterest.set("jobId", job.id);
-                newinterest.save(null, {
-                  success: function(result) {
-                    var recipient = $scope.Account.advisorEmail;
-                    var subject = "Interest in " + job.get("jobTitle") + " position at " + job.get("company") + " in " + job.get("city");
-                    var body = "Hi,\nI am interested in applying for the ";
-                    body += job.get("jobTitle") + " position at " + job.get("company") + " in " + job.get("city") + ". ";
-                    body += "Could you provide me with more information and how I might apply for this position?\n\n";
-                    body += "Thanks,\n\n" + $scope.Account.firstName + " " + $scope.Account.lastName;
-                    supersonic.app.openURL("mailto:" + recipient + "?subject=" + subject + "&body=" + body).then(function() {
-                    });
+              var newinterest = new ClientInterest();
+              newinterest.set("userId", $scope.currentUser.id);
+              newinterest.set("jobId", job.id);
+              newinterest.save(null, {
+                success: function(result) {
+                  var recipient = $scope.Account.advisorEmail;
+                  var subject = "Interest%20in%20" + job.get("jobTitle").replace(" ", "%20") + "%20position%20at%20" + job.get("company").replace(" ", "%20") + "%20in%20" + job.get("city").replace(" ", "%20");
+                  var body = "Hi,%0D%0AI%20am%20interested%20in%20applying%20for%20the%20";
+                  body += job.get("jobTitle").replace(" ", "%20") + "%20position%20at%20" + job.get("company").replace(" ", "%20") + "%20in%20" + job.get("city").replace(" ", "%20") + ".%20";
+                  body += "Could%20you%20provide%20me%20with%20more%20information%20and%20how%20I%20might%20apply%20for%20this%20position?%0D%0A%0D%0A";
+                  body += "Thanks,%0D%0A%0D%0A" + $scope.Account.firstName.replace(" ", "%20") + "%20" + $scope.Account.lastName.replace(" ", "%20");
+                  supersonic.app.openURL("mailto:" + recipient + "?subject=" + subject + "&body=" + body).then(function() {
+                  });
 
-                  },
-                  error: function(result) {
-                  }
-                });
+                },
+                error: function(result) {
+                }
               });
             }
             else

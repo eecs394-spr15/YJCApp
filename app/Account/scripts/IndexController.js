@@ -33,84 +33,85 @@ angular
             $scope.advisorLastName.push(results[i].get("lastName"));
             $scope.advisorFullName.push(results[i].get("firstName") + " " + results[i].get("lastName"));
             $scope.advisorEmail.push(results[i].get("email")); 
-            $scope.Account.advisorFullName = $scope.advisorFullName[0];
             $scope.$apply();
           }
+          var user = Parse.Object.extend("User");
+          query = new Parse.Query(user);
+
+
+          query.equalTo("objectId", Parse.User.current().id);
+          query.first({
+            success: function(results) {
+              $scope.Account.skills = [];
+              $scope.interests = [];
+              $scope.Account.education = [];
+              $scope.Account.timeAvailable = [];
+              $scope.currentUser = results;
+              $scope.Account.firstName = $scope.currentUser.get('firstName');
+              $scope.Account.lastName = $scope.currentUser.get('lastName');
+              $scope.Account.phoneNumber = $scope.currentUser.get('phoneNumber');
+              $scope.Account.zipcode = $scope.currentUser.get('zipcode');
+              $scope.Account.dateOfBirth = $scope.currentUser.get('dateOfBirth');
+              $scope.Account.criminalHistory = $scope.currentUser.get('criminalHistory');
+              if ($scope.currentUser.get('advisorEmail'))
+                $scope.Account.advisorFullName = $scope.currentUser.get('advisorFirstName') + " " + $scope.currentUser.get('advisorLastName');
+              else
+                $scope.Account.advisorFullName = $scope.advisorFullName[0];
+              $scope.Account.jobRadius = $scope.currentUser.get('jobRadius');
+              // get job radius
+              if ($scope.Account.jobRadius)
+              {
+                var id = $scope.currentUser.get('jobRadius');
+                id = "#d" + id;
+                $(id).prop("checked", true);
+              }
+
+              // array values
+              $scope.Account.interests = $scope.currentUser.get("interests");
+              $scope.Account.education = $scope.currentUser.get("education");
+              $scope.Account.timeAvailable = $scope.currentUser.get("timeAvailable");
+
+              // if date of birth is not set, set todays date as a value
+              if ($scope.Account.dateOfBirth === null || $scope.Account.dateOfBirth === undefined)
+                $('#dateofbirth').val(new Date().toDateInputValue());
+              else
+                $('#dateofbirth').val($scope.Account.dateOfBirth.toDateInputValue());
+
+              // get interests array data
+              for (var i = 0; i < $scope.Account.interests.length; i++)
+              {
+                var id = $scope.Account.interests[i].replace(/ /g,'').toLowerCase().replace(/[^a-z]/g, "");
+                id = '#' + id;
+                $(id).prop("checked", true);
+              }
+              // get education array data
+              for (i = 0; i < $scope.Account.education.length; i++)
+              {
+                var id = $scope.Account.education[i].replace(/ /g,'').toLowerCase().replace(/[^a-z]/g, "");
+                id = '#' + id;
+                $(id).prop("checked", true);
+              }
+              // get time available 
+              for (i = 0; i < $scope.Account.timeAvailable.length; i++)
+              {
+                var id = $scope.Account.timeAvailable[i].replace(/ /g,'').toLowerCase().replace(/[^a-z0-9]/g, "");
+                id = '#' + id;
+                $(id).prop("checked", true);
+              }
+              // get criminal history
+              if ($scope.Account.criminalHistory === true)
+                $('#hascriminal').prop("checked", true);
+              else
+                $('#hascriminal').prop("checked", false);
+              $scope.$apply();
+            },
+            error: function(error) {
+              //alert("Error: " + error.code + " " + error.message);
+            }
+          });
         },
         error: function(results) {
 
-        }
-      });
-
-      var user = Parse.Object.extend("User");
-      query = new Parse.Query(user);
-
-
-      query.equalTo("objectId", Parse.User.current().id);
-      query.first({
-        success: function(results) {
-          $scope.Account.skills = [];
-          $scope.interests = [];
-          $scope.Account.education = [];
-          $scope.Account.timeAvailable = [];
-          $scope.currentUser = results;
-          $scope.Account.firstName = $scope.currentUser.get('firstName');
-          $scope.Account.lastName = $scope.currentUser.get('lastName');
-          $scope.Account.phoneNumber = $scope.currentUser.get('phoneNumber');
-          $scope.Account.zipcode = $scope.currentUser.get('zipcode');
-          $scope.Account.dateOfBirth = $scope.currentUser.get('dateOfBirth');
-          $scope.Account.criminalHistory = $scope.currentUser.get('criminalHistory');
-          $scope.Account.advisorEmail = $scope.currentUser.get('advisorEmail');
-          $scope.Account.jobRadius = $scope.currentUser.get('jobRadius');
-          // get job radius
-          if ($scope.Account.jobRadius)
-          {
-            var id = $scope.currentUser.get('jobRadius');
-            id = "#d" + id;
-            $(id).prop("checked", true);
-          }
-
-          // array values
-          $scope.Account.interests = $scope.currentUser.get("interests");
-          $scope.Account.education = $scope.currentUser.get("education");
-          $scope.Account.timeAvailable = $scope.currentUser.get("timeAvailable");
-
-          // if date of birth is not set, set todays date as a value
-          if ($scope.Account.dateOfBirth === null || $scope.Account.dateOfBirth === undefined)
-            $('#dateofbirth').val(new Date().toDateInputValue());
-          else
-            $('#dateofbirth').val($scope.Account.dateOfBirth.toDateInputValue());
-
-          // get interests array data
-          for (var i = 0; i < $scope.Account.interests.length; i++)
-          {
-            var id = $scope.Account.interests[i].replace(/ /g,'').toLowerCase().replace(/[^a-z]/g, "");
-            id = '#' + id;
-            $(id).prop("checked", true);
-          }
-          // get education array data
-          for (i = 0; i < $scope.Account.education.length; i++)
-          {
-            var id = $scope.Account.education[i].replace(/ /g,'').toLowerCase().replace(/[^a-z]/g, "");
-            id = '#' + id;
-            $(id).prop("checked", true);
-          }
-          // get time available 
-          for (i = 0; i < $scope.Account.timeAvailable.length; i++)
-          {
-            var id = $scope.Account.timeAvailable[i].replace(/ /g,'').toLowerCase().replace(/[^a-z0-9]/g, "");
-            id = '#' + id;
-            $(id).prop("checked", true);
-          }
-          // get criminal history
-          if ($scope.Account.criminalHistory === true)
-            $('#hascriminal').prop("checked", true);
-          else
-            $('#hascriminal').prop("checked", false);
-          $scope.$apply();
-        },
-        error: function(error) {
-          //alert("Error: " + error.code + " " + error.message);
         }
       });
     });
@@ -224,9 +225,6 @@ angular
       $scope.currentUser.set("advisorEmail", $scope.advisorEmail[index]);
       $scope.Account.jobRadius = parseInt($('input[name=distance]:checked').val());
       $scope.currentUser.set("jobRadius", $scope.Account.jobRadius);
-
-
-      $scope.currentUser.set("advisorEmail", $scope.Account.advisorEmail);
 
       $scope.currentUser.save(null, {
         success: function(user) {
