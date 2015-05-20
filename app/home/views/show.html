@@ -9,28 +9,28 @@
     <div class="item item-divider" ng-bind="job.get('jobTitle')">
     </div>
     <div class="item item-text-wrap">
-      <p>Company: {{job.get('company')}}</p>
-      <p>Salary: {{job.get('salary')}}</p>
-      <p>Location: {{job.get("address")}}, {{job.get('city')}} {{job.get('zipcode')}}</p>
-      <p>Type: {{job.get('fullTime')}}</p>
+      <p ng-if="!((job.get('company') == undefined) || (job.get('company') == null) || (job.get('company') == ''))">Company: {{job.get('company')}}</p>
+      <p ng-if="!((job.get('salary') == undefined) || (job.get('salary') == null) || (job.get('salary') == ''))">Salary: {{job.get('salary')}}</p>
+      <p ng-if="!((job.get('address') == undefined) || (job.get('address') == null) || (job.get('address') == '')) || !((job.get('city') == undefined) || (job.get('city') == null) || (job.get('city') == '')) || !((job.get('zipcode') == undefined) || (job.get('zipcode') == null) || (job.get('zipcode') == ''))">Location: {{job.get("address")}}, {{job.get('city')}} {{job.get('zipcode')}}</p>
+      <p ng-if="!((job.get('fullTime') == undefined) || (job.get('fullTime') == null) || (job.get('fullTime') == ''))">Type: {{job.get('fullTime')}}</p>
     </div>
     <div class="item item-divider">
       Requirements
     </div>
     <div class="item item-text-wrap">
-      <p>Education: {{job.get('educationRequirement')}}</p>
-      <p>Age:</p>
-      <p>Background Check:</p>
-      <p>Driver's License:</p>
+      <p ng-if="!((job.get('educationRequirement') == undefined) || (job.get('educationRequirement') == null) || (job.get('educationRequirement') == ''))">Education: {{job.get('educationRequirement')}}</p>
+      <p ng-if="!((job.get('minAge') == undefined) || (job.get('minAge') == null) || (job.get('minAge') == ''))">MinAge: {{job.get('minAge')}}</p>
+      <p ng-if="!((job.get('backgroundCheck') == undefined) || (job.get('backgroundCheck') == null) || (job.get('backgroundCheck') == ''))">Background Check: {{job.get('backgroundCheck')}}</p>
+      <p ng-if="!((job.get('driver') == undefined) || (job.get('driver') == null) || (job.get('driver') == ''))">Driver's License: {{job.get('driver')}}</p>
     </div>
     <div class="item item-divider">
       Details
     </div>
     <div class="item item-text-wrap">
-      <p>Number of Openings: {{job.get('numOpenings')}}</p>
-      <p>Work Schedule: {{job.get('workSchedule')}}</p>
-      <p>Time Available: {{job.get('fullTime')}}</p>
-      <p>Job Description: {{job.get('jobDescription')}}</p>
+      <p ng-if="!((job.get('numOpenings') == undefined) || (job.get('numOpenings') == null) || (job.get('numOpenings') == ''))">Number of Openings: {{job.get('numOpenings')}}</p>
+      <p ng-if="!((job.get('workSchedule') == undefined) || (job.get('workSchedule') == null) || (job.get('workSchedule') == ''))">Work Schedule: {{job.get('workSchedule')}}</p>
+      <p ng-if="!((job.get('fullTime') == undefined) || (job.get('fullTime') == null) || (job.get('fullTime') == ''))">Time Available: {{job.get('fullTime')}}</p>
+      <p ng-if="!((job.get('jobDescription') == undefined) || (job.get('jobDescription') == null) || (job.get('jobDescription') == ''))">Job Description: {{job.get('jobDescription')}}</p>
     </div>
     <button class="item item-icon-left assertive" ng-click="showInterest(job)">
         <i class="icon super-email"></i>

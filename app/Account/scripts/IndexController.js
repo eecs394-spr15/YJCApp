@@ -115,7 +115,7 @@ angular
         }
       });
     });
-
+ 
     // Controller functionality here
     $scope.selectAll = function () {
       if ($('#all').prop("checked") === true)
