@@ -83,9 +83,9 @@ angular
     var labels = {
         buttonLabels: ["Yes", "No"]
     };
-    supersonic.ui.dialog.confirm("Star this job, and send email to advisor about interview?", labels)
-      .then( function(answer) {
-        if ( answer===0 ) {
+    supersonic.ui.dialog.confirm("Star this job, and send email to advisor about interview?", labels).then( function(answer) 
+    {
+      if ( answer===0 ) {
           var user = Parse.Object.extend("User");
           var query = new Parse.Query(user);
           query.equalTo("objectId", Parse.User.current().id);
@@ -149,9 +149,10 @@ angular
             error: function(error) {
             }
           });
-        }
-        else {
-        }
-      });
+      }
+      else {
+        return;
+      }
+    });
   };
 });
