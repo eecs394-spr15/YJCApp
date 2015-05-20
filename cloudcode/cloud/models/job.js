@@ -118,7 +118,7 @@ exports.create = function(req, callback){
   job.set('jobTitle', req.body.jobTitle);
   job.set('jobDescription', req.body.jobDescription);
   job.set('fullTime', req.body.fullTime);
-  job.set('minAge', req.body.minAge);
+  job.set('minAge', parseInt(req.body.minAge));
   job.set('numOpenings', parseInt(req.body.numOpenings) || 0);
   job.set('hoursPerWeek', parseFloat(req.body.hoursPerWeek) || 0.0);
   job.set('salary', req.body.salary);
@@ -126,7 +126,7 @@ exports.create = function(req, callback){
   job.set('drugTest', req.body.drugTest);
   
 
-  job.set('ged', req.body.ged);
+  // job.set('ged', req.body.ged);
   job.set('educationRequirement', String(req.body.educationRequirement));
   job.set('driver', req.body.driver);
   job.set('comment', req.body.comment);
@@ -180,7 +180,7 @@ exports.update = function(req, callback){
       result.set('jobDescription', req.body.jobDescription);
       result.set('hoursPerWeek', parseFloat(req.body.hoursPerWeek) || 0.0);
       result.set('fullTime', req.body.fullTime);
-      result.set('minAge', req.body.minAge);
+      result.set('minAge', parseInt(req.body.minAge));
       result.set('numOpenings', parseInt(req.body.numOpenings) || 0);
       
       result.set('backgroundCheck', req.body.backgroundCheck);
@@ -189,7 +189,7 @@ exports.update = function(req, callback){
     
      // result.set('workSchedule', req.body.workSchedule);
      
-      result.set('ged', req.body.ged);
+      //result.set('ged', req.body.ged);
       result.set('educationRequirement', String(req.body.educationRequirement));
       result.set('driver', req.body.driver);
       //result.set('qualifications', req.body.qualifications);
