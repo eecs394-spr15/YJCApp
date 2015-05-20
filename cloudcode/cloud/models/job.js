@@ -35,22 +35,45 @@ exports.create = function(req, callback){
   // }
 
   // Set metadata fields
-  job.set('jobTitle', req.body.jobTitle);
+  job.set('EmployerIndustryTypes', req.body.employerIndustryTypes);
+  //I think it is the post date
+  job.set('startDate', new Date(req.body.startDate));
   job.set('company', req.body.company);
-  job.set('salary', req.body.salary);
   job.set('address', String(req.body.address));
   job.set('city', String(req.body.city));
   job.set('zipcode', parseInt(req.body.zipcode) || 0);
-  job.set('educationRequirement', String(req.body.educationRequirement));
-  job.set('numOpenings', parseInt(req.body.numOpenings) || 0);
-  job.set('workSchedule', req.body.workSchedule);
-  job.set('startDate', new Date(req.body.startDate));
-  job.set('hoursPerWeek', parseFloat(req.body.hoursPerWeek) || 0.0);
-  job.set('fullTime', req.body.fullTime);
-  job.set('jobDescription', req.body.jobDescription);
-  //job.set('qualifications', req.body.qualifications);
   job.set('contact', req.body.contact); 
+  job.set('email', req.body.email); 
+  job.set('phone', req.body.phone); 
+  job.set('hiringProcess', req.body.hiringProcess); 
+
+
+
+
+  job.set('jobTitle', req.body.jobTitle);
+  job.set('jobDescription', req.body.jobDescription);
+  job.set('fullTime', req.body.fullTime);
+  job.set('minAge', req.body.minAge);
+  job.set('numOpenings', parseInt(req.body.numOpenings) || 0);
+  job.set('hoursPerWeek', parseFloat(req.body.hoursPerWeek) || 0.0);
+  job.set('salary', req.body.salary);
+  job.set('backgroundCheck', req.body.backgroundCheck);
+  job.set('drugTest', req.body.drugTest);
+  
+
+  job.set('ged', req.body.ged);
+  job.set('educationRequirement', String(req.body.educationRequirement));
+  job.set('driver', req.body.driver);
   job.set('comment', req.body.comment);
+
+  //job.set('workSchedule', req.body.workSchedule);
+  
+ 
+  
+  
+  //job.set('qualifications', req.body.qualifications);
+  
+  
   
   // // Jobs are read only
   // var acl = new Parse.ACL();
@@ -69,21 +92,36 @@ exports.update = function(req, callback){
   var query = new Parse.Query(Job);
   query.get(id, {
     success: function(result){
-      result.set('jobTitle', req.body.jobTitle);
+      result.set('EmployerIndustryTypes', req.body.employerIndustryTypes);
+      result.set('startDate', new Date(req.body.startDate));
       result.set('company', req.body.company);
       result.set('salary', req.body.salary);
       result.set('address', String(req.body.address));
       result.set('city', String(req.body.city));
       result.set('zipcode', parseInt(req.body.zipcode) || 0);
-      result.set('educationRequirement', String(req.body.educationRequirement));
-      result.set('numOpenings', parseInt(req.body.numOpenings) || 0);
-      result.set('workSchedule', req.body.workSchedule);
-      result.set('startDate', new Date(req.body.startDate));
+      result.set('contact', req.body.contact); 
+      result.set('email', req.body.email); 
+      result.set('phone', req.body.phone); 
+      result.set('hiringProcess', req.body.hiringProcess); 
+
+      result.set('jobTitle', req.body.jobTitle);
+      result.set('jobDescription', req.body.jobDescription);
       result.set('hoursPerWeek', parseFloat(req.body.hoursPerWeek) || 0.0);
       result.set('fullTime', req.body.fullTime);
-      result.set('jobDescription', req.body.jobDescription);
+      result.set('minAge', req.body.minAge);
+      result.set('numOpenings', parseInt(req.body.numOpenings) || 0);
+      
+      result.set('backgroundCheck', req.body.backgroundCheck);
+      result.set('drugTest', req.body.drugTest);
+     
+    
+     // result.set('workSchedule', req.body.workSchedule);
+     
+      result.set('ged', req.body.ged);
+       result.set('educationRequirement', String(req.body.educationRequirement));
+      result.set('driver', req.body.driver);
       //result.set('qualifications', req.body.qualifications);
-      result.set('contact', req.body.contact); 
+    
       result.set('comment', req.body.comment);
       result.save(null, callback);
     },
