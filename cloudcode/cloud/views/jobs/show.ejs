@@ -10,13 +10,71 @@
   		<div class="container">
   			<div class="col-md-8">
   				<h1 class="title"><%= job.get('jobTitle') %></h1>
-  				<p class="sector"><%= job.get('sector') %></p>
-  				<span style="margin-left: 5px; margin-right: 5px; font-weight: bold;">&middot;</span>
-  				<p class="location"><%= job.get('address') %>, <%= job.get('city') %></p>
-  				<p><%= job.get('jobDescription') %></p>
+          <div class="subtitle">
+    				<p class="company"><%= job.get('company') %></p>
+    				<span style="margin-left: 5px; margin-right: 5px; font-weight: bold;">&middot;</span>
+    				<p class="location">
+              <%= job.get('address') %>, <%= job.get('city') %> <%= job.get('zipcode') %>
+            </p>
+            <p class="timestamp">
+              <span class="posted"><b>Posted: </b><%= job.createdAt.getMonth() + 1 %>/<%= job.createdAt.getDate() %>/<%= job.createdAt.getFullYear() %></span>
+              <span class="updated"><b>Updated: </b><%= job.updatedAt.getMonth() + 1 %>/<%= job.updatedAt.getDate() %>/<%= job.updatedAt.getFullYear() %></span>
+            </p>
+            <hr>
+          </div>
+
+          <p>
+            <b>Industry: </b><%= job.get('industryType') %><br>
+            <b>Openings: </b><%= job.get('numOpenings') %><br>
+            <b>Start Date: </b><%= job.get('startDate').getMonth() + 1 %>/<%= job.get('startDate').getDate() %>/<%= job.get('startDate').getFullYear() %><br>
+            <b>Type: </b><%= job.get('fullTime') %><br>
+            <b>Work Schedule: </b><%= job.get('workSchedule') %><br>
+            <b>Hours/Week: </b><%= job.get('hoursPerWeek') %><br>
+            <b>Salary: </b><%= job.get('salary') %>
+          </p>
+          
+          <p>
+            <b>Description: </b><%= job.get('jobDescription') %>
+          </p>
+
+          <p>
+            <b>Comments: </b><%= job.get('comment') %>
+          </p>
+
 				</div>
 				<div class="col-md-4">
-				
+          <div class="sidebar-block">
+            <h4>Requirements</h4><hr>
+            <p>
+              <b>Age: </b><%= job.get('minAge') %><br>
+              <b>Education: </b><%= job.get('diploma') %><br>
+              <b>Qualifications: </b><%= job.get('qualifications') %><br>
+              <b>Driver's License: </b><%= job.get('driver') %><br>
+              <b>Drug Test: </b><%= job.get('drugTest') %><br>
+              <b>Background Check: </b><%= job.get('backgroundCheck') %><br>
+              <b>Hiring Process: </b><%= job.get('hiringProcess') %><br>
+            </p>
+          </div>
+          
+          <div class="sidebar-block">
+            <h4>Contact Info</h4><hr>
+            <p>
+              <b>Contact: </b><%= job.get('contact') %><br>
+              <b>E-mail: </b><%= job.get('email') %><br>
+              <b>Phone: </b><%= job.get('phone') %><br>
+            </p>
+          </div>
+
+          <div class="sidebar-block">
+            <h4>Client Interest</h4><hr>
+            <p>
+              <b>Responses: </b><%= clients.length %><br>
+              <b>Clients: </b><br><% clients.forEach(function(client){ %>
+                &nbsp;&nbsp;&nbsp;&nbsp; <%= client.get('firstName') %> <%= client.get('lastName') %><br>
+              <% }) %>
+            </p>
+          </div>
+
 				</div>
   		</div>
   	</div>

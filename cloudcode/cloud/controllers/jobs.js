@@ -47,11 +47,13 @@ module.exports = function(app){
 
   app.get('/job/:id', function(req, res){
     // render page to show job listing with more details
-    Job.get(req.params.id, {
+    Job.getFull(req.params.id, {
       success: function(result){
         res.render('jobs/show', {
           user: req.session.user,
-          job: result
+          job: result.job,
+          interest: result.interest,
+          clients: result.clients
         });
       },
       error: function(error){
@@ -81,21 +83,21 @@ module.exports = function(app){
     if (method == 'PUT') {
       // call edit function in model
       Job.update(req, {
-        success: function(){
+        success: function(job){
           //res.redirect('/job/'+req.params.id);
           res.redirect('/jobs');
         },
-        error: function(){
+        error: function(job, error){
           // send error message(s)
         }
       });
     } else if (method == 'DELETE') {
       // call delete function in model
       Job.destroy(req, {
-        success: function(){
+        success: function(job){
           res.redirect('/jobs');
         },
-        error: function(){
+        error: function(job, error){
           // send error message(s)
         }
       });
