@@ -4,15 +4,46 @@ angular
 
     // Controller functionality here
 
+   
+
   supersonic.ui.views.current.whenVisible( function () {
+   // delete this
+  //Parse.User.logIn("test","test");
+
+
+
+     $scope.options = [
+      'All Jobs',
+      'Interested Jobs',
+      'Applied Jobs'
+    ];
+
 
     postcodesResult = [];
     var postcodeResultMap = {};
-    var user = Parse.User.current();
+    user = Parse.User.current();
     var userCountry = "US";
     var userMaxRows = 500;
     var userPostcode;
     var userRadius;
+    appliedJobs = [];
+
+    var ClientInterest = Parse.Object.extend("ClientInterest");
+    var appliedquery = new Parse.Query(ClientInterest);
+    appliedquery.equalTo("userId", user.id);
+    appliedquery.find({
+      success: function(results) {
+        
+        for (var i = 0; i < results.length; i++) { 
+          appliedJobs.push(results[i].get('jobId'));
+        }
+      },
+      error: function(error) {
+        alert("Error: " + error.code + " " + error.message);
+      }
+    });
+
+
     if (user !== null){
      userPostcode = user.get('zipcode');
      userRadius = user.get('jobRadius');
@@ -29,19 +60,33 @@ angular
     }
     var userNameForGeoQuery = "YJCApp";
     var callURL = "http://api.geonames.org/findNearbyPostalCodesJSON?postalcode=" + userPostcode + "&country=" + userCountry + "&radius=" + userRadius + "&username=" + userNameForGeoQuery + "&maxRows=" + userMaxRows;
+    steroids.logger.log(callURL);
     $http.get(callURL).success(function(data, status, headers, config) {
       for (var item in data.postalCodes){
           postcodesResult.push(data.postalCodes[item].postalCode); 
           postcodeResultMap[data.postalCodes[item].postalCode] = data.postalCodes[item].distance;
-          //steroids.logger.log(postcodeResultMap[data.postalCodes[item].postalCode]);
-          //steroids.logger.log(postcodesResult[0]);
       }
 
     }).
     error(function(data, status, headers, config) {
-      alert("Error: " + status + " ");
       steroids.logger.log(status);
     });
+
+    if(user != null){
+      userInterests = user.get('interests');
+      userEducations = user.get('education');
+      var ageDifMs = Date.now() - user.get('dateOfBirth').getTime();
+      var ageDate = new Date(ageDifMs); // miliseconds from epoch
+      userAge = Math.abs(ageDate.getUTCFullYear() - 1970);
+      steroids.logger.log("interest is: " + userInterests[0]);
+      steroids.logger.log("education: " + userEducations[0]);
+      steroids.logger.log("age: " + userAge);
+    }
+      steroids.logger.log("2222");
+
+
+    
+
 
 
     var Job = Parse.Object.extend("Job");
@@ -56,25 +101,89 @@ angular
         $scope.$apply();
       },
       error: function(error) {
-        //alert("Error: " + error.code + " " + error.message);
+        if(error.code != 209){
+          alert("Error: " + error.code + " " + error.message);
+        }
       }
     });
   });
 
-  // $scope.filterFunction = function(element){
-  //     return true;
-  //   }
 
-  $scope.interested = function(){
-    $scope.filterFunction = function(element){
+  $scope.interested = function(filter){
+    steroids.logger.log(filter);
+    if(filter == 'Interested Jobs'){
+      if(user == null){
+        alert("Please login");
+        return;
+      }
+
+      steroids.logger.log("s");
+      $scope.filterFunction = function(element){
+        var result;
+        var now = element.get("zipcode").toString();
+
+        if(postcodesResult.indexOf(now) == -1){
+          result = false;
+        } else {
+          result = true;
+        }
+        if(!result){
+          return false;
+        }
+        var eduRequirement = element.get("educationRequirement").toString();
+        if(userEducations.indexOf(eduRequirement) == -1){
+          result = false;
+        } else {
+          result = true;
+        }
+        if(!result){
+          return false;
+        }
+        var industrialType = element.get("EmployerIndustryTypes").toString();
+        if(userInterests.indexOf("All") != -1){
+          result = true;
+        } else if(userInterests.indexOf(industrialType) == -1){
+          result = false;
+        } else {
+          result = true;
+        }
+        if(!result){
+          return false;
+        }
+        var minAge = element.get("minAge");
+        if(userAge < minAge){
+          result = false;
+        } else {
+          result = true;
+        }
+        if(!result){
+          return false;
+        }
+        
+        return true;
       
-      var now = element.get("zipcode").toString();
-
-      if(postcodesResult.indexOf(now) == -1) return false;
-      else return true;
-      
-
+      };
     };
+    if(filter == 'All Jobs' ){
+      $scope.filterFunction = function(element){
+        return true;
+      };
+    };
+
+    if(filter == 'Applied Jobs'){
+      if(user == null){
+        alert("Please login");
+        return;
+      }
+      $scope.filterFunction = function(element){
+        if( appliedJobs.indexOf(element.id) == -1) return false;
+        else return true;
+      }
+
+
+    }
+
+
     return;
   };
 

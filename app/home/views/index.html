@@ -6,10 +6,12 @@
             <div style="margin-left:20px; color:#ffffff; font-weight:bold; font-size:120%">
                 Youth Job Center
             </div>
+            
+            <label class="item item-select filter-type ion-search">
+                <select ng-change="interested(filter)"ng-model="filter" ng-options="opt as opt for opt in options">
+                </select>
+            </label>
 
-            
-            <button class="button icon-right button-calm" ng-click = "interested()">Interested jobs</button>
-            
             
         </label>
     </div>
