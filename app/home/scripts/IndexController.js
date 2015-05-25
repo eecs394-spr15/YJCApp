@@ -13,8 +13,8 @@ angular
 
      $scope.options = [
       'All Jobs',
-      'Interested Jobs'
-    ];
+      'Interested Jobs'    
+      ];
 
 
     postcodesResult = [];
