@@ -1,11 +1,42 @@
-p {
+hr {
+	margin: 0; 
+	border-color: #aaa
+}
+
+.subtitle {
 	padding-bottom: 25px;
+}
+
+.timestamp {
+	font-size: 0.8em;
+}
+
+.posted {
+	padding-right: 5px;
+	color: #23a;
+}
+
+.updated {
+	color: #e33;
 }
 
 .title {
   text-align: left;
 }
 
-.sector, .location {
+.company, .location {
 	display: inline-block;
+	margin: 0;
+}
+
+.sidebar-block {
+	padding-bottom: 20px;
+}
+
+.sidebar-block hr {
+	margin-bottom: 10px;
+}
+
+.sidebar-block p {
+	font-size: 1em;
 }

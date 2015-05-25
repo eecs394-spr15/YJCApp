@@ -11,3 +11,8 @@
   border-width: 2px;
 }
 
+
+.odd {
+  background-color: #F0F0F0 !important;
+}
+

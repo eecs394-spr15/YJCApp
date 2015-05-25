@@ -1,26 +1,31 @@
 <html>
   <head>
     <% include ../shared/_header %>
+    <script src="/scripts/check_submit.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/createjob.css">
   </head>
+     
   <body>
 
     <% include ../shared/_navbar %>
 
 
-    <div class="container-fluid" style="padding-top: 70px;">
+    <div class="container-fluid" style="padding-top: 20px;">
 
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Add New Job Opening</h3>
         </div>
         <div class="panel-body">
-          <form method="POST" action="/jobs">
+          <form method="POST" name="createform" action="/jobs" onSubmit="return TestDataCheck()">
             <div class="form-group">
               <div class="col-xs-12">
 
                 <div class="row">
                   <div class="col-md-4"> 
-                    <label for="ex1">Employer Industry Types:<span style="color:red;"></span></label>
+                    
+                    <font size="1" style="color:red; position:absolute; top: -20px;">* is required</font>
+                    <label for="ex1">Employer Industry Types:<span style="color:red;"> *</span></label>
                     <select class="form-control" name="employerIndustryTypes" id="employerIndustryTypes">
                       <option>Automotive</option>
                       <option>Clerical/administrative</option>
@@ -44,51 +49,51 @@
                     </select>
                     <br>
 
-                    <label for="ex1">Date:<span style="color:red;"></span></label>
-                    <input id="datepicker" class="form-control" name="startDate" id="startDate" type="text">
+                    <label for="ex1">Date:<span style="color:red;"> *</span></label>
+                    <input id="startDate" class="form-control" name="startDate" type="text" value="">
                     <script>
                     $(function() {
-                      $( "#datepicker" ).datepicker();
+                      $( "#startDate" ).datepicker();
                     });
                     </script>
                     <br>
-                    <label for="ex1">Company:<span style="color:red;"></span></label>
-                    <input class="form-control" name="company" id="company" type="text">
+                    <label for="ex1">Company:<span style="color:red;"> *</span></label>
+                    <input class="form-control" name="company" id="company" type="text" value="">
                     <br>
 
-                    <label for="ex1">City:<span style="color:red;"></span></label>
-                    <input class="form-control" name="city" id="city" type="text">
+                    <label for="ex1">City:<span style="color:red;"> *</span></label>
+                    <input class="form-control" name="city" id="city" type="text" value="">
                     <br>
 
-                    <label for="ex1">Address:<span style="color:red;"></span></label>
-                    <input class="form-control" name="address" id="address" type="text">
+                    <label for="ex1">Address:<span style="color:red;"> *</span></label>
+                    <input class="form-control" name="address" id="address" type="text" value="">
                     <br>
 
-                    <label for="ex1">Zip:<span style="color:red;"></span></label>
-                    <input class="form-control" name="zipcode" id="zipcode" type="text">
+                    <label for="ex1">Zip:<span style="color:red;"> *</span></label>
+                    <input class="form-control" name="zipcode" id="zipcode" type="text" value="">
                     <br>
 
-                     <label for="ex1">Contact:<span style="color:red;"></span></label>
+                     <label for="ex1">Contact Name:<span style="color:red;"> *</span></label>
                     <input class="form-control" id="contact" name="contact" type="text">
                     <br>
 
-                    <label for="ex1">Email:<span style="color:red;"></span></label>
+                    <label for="ex1">Contact Email:<span style="color:red;"> *</span></label>
                     <input class="form-control" id="email" name="email" type="text">
                     <br>
 
-                    <label for="ex1">Phone:<span style="color:red;"></span></label>
+                    <label for="ex1">Contact Phone:<span style="color:red;"></span></label>
                     <input class="form-control" id="phone" name="phone" type="text">
                     <br>
 
                     <label for="ex1">Hiring Process:<span style="color:red;"></span></label>
-                    <input class="form-control" id="hiringProcess" name="hiringProcess" type="text">
+                    <input class="form-control" id="hiringProcess" name="hiringProcess" type="text" value="">
                     <br>
                 
               
                    
                   </div>
                   <div class="col-md-4"> 
-                    <label for="ex1">Job Title:<span style="color:red;"></span></label>
+                    <label for="ex1">Job Title:<span style="color:red;"> *</span></label>
                     <input class="form-control" name="jobTitle" id="jobTitle" type="text">
                     <br>
 
@@ -96,7 +101,7 @@
                     <textarea class="form-control" rows="5" id="jobDescription" name="jobDescription"></textarea>
                     <br>
 
-                    <label for="ex1">Full/Part Time:<span style="color:red;"></span></label>
+                    <label for="ex1">Full/Part Time:<span style="color:red;"> *</span></label>
                     <select class="form-control" name="fullTime" id="fullTime">
                        <option>Full Time</option>
                        <option>Part Time</option>
@@ -104,7 +109,7 @@
                     <br>
                     
 
-                    <label for="ex1">Min. Age:<span style="color:red;"></span></label>
+                    <label for="ex1">Min. Age:<span style="color:red;"> *</span></label>
                     <select class="form-control" name="minAge">
                      <option>16</option>
                      <option>17</option>
@@ -166,22 +171,19 @@
                   
                   <div class="col-md-4"> 
 
-                    <label for="ex1">GED or HS Diploma Required:<span style="color:red;"></span></label>
-                    <select class="form-control" name="ged">
-                      <option>GED</option>
-                      <option>HS</option>
-                  
-                    </select>
-
-                    <br>
                    
                     <label for="ex1">Education Requirement:<span style="color:red;"></span></label>
                     <select class="form-control" name="educationRequirement" id="educationRequirement">
-                      <option>High School</option>
+                      <option>GED</option>
+                      <option>HS</option>
                       <option>Associate</option>
                       <option>Bachelor's</option>
                       <option>Graduate</option>
                     </select>
+                    <br>
+
+                    <label for="qulification">Qulification:<span style="color:red;"></span></label>
+                  <textarea class="form-control" rows="5" id="qulification" name="qulification"></textarea>
                     <br>
 
 
@@ -200,8 +202,14 @@
                     <br>
                     <br>
 
+
+                    <div style="padding-left: 100px;position: absolute; top: 470px; color:red;">
+                     <font size="1" id="check">
+                     </font>
+                  </div>
+
                   
-                     <div style="padding-left: 250px;">
+                     <div style=" padding-left: 200px; position: absolute; top: 470px; right:10px">
                      <button type="submit" class="btn btn-primary">Create Job</button>
                      </div>
                   </div>

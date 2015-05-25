@@ -10,7 +10,6 @@ angular
       query.first({
         success: function(results) {
           $scope.Account = {};
-          $scope.Account.skills = [];
           $scope.interests = [];
           $scope.Account.education = [];
           $scope.Account.timeAvailable = [];
@@ -24,11 +23,13 @@ angular
           $scope.Account.dateOfBirthStr = $scope.Account.dateOfBirth.toLocaleDateString();
           $scope.Account.criminalHistory = $scope.currentUser.get('criminalHistory');
           $scope.Account.advisorEmail = $scope.currentUser.get('advisorEmail');
+          $scope.Account.advisorFirstName = $scope.currentUser.get('advisorFirstName');
+          $scope.Account.advisorLastName = $scope.currentUser.get('advisorLastName');
+          $scope.Account.jobRadius = $scope.currentUser.get('jobRadius') + " Miles";
           // array values
           $scope.Account.interests = $scope.currentUser.get("interests");
           $scope.Account.education = $scope.currentUser.get("education");
           $scope.Account.timeAvailable = $scope.currentUser.get("timeAvailable");
-          $scope.Account.skills = $scope.currentUser.get("skills");
           $scope.$apply();
         },
         error: function(error) {

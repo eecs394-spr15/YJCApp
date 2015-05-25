@@ -2,7 +2,6 @@ angular
   .module('Account')
   .controller("LoginPageController", function ($scope, supersonic) {
 
-    supersonic.ui.navigationBar.hide();
 
 
   $scope.Account = {};

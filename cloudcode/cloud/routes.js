@@ -19,8 +19,9 @@ module.exports = function(app){
   });
 
   // add routes for all controllers here
-  require('cloud/controllers/jobs')(app);
   require('cloud/controllers/sessions')(app);
+  require('cloud/controllers/jobs')(app);
+  require('cloud/controllers/advisors')(app);
 };
 
 /*

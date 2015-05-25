@@ -1,16 +1,81 @@
 var Job = Parse.Object.extend('Job');
-
+var Client = Parse.Object.extend('Client');
 
 // get all jobs
 exports.all = function(callback){
 	var query = new Parse.Query(Job);
-	query.find(callback);
+	query.find({
+    success: function(results){
+      callback.success(results);
+    },
+    error: function(error){
+      callback.error(error);
+    }
+  });
 };
 
 // get job with matching id
 exports.get = function(id, callback){
   var query = new Parse.Query(Job);
-  query.get(id, callback);
+  query.get(id, {
+    success: function(result){
+      callback.success(result);
+    },
+    error: function(error){
+      callback.error(error);
+    }
+  });
+};
+
+// get job with matching id along with client interests
+exports.getFull = function(id, callback){
+  var result = {}
+  var query = new Parse.Query(Job);
+  query.get(id, {
+    success: function(jobResult){
+      result.job = jobResult;
+      Parse.Cloud.run('getInterestedClients', { id: jobResult.id }, {
+        success: function(clientResults) {
+          result.clients = clientResults
+          callback.success(result);
+        },
+        error: function(error) {
+          callback.error(error);
+        }
+      });
+      /*
+      query = new Parse.Query(Interest);
+      query.equalTo('jobId', id);
+      query.find({
+        success: function(interestResults){
+          result.interest = interestResults;
+          var clientIds = [];
+          interestResults.forEach(function(interest){
+            clientIds.push(interest.get('userId'));
+          });
+          query = new Parse.Query(Client);
+          query.equalTo('objectId', clientIds);
+          query.find({
+            success: function(clientResults){
+              result.clients = clientResults;
+              callback.success(result);
+            },
+            error: function(error){
+              callback.error(error);
+            }
+          });
+          callback.success(result);
+        },
+        error: function(error){
+          callback.error(error);
+        }
+      });
+      //*/
+    },
+    error: function(error){
+      callback.error(error);
+    }
+  });
 };
 
 // create new job
@@ -53,7 +118,7 @@ exports.create = function(req, callback){
   job.set('jobTitle', req.body.jobTitle);
   job.set('jobDescription', req.body.jobDescription);
   job.set('fullTime', req.body.fullTime);
-  job.set('minAge', req.body.minAge);
+  job.set('minAge', parseInt(req.body.minAge));
   job.set('numOpenings', parseInt(req.body.numOpenings) || 0);
   job.set('hoursPerWeek', parseFloat(req.body.hoursPerWeek) || 0.0);
   job.set('salary', req.body.salary);
@@ -61,7 +126,7 @@ exports.create = function(req, callback){
   job.set('drugTest', req.body.drugTest);
   
 
-  job.set('ged', req.body.ged);
+  // job.set('ged', req.body.ged);
   job.set('educationRequirement', String(req.body.educationRequirement));
   job.set('driver', req.body.driver);
   job.set('comment', req.body.comment);
@@ -84,7 +149,14 @@ exports.create = function(req, callback){
   jobErrors = {
     jobTitle: ''
   };
-  job.save(null, callback);
+  job.save(null, {
+    success: function(job){
+      callback.success(job);
+    },
+    error: function(job, error){
+      callback.error(job, error);
+    }
+  });
 };
 
 exports.update = function(req, callback){
@@ -92,7 +164,7 @@ exports.update = function(req, callback){
   var query = new Parse.Query(Job);
   query.get(id, {
     success: function(result){
-      result.set('EmployerIndustryTypes', req.body.employerIndustryTypes);
+      result.set('EmployerIndustryTypes', req.body.industryType);
       result.set('startDate', new Date(req.body.startDate));
       result.set('company', req.body.company);
       result.set('salary', req.body.salary);
@@ -108,7 +180,7 @@ exports.update = function(req, callback){
       result.set('jobDescription', req.body.jobDescription);
       result.set('hoursPerWeek', parseFloat(req.body.hoursPerWeek) || 0.0);
       result.set('fullTime', req.body.fullTime);
-      result.set('minAge', req.body.minAge);
+      result.set('minAge', parseInt(req.body.minAge));
       result.set('numOpenings', parseInt(req.body.numOpenings) || 0);
       
       result.set('backgroundCheck', req.body.backgroundCheck);
@@ -117,15 +189,24 @@ exports.update = function(req, callback){
     
      // result.set('workSchedule', req.body.workSchedule);
      
-      result.set('ged', req.body.ged);
-       result.set('educationRequirement', String(req.body.educationRequirement));
+      //result.set('ged', req.body.ged);
+      result.set('educationRequirement', String(req.body.educationRequirement));
       result.set('driver', req.body.driver);
       //result.set('qualifications', req.body.qualifications);
     
       result.set('comment', req.body.comment);
-      result.save(null, callback);
+      result.save(null, {
+        success: function(job){
+          callback.success(job);
+        },
+        error: function(job, error){
+          callback.error(job, error);
+        }
+      });
     },
-    error: callback.error
+    error: function(error){
+      callback.error(null, error);
+    }
   });
 };
 
@@ -134,8 +215,17 @@ exports.destroy = function(req, callback){
   var query = new Parse.Query(Job);
   query.get(id, {
     success: function(result){
-      result.destroy(callback);
+      result.destroy({
+        success: function(job){
+          callback.success(job);
+        },
+        error: function(job, error){
+          callback.error(job, error);
+        }
+      });
     },
-    error: callback.error
+    error: function(error){
+      callback.error(null, error);
+    }
   });
 };

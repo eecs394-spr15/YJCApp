@@ -5,7 +5,17 @@
     border-radius: 40%;
 }
 
+navigation-bar button
+{
+  background-image: url(/imags/yjclogo.jpg);
+  background-size: 20px;
+}
 
 #yjcbar {
     background-color: #348F92;
+}
+
+#contact-btn {
+  width: 100%;
+  text-align: left;
 }
