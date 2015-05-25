@@ -11,10 +11,12 @@ angular
   //Parse.User.logIn("test","test");
 
 
+
      $scope.options = [
       'All Jobs',
-      'Interested Jobs'    
-      ];
+      'Interested Jobs',
+      'Applied Jobs'
+    ];
 
 
     postcodesResult = [];
@@ -24,6 +26,24 @@ angular
     var userMaxRows = 10;
     var userPostcode;
     var userRadius;
+    appliedJobs = [];
+
+    var ClientInterest = Parse.Object.extend("ClientInterest");
+    var appliedquery = new Parse.Query(ClientInterest);
+    appliedquery.equalTo("userId", user.id);
+    appliedquery.find({
+      success: function(results) {
+        
+        for (var i = 0; i < results.length; i++) { 
+          appliedJobs.push(results[i].get('jobId'));
+        }
+      },
+      error: function(error) {
+        alert("Error: " + error.code + " " + error.message);
+      }
+    });
+
+
     if (user !== null){
      userPostcode = user.get('zipcode');
      userRadius = user.get('jobRadius');
@@ -143,12 +163,25 @@ angular
         return true;
       
       };
-    }
-    else{
+    };
+    if(filter == 'All Jobs' ){
       $scope.filterFunction = function(element){
         return true;
       };
     };
+
+    if(filter == 'Applied Jobs'){
+      if(user == null){
+        alert("Please login");
+        return;
+      }
+      $scope.filterFunction = function(element){
+        if( appliedJobs.indexOf(element.id) == -1) return false;
+        else return true;
+      }
+
+
+    }
 
 
     return;
