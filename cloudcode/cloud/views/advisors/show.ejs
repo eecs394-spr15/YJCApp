@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <% include ../shared/_header %>
+    <!--<link rel="stylesheet" href="/css/advisors.css">-->
+  </head>
+  <body>
+  	<% include ../shared/_navbar %>
+
+  	<div class="container-fluid">
+  		<div class="container">
+  			<div class="col-md-8">
+  				<h1 class="title"><%= advisor.get('firstName') %> <%= advisor.get('lastName') %></h1>
+          <div class="subtitle">
+            <p class="timestamp">
+              <span class="created"><b>Joined since: </b><%= advisor.createdAt.getMonth() + 1 %>/<%= advisor.createdAt.getDate() %>/<%= advisor.createdAt.getFullYear() %></span>
+              <span class="updated"><b>Last Updated: </b><%= advisor.updatedAt.getMonth() + 1 %>/<%= advisor.updatedAt.getDate() %>/<%= advisor.updatedAt.getFullYear() %></span>
+            </p>
+            <hr>
+          </div>
+
+          <p class="contact">
+            <b>E-mail: </b><%= advisor.get('email') %>
+            <b>Phone: </b><%= advisor.get('phoneNumber') ? advisor.get('phoneNumber') : '' %>
+          </p>
+
+				</div>
+				<div class="col-md-4">
+          <div class="sidebar-block">
+            <h4>Heading</h4><hr>
+            <p>
+              Paragraph
+            </p>
+          </div>
+
+				</div>
+  		</div>
+  	</div>
+  </body>
+ </html>
