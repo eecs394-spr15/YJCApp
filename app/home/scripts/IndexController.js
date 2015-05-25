@@ -8,7 +8,8 @@ angular
 
   supersonic.ui.views.current.whenVisible( function () {
    // delete this
-    
+  //Parse.User.logIn("test","test");
+
 
      $scope.options = [
       'All Jobs',
@@ -91,6 +92,11 @@ angular
   $scope.interested = function(filter){
     steroids.logger.log(filter);
     if(filter == 'Interested Jobs'){
+      if(user == null){
+        alert("Please login");
+        return;
+      }
+
       steroids.logger.log("s");
       $scope.filterFunction = function(element){
         var result;
