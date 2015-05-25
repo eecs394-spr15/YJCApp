@@ -1,4 +1,6 @@
 /* Sortable tables */
+thead { display:block; margin:0px; cell-spacing:0px; left:0px; }
+tbody { display:block; overflow:auto; height:500px; }
 table.tablesorter thead {
     cursor: pointer;
 }
@@ -28,16 +30,18 @@ th{
   font-weight: bold; 
   background-repeat: no-repeat; 
   background-position: center right; 
+  white-space: nowrap;
 } 
 
 .table th {
-  width: 300px;
+  /*width: 300px;*/
   font-size:10pt;
   white-space: nowrap;
+   word-wrap: break-word;
 }
 
 .table td{
-  width: 300px;
+  /*width: 300px;*/
   font-size:10pt;
   word-wrap: break-word;
 }
