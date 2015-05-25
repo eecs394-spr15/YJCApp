@@ -12,3 +12,75 @@ exports.all = function(callback){
     }
   });
 };
+
+// get advisor with matching id
+exports.get = function(id, callback){
+  var query = new Parse.Query(Advisor);
+  query.get(id, {
+    success: function(result){
+      callback.success(result);
+    },
+    error: function(error){
+      callback.error(error);
+    }
+  });
+};
+
+exports.create = function(req, callback){
+	var advisor = new Advisor();
+	
+	advisor.set('firstName', req.body.firstName);
+	advisor.set('lastName', req.body.lastName);
+	advisor.set('email', req.body.email);
+	advisor.save(null, {
+		success: function(advisor){
+      callback.success(advisor);
+    },
+    error: function(advisor, error){
+      callback.error(advisor, error);
+    }
+	});
+};
+
+exports.update = function(req, callback){
+  var id = req.params.id;
+  var query = new Parse.Query(Advisor);
+  query.get(id, {
+  	success: function(result){
+  		result.set('firstName', req.body.firstName);
+			result.set('lastName', req.body.lastName);
+			result.set('email', req.body.email);
+  		result.save(null, {
+        success: function(advisor){
+          callback.success(advisor);
+        },
+        error: function(advisor, error){
+          callback.error(advisor, error);
+        }
+      });
+  	},
+  	error: function(error){
+  		callback.error(null, error);
+  	}
+  });
+};
+
+exports.destroy = function(req, callback){
+  var id = req.params.id;
+  var query = new Parse.Query(Advisor);
+  query.get(id, {
+    success: function(result){
+      result.destroy({
+        success: function(advisor){
+          callback.success(advisor);
+        },
+        error: function(advisor, error){
+          callback.error(advisor, error);
+        }
+      });
+    },
+    error: function(error){
+      callback.error(null, error);
+    }
+  });
+};

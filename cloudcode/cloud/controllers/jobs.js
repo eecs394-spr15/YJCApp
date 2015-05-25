@@ -81,7 +81,7 @@ module.exports = function(app){
 
     var method = req.body._method;
     if (method == 'PUT') {
-      // call edit function in model
+      // call update function in model
       Job.update(req, {
         success: function(job){
           //res.redirect('/job/'+req.params.id);
