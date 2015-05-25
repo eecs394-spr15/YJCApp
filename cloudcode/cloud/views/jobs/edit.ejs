@@ -1,6 +1,8 @@
 <html>
   <head>
     <% include ../shared/_header %>
+     <script src="/scripts/check_submit.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/createjob.css">
   </head>
   <body>
 
@@ -14,105 +16,91 @@
           <h3 class="panel-title">Update Job Opening</h3>
         </div>
         <div class="panel-body">
-          <form method="POST" action="/job/<%= job.id %>">
+          <form method="POST" name="createform" action="/job/<%= job.id %>" onSubmit="return TestDataCheck()">
             <div class="form-group">
               <div class="col-xs-12">
 
                 <div class="row">
                   <div class="col-md-4">
                     <input type="hidden" name="_method" id="requestType" value="PUT" />
+                    <font size="1" style="color:red; position:absolute; top: -20px;">* is required</font>
 
-                    <label for="ex1">Job Title:<span style="color:red;"></span></label>
+                    <label for="ex1">Employer Industry Types:<span style="color:red;"> *</span></label>
+                    <select class="form-control" name="employerIndustryTypes" id="employerIndustryTypes">
+                      <option>Automotive</option>
+                      <option>Clerical/administrative</option>
+                      <option>Healthcare</option>
+                       <option>Child Care and Counseling</option>
+                       <option>Food Service</option>
+                       <option>Healthcare</opton>
+                       <option>Hospitality</option>
+                       <option>IT/Technical</option>
+                       <option>Retail</option>
+                         <option>Security</option>
+                         <option>Odd-Job/Summer Job</option>
+                    </select>
+                     <script>
+                      $(function(){
+                        var employerIndustryTypes = <%- JSON.stringify(job.get('employerIndustryTypes')) %>;
+                        $.each($('#employerIndustryTypes').children('option'), function(index, option){
+                          if (option.text == employerIndustryTypes)
+                            option.selected = true;
+                        });
+                      });
+                    </script>
+                    <br>
+                           
+                    <label for="ex1">Company:<span style="color:red;"> *</span></label>
+                    <input class="form-control" name="company" id="company" type="text" value="<%= job.get('company') %>">
+                    <br>
+
+                    <label for="ex1">City:<span style="color:red;"> *</span></label>
+                    <input class="form-control" name="city" id="city" type="text" value="<%= job.get('city') %>">
+                    <br>
+
+                    <label for="ex1">Address:<span style="color:red;"> *</span></label>
+                    <input class="form-control" name="address" id="address" type="text" value="<%= job.get('address') %>">
+                    <br>
+
+                   
+
+                    <label for="ex1">Zip:<span style="color:red;"> *</span></label>
+                    <input class="form-control" name="zipcode" id="zipcode" type="text" value="<%= job.get('zipcode') %>">
+                    <br>
+
+                    <label for="ex1">Contact Name:<span style="color:red;"> *</span></label>
+                    <input class="form-control" id="contact" name="contact" type="text" value="<%= job.get('contact') %>">
+                    <br>
+
+                    <label for="ex1">Contact Email:<span style="color:red;"> *</span></label>
+                    <input class="form-control" id="email" name="email" type="text" value="<%= job.get('email') %>">
+                    <br>
+
+                    <label for="ex1">Contact Phone:<span style="color:red;"></span></label>
+                    <input class="form-control" id="phone" name="phone" type="text" value="<%= job.get('phone') %>">
+                    <br>
+
+                    <label for="ex1">Hiring Process:<span style="color:red;"></span></label>
+                    <input class="form-control" id="hiringProcess" name="hiringProcess" type="text" value="<%= job.get('phone') %>">
+                    <br>
+
+
+
+
+                  </div>
+                  <div class="col-md-4"> 
+
+                    <label for="ex1">Job Title:<span style="color:red;"> *</span></label>
 
                     <input class="form-control" name="jobTitle" id="jobTitle" type="text" value="<%= job.get('jobTitle') %>">
                     <br>
 
-                    <label for="ex1">Number of Openings:<span style="color:red;"></span></label>
-                    <input class="form-control" name="numOpenings" id="numOpenings" type="text" value="<%= job.get('numOpenings') %>">
-                    <br>
-                    
-                    <label for="ex1">Company:<span style="color:red;"></span></label>
-                    <input class="form-control" name="company" id="company" type="text" value="<%= job.get('company') %>">
+
+                    <label for="comment">Job Description:<span style="color:red;"></span></label>
+                    <textarea class="form-control" rows="5" id="jobDescription" name="jobDescription"><%= job.get('jobDescription') %></textarea>
                     <br>
 
-                    <label for="ex1">Address:<span style="color:red;"></span></label>
-                    <input class="form-control" name="address" id="address" type="text" value="<%= job.get('address') %>">
-                    <br>
-
-                    <label for="ex1">City:<span style="color:red;"></span></label>
-                    <input class="form-control" name="city" id="city" type="text" value="<%= job.get('city') %>">
-                    <br>
-
-                    <label for="ex1">Zip:<span style="color:red;"></span></label>
-                    <input class="form-control" name="zipcode" id="zipcode" type="text" value="<%= job.get('zipcode') %>">
-                    <br>
-                  </div>
-                  <div class="col-md-4"> 
-
-                    <label for="ex1">Education Requirement:<span style="color:red;"></span></label>
-                    <select class="form-control" name="educationRequirement" id="educationRequirement">
-                      <option>High School</option>
-                      <option>Associate</option>
-                      <option>Bachelor's</option>
-                      <option>Graduate</option>
-                    </select>
-                    <script>
-                      $(function(){
-                        var educationRequirement = <%- JSON.stringify(job.get('educationRequirement')) %>;
-                        $.each($('#educationRequirement').children('option'), function(index, option){
-                          if (option.text == educationRequirement)
-                            option.selected = true;
-                        });
-                      });
-                    </script>
-                    <br>
-                    
-
-                    <label for="ex1">Work Schedule:<span style="color:red;"></span></label>
-                    <input class="form-control" name="workSchedule" id="workSchedule" type="text" value="<%= job.get('workSchedule') %>">
-                    <br>
-
-                    
-                    <label for="ex1">Start Date:<span style="color:red;"></span></label>
-                    <input id="datepicker" class="form-control" name="startDate" id="startDate" type="text">
-                    <script>
-                      $(function() {
-                        var startDate =  new Date(<%- JSON.stringify(job.get('startDate').toDateString()) %>);
-                        $("#datepicker").datepicker();
-                        $("#datepicker").datepicker('setDate', startDate);
-                      });
-                    </script>
-                    <br>
-
-                    <label for="ex1">Hours/Week:<span style="color:red;"></span></label>
-                    <input class="form-control" name="hoursPerWeek" id="hoursPerWeek" type="text" value="<%= job.get('hoursPerWeek') %>">
-                    <br>
-
-                    <label for="ex1">Salary:<span style="color:red;"></span></label>
-                    <select class="form-control" name="salary" id="salary">
-                      <option>$8.00/hr - $10.00/hr</option>
-                      <option>$10.00/hr - $12.00/hr</option>
-                      <option>$12.00/hr - $14.00/hr</option>
-                      <option>$14.00/hr - $16.00/hr</option>
-                      <option>$16.00/hr - $18.00/hr</option>
-                      <option>$18.00/hr - $20.00/hr</option>
-                      <option>$20.00/hr - $22.00/hr</option>
-                      <option>$22.00/hr - $24.00/hr</option>
-                      <option>$24.00/hr - $26.00/hr</option>
-                    </select>
-                    <script>
-                      $(function(){
-                        var salary = <%- JSON.stringify(job.get('salary')) %>;
-                        $.each($('#salary').children('option'), function(index, option){
-                          if (option.text == salary)
-                            option.selected = true;
-                        });
-                      });
-                    </script>
-                    <br>
-               
-                
-                    <label for="ex1">Full/Part Time:<span style="color:red;"></span></label>
+                    <label for="ex1">Full/Part Time:<span style="color:red;"> *</span></label>
                      <select class="form-control" name="fullTime" id="fullTime">
                        <option>Full Time</option>
                        <option>Part Time</option>
@@ -127,27 +115,147 @@
                       });
                     </script>
                     <br>
+
+
+                    <label for="ex1">Min. Age:<span style="color:red;"> *</span></label>
+                    <select class="form-control" name="minAge" id="minAge">
+                     <option>16</option>
+                     <option>17</option>
+                     <option>18</option>
+                     <option>19</option>
+                     <option>20</option>
+                     <option>21</option>
+                     <option>22</option>
+                     <option>23</option>
+                     <option>24</option>
+                     <option>25</option>
+                    </select>
+                    <script>
+                      $(function(){
+                        var minAge= <%- JSON.stringify(job.get('minAge')) %>;
+                        $.each($('#minAge').children('option'), function(index, option){
+                          if (option.text == minAge)
+                            option.selected = true;
+                        });
+                      });
+                    </script>
+                    <br>
+
+
+                    <label for="ex1">Number of Openings:<span style="color:red;"></span></label>
+                    <input class="form-control" name="numOpenings" id="numOpenings" type="text" value="<%= job.get('numOpenings') %>">
+                    <br>
+
+                    <label for="ex1">Hours/Week:<span style="color:red;"></span></label>
+                    <input class="form-control" name="hoursPerWeek" id="hoursPerWeek" type="text" value="<%= job.get('hoursPerWeek') %>">
+                    <br>
+
+                   <label for="ex1">Salary:<span style="color:red;"></span></label>
+                    <input class="form-control" name="salary" id="salary" type="text" value="<%= job.get('salary') %>" >
+                    <br>
+                    
+
+                    <label for="ex1">Drug Test:<span style="color:red;"></span></label>
+                 
+                     <select class="form-control" name="drugTest" id="drugTest">
+                      <option>Yes</option>
+                      <option>No</option>
+            
+                    </select>
+                    <script>
+                      $(function(){
+                        var drugTest= <%- JSON.stringify(job.get('drugTest')) %>;
+                        $.each($('#drugTest').children('option'), function(index, option){
+                          if (option.text == drugTest)
+                            option.selected = true;
+                        });
+                      });
+                    </script>
+                    <br>
+      
+                  
+
+                 
+                
+             
                     
                   </div>
                   
                   <div class="col-md-4"> 
-                    <label for="ex1">Contact:<span style="color:red;"></span></label>
-                    <input class="form-control" id="contact" name="contact" type="text" value="<%= job.get('contact') %>">
+                    <label for="ex1">Background Check:<span style="color:red;"></span></label>
+                    <select class="form-control" name="backgroundCheck" id="backgroundCheck">
+                      <option>Yes</option>
+                      <option>No</option>
+            
+                    </select>
+                     <script>
+                      $(function(){
+                        var backgroundCheck = <%- JSON.stringify(job.get('backgroundCheck')) %>;
+                        $.each($('#backgroundCheck').children('option'), function(index, option){
+                          if (option.text == backgroundCheck)
+                            option.selected = true;
+                        });
+                      });
+                    </script>
+
                     <br>
 
-                    <label for="comment">Job Description:<span style="color:red;"></span></label>
-                    <textarea class="form-control" rows="5" id="jobDescription" name="jobDescription"><%= job.get('jobDescription') %></textarea>
+                     <label for="ex1">Education Requirement:<span style="color:red;"></span></label>
+                    <select class="form-control" name="educationRequirement" id="educationRequirement">
+                     <option>GED</option>
+                      <option>HS</option>
+                      <option>Associate</option>
+                      <option>Bachelor's</option>
+                      <option>Graduate</option>
+                    </select>
+                    <script>
+                      $(function(){
+                        var educationRequirement = <%- JSON.stringify(job.get('educationRequirement')) %>;
+                        $.each($('#educationRequirement').children('option'), function(index, option){
+                          if (option.text == educationRequirement)
+                            option.selected = true;
+                        });
+                      });
+                    </script>
                     <br>
+
+                  <label for="qualification">Qualifications:<span style="color:red;"></span></label>
+                  <textarea class="form-control" rows="5" id="qualifications" name="qualifications" value="<%= job.get('qualifications') %>"></textarea>
+                    <br>
+
+                     <label for="ex1">Driver's License:<span style="color:red;"></span></label>
+                    <select class="form-control" name="driver" id="driver">
+                      <option>Yes</option>
+                      <option>No</option>
+            
+                    </select>
+                    <script>
+                      $(function(){
+                        var driver = <%- JSON.stringify(job.get('driver')) %>;
+                        $.each($('#driver').children('option'), function(index, option){
+                          if (option.text == driver)
+                            option.selected = true;
+                        });
+                      });
+                    </script>
+                    <br>
+                    
+                    
+
 
                     <label for="comment">Comment:<span style="color:red;"></span></label>
                     <textarea class="form-control" rows="5" id="comment" name="comment"><%= job.get('comment') %></textarea>
                     <br>
-                    <br>
-
+                    <div style="padding-left: 100px;position: absolute; top: 570px; color:red;">
+                     <font size="1" id="check">
+                     </font>
+                  </div>
                   
-                    <div style="margin-left: auto; margin-right: auto;">
+                    <div style="margin-left: 200px; position: absolute; top: 570px; right:10px">
                       <button type="submit" class="btn btn-primary" onclick="$('#requestType').attr('value','PUT')">Update Job</button>
-                      <button type="submit" class="btn btn-primary" onclick="$('#requestType').attr('value','DELETE')">Delete Job</button>
+                      <br>
+                      <br>
+                      <button type="submit" class="btn btn-danger" onclick="$('#requestType').attr('value','DELETE')">Delete Job</button>
                     </div>
                   </div>
 

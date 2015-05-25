@@ -12,7 +12,8 @@
             </label>
             
         </label>
-    </div> 
+    </div>
+   
 
     <div class="repeatcard" ng-repeat = "job in jobs | filter: filterFunction">
     <div class="card" ng-class-odd="'odd'" ng-class-even="'even'" >
@@ -22,6 +23,7 @@
                 <p ng-if="!((job.get('salary') == undefined) || (job.get('salary') == null) || (job.get('salary') == ''))">Salary: {{job.get('salary')}}</p>
                 <p ng-if="!((job.get('city') == undefined) || (job.get('city') == null) || (job.get('city') == ''))">Location: {{job.get('city')}}</p>
                 <p ng-if="!((job.get('fullTime') == undefined) || (job.get('fullTime') == null) || (job.get('fullTime') == ''))">Type: {{job.get('fullTime')}}</p>
+
         </super-navigate>
         <button id="contact-btn" class="item item-icon-left assertive" ng-click="showInterest(job)" ng-class-odd="'odd'" ng-class-even="'even'">
             <i class="icon super-email"></i>
