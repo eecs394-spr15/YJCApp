@@ -2,7 +2,8 @@ function TestDataCheck()
     { 
       
       var company= document.createform.company.value;
-      var startdate= document.createform.startDate.value;
+      var numOpenings= document.createform.numOpenings.value;
+      //var startdate= document.createform.startDate.value;
       var city= document.createform.city.value;
       var address= document.createform.address.value;
       var zip= document.createform.zipcode.value;
@@ -10,7 +11,7 @@ function TestDataCheck()
       var email= document.createform.email.value;
       var jobTitle= document.createform.jobTitle.value;
       var warning="";
-      $('#startDate').removeClass('error-input');
+     // $('#startDate').removeClass('error-input');
       $('#company').removeClass('error-input');
       $('#city').removeClass('error-input');
       $('#address').removeClass('error-input');
@@ -18,14 +19,16 @@ function TestDataCheck()
        $('#contact').removeClass('error-input');
        $('#email').removeClass('error-input');
        $('#jobTitle').removeClass('error-input');
+       $('#numOpenings').removeClass('error-input');
       var returnval= true;
-      if (startdate=="") 
-      {
+       //alert("dsdsds");
+      // if (startdate=="") 
+      // {
         
-        returnval = false;
-        $('#startDate').addClass('error-input');
-        warning=warning.concat("Date is required!<br>");
-      }
+      //   returnval = false;
+      //   $('#startDate').addClass('error-input');
+      //   warning=warning.concat("Date is required!<br>");
+      // }
       
 
       if (company=="") 
@@ -52,6 +55,16 @@ function TestDataCheck()
         $('#zipcode').addClass('error-input');
         warning+="Zipcode is required!<br>";
       }
+      else if (isNaN(zip))
+      {
+      
+        returnval = false;
+        $('#zipcode').addClass('error-input');
+        warning+="Invalid Zipcode!<br>";
+
+      }
+    
+
       if (contactname=="") 
       {
         returnval = false;
@@ -69,6 +82,14 @@ function TestDataCheck()
         returnval = false;
         $('#jobTitle').addClass('error-input');
         warning+="Job Title is required!<br>";
+      }
+      if(isNaN(numOpenings))
+      {
+      
+        returnval = false;
+        $('#numOpenings').addClass('error-input');
+        warning+="Invalid Num of Opening !<br>";
+
       }
 
       if (returnval==true)

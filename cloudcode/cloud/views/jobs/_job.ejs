@@ -1,19 +1,36 @@
-<tr>  
+ <link rel="stylesheet" href="/css/table.css">
+
+<tr class="new">  
   <td>
   <%- "<input type=\"checkbox\" name=\"" + job.id + "\" value=\"" + job.id + "\">"
   %>
   </td>
+  <td><%= job.createdAt.getMonth() + 1 + "/" + job.createdAt.getDate() + "/" + job.createdAt.getFullYear() %></td>
+  <td><%= job.get('EmployerIndustryTypes') %></td>
   <td><%= job.get('jobTitle') %></td>
-  <td><%= job.createdAt.getMonth() + 1 + "/" + job.createdAt.getDate() + "/" + job.createdAt.getFullYear() %></td>  
   <td><%= job.get('company') %></td>  
   <td><%= job.get('city') %></td>  
-  <td><%= job.get('educationRequirement') %></td>  
-  <td><%= job.get('salary') %></td>  
+  <td><%= job.get('zipcode') %></td> 
+  <td><%= job.get('address') %></td>  
+  
+  <td><%= job.get('minAge') %></td> 
+  <td><%= job.get('salary') %></td> 
+  <td><%= job.get('fullTime') %></td>
   <td><%= job.get('numOpenings') %></td>  
   <td><%= job.get('hoursPerWeek') %></td>  
-  <td><%= job.get('fullTime') %></td>
-  <td><%= job.get('startDate').getMonth() + 1 + "/" + job.get('startDate').getDate() + "/" + job.get('startDate').getFullYear() %></td>  
+  
+  <td><%= job.get('educationRequirement') %></td>  
+  <td><%= job.get('qualifications') %></td>  
+  <td><%= job.get('driver') %></td>
+  <td><%= job.get('backgroundCheck') %></td>
+  <td><%= job.get('drugTest') %></td>
+  <td><%= job.get('comment') %></td>
+  
+  
+  <td><%= job.get('hiringProcess') %></td>  
   <td><%= job.get('contact') %></td>
+  <td><%= job.get('email') %></td>
+  <td><%= job.get('phone') %></td>
   <td>
   	<a href="/job/<%= job.id %>" >More</a>
   </td>

@@ -3,11 +3,20 @@ angular
   .controller('IndexController', function($scope, $http, supersonic) {
 
     // Controller functionality here
-    
-  supersonic.ui.views.current.whenVisible( function () {
 
-    //Delete this after
+   
+
+  supersonic.ui.views.current.whenVisible( function () {
+    //delete this
     //Parse.User.logIn("test","test");
+
+     $scope.options = [
+      'All Jobs',
+      'My Jobs'
+    ];
+
+    $scope.filter = {};
+    $scope.filter.FilterType = $scope.options[0];
 
     postcodesResult = [];
     var postcodeResultMap = {};
