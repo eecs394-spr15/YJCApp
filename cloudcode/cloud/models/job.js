@@ -29,14 +29,14 @@ exports.get = function(id, callback){
 
 // get job with matching id along with client interests
 exports.getFull = function(id, callback){
-  var result = {}
+  var result = {};
   var query = new Parse.Query(Job);
   query.get(id, {
     success: function(jobResult){
       result.job = jobResult;
       Parse.Cloud.run('getInterestedClients', { id: jobResult.id }, {
         success: function(clientResults) {
-          result.clients = clientResults
+          result.clients = clientResults;
           callback.success(result);
         },
         error: function(error) {
@@ -151,6 +151,7 @@ exports.create = function(req, callback){
   };
   job.save(null, {
     success: function(job){
+      sendPushandTxt(job, false);
       callback.success(job);
     },
     error: function(job, error){

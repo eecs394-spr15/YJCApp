@@ -50,30 +50,52 @@ angular
 
     if (numErrors === 0)
     {
-      var user = new Parse.User();
-      user.set("username", $scope.newUser.username);
-      user.set("password", $scope.newUser.password);
-      user.set("email", $scope.newUser.email);
+
+      var pushNotification;
+      
+      pushNotification = window.plugins.pushNotification;
+      
+      pushNotification.register(
+          registrationHandler,
+          errorHandler, {
+              //android options
+              "senderID":"146165770764",
+              });
+
+      // the result contains any error description text returned from the plugin call
+      function errorHandler (error) {
+          //supersonic.ui.dialog.alert('error = ' + error);
+      }
+
+      function registrationHandler (deviceToken) {
+          var user = new Parse.User();
+          user.set("username", $scope.newUser.username);
+          user.set("password", $scope.newUser.password);
+          user.set("email", $scope.newUser.email);
+
+          var view = new supersonic.ui.View("Account#index");
 
 
-      var view = new supersonic.ui.View("Account#index");
+          user.signUp(null, {
+            success: function(user){
+              $scope.currentUser = user;
+              //username = $('#signup-username').val();
+              //username = user;
+              supersonic.ui.dialog.alert("You have successfully signed up!");
+              supersonic.ui.layers.push(view);
+            },
+            error: function(user, error){
+              supersonic.ui.dialog.alert("You have not succesfully signed up. " + error.message);
+            }
+          });
 
+          // save push notification device id
+          user.addUnique("registrationId", deviceToken);
+          user.save();
 
-      user.signUp(null, {
-        success: function(user){
-          $scope.currentUser = user;
-          //username = $('#signup-username').val();
-          //username = user;
-          supersonic.ui.dialog.alert("You have successfully signed up!");
-          supersonic.ui.layers.push(view);
-        },
-        error: function(user, error){
-          supersonic.ui.dialog.alert("You have not succesfully signed up. " + error.message);
-        }
-      });
-
-      $scope.signedUp = true;
-      $scope.loggedIn = true;
+          $scope.signedUp = true;
+          $scope.loggedIn = true;
+      }
     }
   };
 
@@ -100,11 +122,31 @@ angular
     {
       var view = new supersonic.ui.View("Account#profile");
 
+
+
       Parse.User.logIn($scope.existingUser.username, $scope.existingUser.password, {
         success: function(user){
-          //username = $('#login-username').val();
-          //username = user;
-          supersonic.ui.layers.push(view);
+          var pushNotification;
+          
+          pushNotification = window.plugins.pushNotification;
+          
+          pushNotification.register(
+              registrationHandler,
+              errorHandler, {
+                  //android options
+                  "senderID":"146165770764",
+                  });
+
+          // the result contains any error description text returned from the plugin call
+          function errorHandler (error) {
+              //supersonic.ui.dialog.alert('error = ' + error);
+          }
+
+          function registrationHandler (deviceToken) {
+            user.addUnique("registrationId", deviceToken);
+            user.save();   
+            supersonic.ui.layers.push(view);
+          }
         },
         error: function(user, error) {
           supersonic.ui.dialog.alert("Failed to login! " + error.message);
