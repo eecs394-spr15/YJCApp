@@ -6,8 +6,18 @@ table.tablesorter thead {
 th.headerSortUp { 
   background-image: url(/imgs/small_asc.gif); 
 } 
+/*tr:hover{
+background-color:blue
+}
+*/
+/*td:hover{
+background-color:blue
+}
+*/
 
-
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color:#FFEECA;
+}
 th.headerSortDown { 
   background-image: url(/imgs/small_desc.gif); 
 } 
@@ -22,7 +32,16 @@ th{
 
 .table th {
   width: 300px;
+  font-size:10pt;
+  white-space: nowrap;
 }
+
+.table td{
+  width: 300px;
+  font-size:10pt;
+  word-wrap: break-word;
+}
+
 
 table a {
   cursor: pointer;
