@@ -13,7 +13,16 @@
             
         </label>
     </div>
-
+    <label class="item item-input item-select">
+    <div class="input-label">
+      Lightsaber
+    </div>
+    <select>
+      <option ng-click = "interested()">Blue</option>
+      <option selected>Green</option>
+      <option>Red</option>
+    </select>
+  </label>
     <div class="card" ng-repeat = "job in jobs | filter: filterFunction">
         <super-navigate class="item" location="home#show" data-params-id="{{ job.id }}">  
                 <h2>{{job.get('jobTitle')}}</h2>
