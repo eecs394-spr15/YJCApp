@@ -16,6 +16,12 @@ module.exports =
       location: "Account#login" # Supersonic module#view type navigation
     }
 
+    {
+      title: "Help"
+      id: "help"
+      location: "Account#help"
+    }
+
     
   ]
 

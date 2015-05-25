@@ -80,6 +80,7 @@ angular
 
 
   $scope.logIn = function() {
+    alert("hello");
 
     var numErrors = 0;
 
@@ -96,8 +97,9 @@ angular
       numErrors++;
       $('#login-password-lbl').addClass('error-input');
     }
-    if (numErrors === 0)
+    if (numErrors == 0)
     {
+      alert("hi");
       var view = new supersonic.ui.View("Account#profile");
 
       Parse.User.logIn($scope.existingUser.username, $scope.existingUser.password, {

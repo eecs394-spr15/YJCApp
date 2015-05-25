@@ -7,7 +7,7 @@ angular.module('common', [
 
     //username = null;
 
-    var pushNotification;
+    /*var pushNotification;
     document.addEventListener("deviceready", function() {
       pushNotification = window.plugins.pushNotification;
       
@@ -18,7 +18,7 @@ angular.module('common', [
       pushNotification.onMessageInBackground(
           messageInBackgroundHandler,
           errorHandler);
-    });
+    });*/
     // the result contains any error description text returned from the plugin call
     function errorHandler (error) {
         //supersonic.ui.dialog.alert('error = ' + error);
