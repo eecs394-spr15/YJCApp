@@ -15,7 +15,7 @@ angular
 
   supersonic.ui.views.current.whenHidden( function () {
     $scope.currentUser = Parse.User.current();
-    location.reload();
+    //location.reload();
   });
 
   document.addEventListener("visibilitychange", onVisibilityChange, false);
@@ -80,6 +80,7 @@ angular
 
 
   $scope.logIn = function() {
+    
 
     var numErrors = 0;
 

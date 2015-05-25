@@ -102,7 +102,7 @@ exports.create = function(req, callback){
   // Set metadata fields
   job.set('EmployerIndustryTypes', req.body.employerIndustryTypes);
   //I think it is the post date
-  job.set('startDate', new Date(req.body.startDate));
+  //job.set('startDate', new Date(req.body.startDate));
   job.set('company', req.body.company);
   job.set('address', String(req.body.address));
   job.set('city', String(req.body.city));
@@ -136,7 +136,7 @@ exports.create = function(req, callback){
  
   
   
-  //job.set('qualifications', req.body.qualifications);
+  job.set('qualifications', req.body.qualifications);
   
   
   
@@ -164,13 +164,13 @@ exports.update = function(req, callback){
   var query = new Parse.Query(Job);
   query.get(id, {
     success: function(result){
-      result.set('EmployerIndustryTypes', req.body.industryType);
-      result.set('startDate', new Date(req.body.startDate));
+      result.set('EmployerIndustryTypes', req.body.employerIndustryTypes);
+      //result.set('startDate', new Date(req.body.startDate));
       result.set('company', req.body.company);
-      result.set('salary', req.body.salary);
       result.set('address', String(req.body.address));
       result.set('city', String(req.body.city));
       result.set('zipcode', parseInt(req.body.zipcode) || 0);
+      
       result.set('contact', req.body.contact); 
       result.set('email', req.body.email); 
       result.set('phone', req.body.phone); 
@@ -178,10 +178,11 @@ exports.update = function(req, callback){
 
       result.set('jobTitle', req.body.jobTitle);
       result.set('jobDescription', req.body.jobDescription);
-      result.set('hoursPerWeek', parseFloat(req.body.hoursPerWeek) || 0.0);
       result.set('fullTime', req.body.fullTime);
       result.set('minAge', parseInt(req.body.minAge));
       result.set('numOpenings', parseInt(req.body.numOpenings) || 0);
+      result.set('hoursPerWeek', parseFloat(req.body.hoursPerWeek) || 0.0);
+      result.set('salary', req.body.salary);
       
       result.set('backgroundCheck', req.body.backgroundCheck);
       result.set('drugTest', req.body.drugTest);
@@ -192,7 +193,7 @@ exports.update = function(req, callback){
       //result.set('ged', req.body.ged);
       result.set('educationRequirement', String(req.body.educationRequirement));
       result.set('driver', req.body.driver);
-      //result.set('qualifications', req.body.qualifications);
+      result.set('qualifications', req.body.qualifications);
     
       result.set('comment', req.body.comment);
       result.save(null, {

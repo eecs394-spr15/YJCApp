@@ -19,3 +19,21 @@ navigation-bar button
   width: 100%;
   text-align: left;
 }
+
+.filter-type {
+	position: relative;
+	left: 20px;
+	padding-left: 30px;
+	padding-right: 10px;
+	background: transparent;
+	color:#348F92;
+
+}
+
+.filter-type select {
+  direction: ltr;
+  width: 100%;
+  max-width: 100%;
+  background: transparent;
+
+}

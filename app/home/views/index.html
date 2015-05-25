@@ -7,7 +7,11 @@
                 Youth Job Center
             </div>
 
-            
+            <label class="item item-select filter-type">
+                <select ng-change="interested()"ng-model="filter['FilterType']" ng-options="opt as opt for opt in options">
+                </select>
+            </label>
+
             
         </label>
     </div>
