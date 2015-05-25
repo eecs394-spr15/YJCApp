@@ -7,16 +7,14 @@ angular
    
 
   supersonic.ui.views.current.whenVisible( function () {
-    //delete this
-    //Parse.User.logIn("test","test");
+   // delete this
+    Parse.User.logIn("test","test");
 
      $scope.options = [
       'All Jobs',
-      'My Jobs'
+      'Interested Jobs'
     ];
 
-    $scope.filter = {};
-    $scope.filter.FilterType = $scope.options[0];
 
     postcodesResult = [];
     var postcodeResultMap = {};
@@ -90,52 +88,63 @@ angular
   });
 
 
-  $scope.interested = function(){
-    $scope.filterFunction = function(element){
-      var result;
-      var now = element.get("zipcode").toString();
+  $scope.interested = function(filter){
+    steroids.logger.log(filter);
+    if(filter == 'Interested Jobs'){
+      steroids.logger.log("s");
+      $scope.filterFunction = function(element){
+        var result;
+        var now = element.get("zipcode").toString();
 
-      if(postcodesResult.indexOf(now) == -1){
-        result = false;
-      } else {
-        result = true;
-      }
-      if(!result){
-        return false;
-      }
-      var eduRequirement = element.get("educationRequirement").toString();
-      if(userEducations.indexOf(eduRequirement) == -1){
-        result = false;
-      } else {
-        result = true;
-      }
-      if(!result){
-        return false;
-      }
-      var industrialType = element.get("EmployerIndustryTypes").toString();
-      if(userInterests.indexOf("All") != -1){
-        result = true;
-      } else if(userInterests.indexOf(industrialType) == -1){
-        result = false;
-      } else {
-        result = true;
-      }
-      if(!result){
-        return false;
-      }
-      var minAge = element.get("minAge");
-      if(userAge < minAge){
-        result = false;
-      } else {
-        result = true;
-      }
-      if(!result){
-        return false;
-      }
+        if(postcodesResult.indexOf(now) == -1){
+          result = false;
+        } else {
+          result = true;
+        }
+        if(!result){
+          return false;
+        }
+        var eduRequirement = element.get("educationRequirement").toString();
+        if(userEducations.indexOf(eduRequirement) == -1){
+          result = false;
+        } else {
+          result = true;
+        }
+        if(!result){
+          return false;
+        }
+        var industrialType = element.get("EmployerIndustryTypes").toString();
+        if(userInterests.indexOf("All") != -1){
+          result = true;
+        } else if(userInterests.indexOf(industrialType) == -1){
+          result = false;
+        } else {
+          result = true;
+        }
+        if(!result){
+          return false;
+        }
+        var minAge = element.get("minAge");
+        if(userAge < minAge){
+          result = false;
+        } else {
+          result = true;
+        }
+        if(!result){
+          return false;
+        }
+        
+        return true;
       
-      return true;
-    
+      };
+    }
+    else{
+      $scope.filterFunction = function(element){
+        return true;
+      };
     };
+
+
     return;
   };
 

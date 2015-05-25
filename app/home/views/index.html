@@ -8,7 +8,7 @@
             </div>
 
             <label class="item item-select filter-type">
-                <select ng-change="interested()"ng-model="filter['FilterType']" ng-options="opt as opt for opt in options">
+                <select ng-change="interested(filter)"ng-model="filter" ng-options="opt as opt for opt in options">
                 </select>
             </label>
 
