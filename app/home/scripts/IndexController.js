@@ -8,7 +8,7 @@ angular
 
   supersonic.ui.views.current.whenVisible( function () {
    // delete this
-    Parse.User.logIn("test","test");
+    
 
      $scope.options = [
       'All Jobs',
