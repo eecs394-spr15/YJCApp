@@ -10,7 +10,7 @@ angular
     var postcodeResultMap = {};
     var user = Parse.User.current();
     var userCountry = "US";
-    var userMaxRows = 10;
+    var userMaxRows = 500;
     var userPostcode;
     var userRadius;
     if (user !== null){
@@ -56,7 +56,7 @@ angular
         $scope.$apply();
       },
       error: function(error) {
-        alert("Error: " + error.code + " " + error.message);
+        //alert("Error: " + error.code + " " + error.message);
       }
     });
   });

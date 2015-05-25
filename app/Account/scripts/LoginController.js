@@ -157,8 +157,8 @@ angular
   };
 
   $scope.logOut = function() {
-    Parse.User.logOut();
-    $scope.currentUser = null;
-    $scope.loggedIn = false;
+      Parse.User.logOut();
+      $scope.currentUser = null;
+      $scope.loggedIn = false;
   };
 });
