@@ -1,6 +1,6 @@
 <div ng-controller="HelpController">
 
-  <div class="list" >
+  <div style="background-color:#9C9C9C">
     <label class="item item-input" id="yjcbar">
       <img id="yjclogo" src="/imags/yjclogo.jpg" onclick="location.reload()" width="50px"; height="40px"> <!-- Add the refresh function when click the WildCat-->
       <div style="margin-left:20px; color:#ffffff; font-weight:bold; font-size:120%">
@@ -8,8 +8,13 @@
       </div>
     </label>
   </div>
-  <div class="padding">
-      <center><button class="button-stable" ng-click="slideit()">Next Slide</button></center>
-  		<img src="/imags/Welcome.jpg" id="slide" width=300 height=400 />
+  <div class="padding" style="background-color: #9C9C9C;">
+    <div id="img-containter" style="position:relative; display: inline-block; text-align: center;">
+      <img height="30px" width="30px" src="/icons/left.svg"
+      style="position:relative; right:120px;"
+      ng-click="slideLeft()">
+      <img height="30px" width="30px" src="/icons/right.svg" style="position:relative; left: 120px;" ng-click="slideRight()">
+      <img src="/imags/Welcome.jpg" id="slide" width=300 height=420 />
+    </div>
   </div>
 </div>

@@ -20,7 +20,7 @@ angular.module('common', [
           errorHandler);
     });*/
     // the result contains any error description text returned from the plugin call
-    function errorHandler (error) {
+    /*function errorHandler (error) {
         //supersonic.ui.dialog.alert('error = ' + error);
     }
 
@@ -69,3 +69,4 @@ angular.module('common', [
         //handle the contents of the notification
         var message = notification.message || notification.alert;
     }
+    */
