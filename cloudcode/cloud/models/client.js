@@ -1,4 +1,5 @@
 var Client = Parse.Object.extend('User');
+var Advisor = Parse.Object.extend('Advisor');
 
 // get all clients
 exports.all = function(callback){
@@ -27,19 +28,22 @@ exports.get = function(id, callback){
   });
 };
 
-// get client with matching id along with jobs interested in
-exports.getFull = function(id, callback){
+// get client with matching id along with advisors
+exports.getWithAdvisors = function(id, callback){
   var result = {};
   var query = new Parse.Query(Client);
   query.get(id, {
     success: function(clientResult){
       result.client = clientResult;
-      Parse.Cloud.run('getClientJobInterests', { id: clientResult.id }, {
-        success: function(jobInterestResults) {
-          result.jobInterests = jobInterestResults;
+      result.advisorList = [];
+      query = new Parse.Query(Advisor);
+      query.find({
+        success: function(advisorResults){
+          for(var i = 0; i < advisorResults.length; i++)
+            result.advisorList.push(advisorResults[i].get('firstName') + ' ' + advisorResults[i].get('lastName'));
           callback.success(result);
         },
-        error: function(error) {
+        error: function(error){
           callback.error(error);
         }
       });
@@ -50,9 +54,48 @@ exports.getFull = function(id, callback){
   });
 };
 
+// get client with matching id along with jobs interested in
+exports.getFull = function(id, callback){
+  var result = {};
+  var query = new Parse.Query(Client);
+  query.get(id, {
+    success: function(clientResult){
+      result.client = clientResult;
+      query = new Parse.Query(Advisor);
+      query.equalTo('firstName', clientResult.get('advisorFirstName'));
+      query.equalTo('lastName', clientResult.get('advisorLastName'));
+      //query.equalTo('email', clientResult.get('advisorEmail'));
+      query.first({
+        success: function(advisorResult){
+          result.advisor = advisorResult;
+          Parse.Cloud.run('getClientJobInterests', { id: clientResult.id }, {
+            success: function(jobInterestResults) {
+              result.jobInterests = jobInterestResults;
+              callback.success(result);
+            },
+            error: function(error) {
+              callback.error(error);
+            }
+          });
+        },
+        error: function(error){
+          callback.error(error);
+        }
+      });
+    },
+    error: function(error){
+      callback.error(error);
+    }
+  });
+};
+
+/*
 // create new client
 exports.create = function(req, callback){
   var client = new Client();
+
+  if (req.body.password !== req.body.password2)
+    callback.error(null, { message: 'Passwords do not match.'});
 
   client.set('username', req.body.username);
   client.set('password', req.body.password);
@@ -76,15 +119,18 @@ exports.update = function(req, callback){
   var query = new Parse.Query(Client);
   query.get(id, {
     success: function(result){
-      result.set('username', req.body.username);
-      result.set('password', req.body.password);
       result.set('email', req.body.email);
       result.set('firstName', req.body.firstName);
       result.set('lastName', req.body.lastName);
       result.set('phoneNumber', req.body.phoneNumber);
       result.set('zipcode', req.body.zipcode);
-      result.set('jobRadius', req.body.jobRadius);
-      result.set('dateOfBirth', req.body.dateOfBirth);
+      result.set('jobRadius', parseInt(req.body.jobRadius));
+      result.set('dateOfBirth', new Date(req.body.dateOfBirth));
+
+      var criminalHistory = req.body.criminalHistory == 'y' ? true : false;
+      result.set('criminalHistory', criminalHistory);
+      //callback.success(null);
+      /*
       result.set('criminalHistory', req.body.criminalHistory);
 
       result.set('advisorFirstName', req.body.advisorFirstName);
@@ -96,6 +142,7 @@ exports.update = function(req, callback){
       result.set('education', req.body.education);
 
       result.set('enableSMS', req.body.enableSMS);
+      
 
       result.save(null, {
         success: function(client){
@@ -105,6 +152,7 @@ exports.update = function(req, callback){
           callback.error(client, error);
         }
       });
+      
     },
     error: function(error){
       callback.error(null, error);
@@ -131,3 +179,4 @@ exports.destroy = function(req, callback){
     }
   });
 };
+//*/

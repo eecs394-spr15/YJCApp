@@ -16,7 +16,7 @@
 
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Add New Client</h3>
+          <h3 class="panel-title">Create new client account</h3>
         </div>
         <div class="panel-body">
           <form method="POST" name="createform" action="/clients" onSubmit="return TestDataCheck()">
@@ -34,6 +34,10 @@
 
                     <label for="ex1">Password:<span style="color:red;"> *</span></label>
                     <input class="form-control" name="password" id="password" type="password" value="">
+                    <br>
+
+                    <label for="ex1">Re-enter password:<span style="color:red;"> *</span></label>
+                    <input class="form-control" name="password2" id="password2" type="password" value="">
                     <br>
 
                     <label for="ex1">E-mail:<span style="color:red;"> *</span></label>

@@ -12,12 +12,12 @@
     <a href="/client/<%= client.id %>" >More</a>
   </td>
   <td>
-    <a href="/client/<%= client.id %>/edit" >Edit</a>
+    <a href="/client/<%= client.id %>/edit" style="pointer-events:none;">Edit</a>
   </td>
   <td>
     <form id="delete<%= client.id %>" method="POST" action="/client/<%= client.id %>" onsubmit="return confirm('Are you sure you want to remove this client?')">
       <input type="hidden" name="_method" id="requestType" value="DELETE" />
-      <a onclick="document.getElementById('delete<%= client.id %>').submit();">Remove</a>
+      <a onclick="document.getElementById('delete<%= client.id %>').submit();" style="pointer-events:none;">Remove</a>
     </form>
   </td>
 </tr>

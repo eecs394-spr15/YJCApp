@@ -18,6 +18,7 @@ module.exports = function(app){
     });
   });
 
+  /*
   app.get('/clients/new', function(req, res){
     // redirect to clients if not admin
     if (!req.session.user['admin'])
@@ -36,13 +37,14 @@ module.exports = function(app){
     // create new client then redirect to edit client information
     Client.create(req, {
       success: function(client) {
-        res.redirect('/clients/' + client.id + '/edit');
+        res.redirect('/client/' + client.id + '/edit');
       },
       error: function(client, error) {
         res.send('Error saving client!' + error.message);
       }
     });
   });
+  //*/
 
   app.get('/client/:id', function(req, res){
     // render page to show client listing with more details
@@ -51,7 +53,8 @@ module.exports = function(app){
         res.render('clients/show', {
           user: req.session.user,
           client: result.client,
-          ClientInterests: result.jobInterests
+          clientInterests: result.jobInterests,
+          advisor: result.advisor
         });
       },
       error: function(error){
@@ -60,13 +63,15 @@ module.exports = function(app){
     });
   });
 
+  /*
   app.get('/client/:id/edit', function(req, res){
-    Client.get(req.params.id, {
+    Client.getWithAdvisors(req.params.id, {
       success: function(result){
         // render form for editing client listing
         res.render('clients/edit', {
           user: req.session.user,
-          client: result
+          client: result.client,
+          advisors: result.advisorList
         });
       },
       error: function(error){
@@ -82,11 +87,10 @@ module.exports = function(app){
       // call update function in model
       Client.update(req, {
         success: function(client){
-          //res.redirect('/client/'+req.params.id);
           res.redirect('/clients');
         },
         error: function(client, error){
-          // send error message(s)
+          res.send('Error updating client!' + error.message);
         }
       });
     } else if (method == 'DELETE') {
@@ -96,11 +100,12 @@ module.exports = function(app){
           res.redirect('/clients');
         },
         error: function(client, error){
-          // send error message(s)
+          res.send('Error deleting client!' + error.message);
         }
       });
     } else {
       res.redirect('/');
     }
   });
+  //*/
 };
