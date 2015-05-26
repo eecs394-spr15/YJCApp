@@ -42,6 +42,8 @@ angular
     $scope.$apply();
   }
 
+    $scope.globaluser = $scope.globaluser || Parse.User.current();
+    
      $scope.options = [
       'All Jobs',
       'Match Jobs',
