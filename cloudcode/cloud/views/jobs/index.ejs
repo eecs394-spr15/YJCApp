@@ -48,7 +48,7 @@
       <br>
       <br>
       <table id="jobTable"  class="table  table-bordered tablesorter table-striped table-hover">
-        <thead>
+        <thead style="display:block; margin:0px; cell-spacing:0px; left:0px;">
         <tr>
           <th style="min-width:50px"></th>
           <th style="min-width:52px;max-width:52px"></th>
@@ -83,7 +83,7 @@
           <th style="min-width:60px;max-width:60px"></th>
         </tr>
         </thead>
-        <tbody>
+        <tbody style="display:block; overflow-x:hidden; height:500px;">
         <% for(var i = 0; i < jobs.length; i++ ){ %>
           <% var job = jobs[i] %>
           <% include _job %>
