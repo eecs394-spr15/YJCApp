@@ -36,13 +36,35 @@ Parse.Cloud.define('getInterestedClients', function(request, response){
 // returns clients associated to given advisor
 Parse.Cloud.define('getAdvisorClients', function(request, response){
   var query = new Parse.Query(Parse.Object.extend('User'));
+  query.equalTo('admin', false);
   query.equalTo('advisorFirstName', request.params.advisorFirstName);
   query.equalTo('advisorLastName', request.params.advisorLastName);
   query.equalTo('advisorEmail', request.params.advisorEmail);
+
   query.find().then(function(results){
     response.success(results);
   }, function(error){
     response.error('Advisor clients lookup failed.')
+  });
+});
+
+Parse.Cloud.define('getClientJobInterests', function(request, response){
+  var query = new Parse.Query(Parse.Object.extend('ClientInterest'));
+  query.equalTo('userId', request.params.id);
+  query.find().then(function(interestResults){
+    var jobIds = [];
+    interestResults.forEach(function(interest){
+      jobIds.push(interest.get('jobId'));
+    });
+    query = new Parse.Query(Parse.Object.extend('Job'));
+    query.containedIn('objectId', jobIds);
+    query.find().then(function(results){
+      response.success(results);
+    }, function(error){
+      response.error('Jobs of interest lookup failed.');
+    });
+  }, function(error){
+    response.error('Client interest lookup failed.');
   });
 });
 
