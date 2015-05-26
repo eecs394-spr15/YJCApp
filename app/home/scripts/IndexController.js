@@ -9,6 +9,9 @@ angular
   supersonic.ui.views.current.whenVisible( function () {
    // delete this
   //Parse.User.logIn("test","test");
+  $scope.currentUser = Parse.User.current();
+
+
 
 
 
@@ -28,20 +31,7 @@ angular
     var userRadius;
     appliedJobs = [];
 
-    var ClientInterest = Parse.Object.extend("ClientInterest");
-    var appliedquery = new Parse.Query(ClientInterest);
-    appliedquery.equalTo("userId", user.id);
-    appliedquery.find({
-      success: function(results) {
-        
-        for (var i = 0; i < results.length; i++) { 
-          appliedJobs.push(results[i].get('jobId'));
-        }
-      },
-      error: function(error) {
-        alert("Error: " + error.code + " " + error.message);
-      }
-    });
+    
 
 
     if (user !== null){
@@ -73,6 +63,27 @@ angular
     });
 
     if(user != null){
+
+
+      var ClientInterest = Parse.Object.extend("ClientInterest");
+      var appliedquery = new Parse.Query(ClientInterest);
+      appliedquery.equalTo("userId", user.id);
+      appliedquery.find({
+        success: function(results) {
+          
+          for (var i = 0; i < results.length; i++) { 
+            appliedJobs.push(results[i].get('jobId'));
+          }
+        },
+        error: function(error) {
+          if(error.code != 209){
+            alert("Error: " + error.code + " " + error.message);
+          }
+        }
+      });
+
+
+
       userInterests = user.get('interests');
       userEducations = user.get('education');
       var ageDifMs = Date.now() - user.get('dateOfBirth').getTime();
