@@ -1,5 +1,12 @@
 require('cloud/app.js');
 
+var keys = require('cloud/key.json');
+var TWILIO_ACC_SID = keys['twilio']['accountSid'];
+var TWILIO_AUTH_TOKEN = keys['twilio']['authToken'];
+
+var twilio = require("twilio");
+twilio.initialize(TWILIO_ACC_SID, TWILIO_AUTH_TOKEN);
+
 // Use Parse.Cloud.define to define as many cloud functions as you want.
 // For example:
 // Parse.Cloud.define("hello", function(request, response) {
@@ -24,33 +31,15 @@ Parse.Cloud.define('getInterestedClients', function(request, response){
   }, function(error){
   	response.error('Client interest lookup failed.');
   });
+});
 
-	/*
-  var query = new Parse.Query(Parse.Object.extend('ClientInterest'));
-  query.equalTo('jobId', id);
-  query.find({
-    success: function(interestResults){
-      result.interest = interestResults;
-      var clientIds = [];
-      interestResults.forEach(function(interest){
-        clientIds.push(interest.get('userId'));
-      });
-      query = new Parse.Query(Client);
-      query.equalTo('objectId', clientIds);
-      query.find({
-        success: function(clientResults){
-          result.clients = clientResults;
-          callback.success(result);
-        },
-        error: function(error){
-          callback.error(error);
-        }
-      });
-      callback.success(result);
-    },
-    error: function(error){
-      callback.error(error);
-    }
+Parse.Cloud.define('sendSMS', function(request, response){
+  twilio.sendSMS({
+    From: '+1 (224) 633-2057',
+    To: request.params.number,
+    Body: request.params.message
+  }, {
+    success: function(httpResponse) { response.success('SMS sent!'); },
+    error: function(httpResponse) { response.error('Uh oh, something went wrong'); }
   });
-  //*/
 });

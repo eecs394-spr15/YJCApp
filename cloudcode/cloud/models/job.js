@@ -233,9 +233,16 @@ function sendNotification(job, isUpdated, callback){
   query.find().then(function(results){
     for(var i = 0; i < results.length; i ++){
       console.log('Username: ' + results[i].get('username'));
+
+      var smsMsg = 'New job opening: ' + job.get('jobTitle');
+      // send SMS message
+      if (results[i].get('enableSMS'))
+        Parse.Cloud.run('sendSMS', { 
+          number: results[i].get('phoneNumber'),
+          message: smsMsg
+        });
+
       (function(i){
-
-
 
         //Setup the request 
         var http = require('http');
