@@ -205,11 +205,14 @@ exports.destroy = function(req, callback){
 
 
 function sendNotification(job, isUpdated, callback){
+  var jobId = job.id;
+  var jobTitle = job.get('jobTitle');
+  var jobPostalCode = job.get('zipcode');
   var education = job.get('educationRequirement');
   var industry = job.get('EmployerIndustryTypes');
   //var minAge = job.get('minAge');
   //var fullTime = job.get('fullTime');
-  var minAge = 22;
+  var minAge = 1;
   var fullTime = 'Part-Time';
   var jobZipCode = job.get('zipcode');
   var backgroundCheck = job.get('backgroundCheck') == 'Yes' ? true : false;
@@ -233,37 +236,48 @@ function sendNotification(job, isUpdated, callback){
   query.find().then(function(results){
     for(var i = 0; i < results.length; i ++){
       console.log('Username: ' + results[i].get('username'));
-      (function(i){
 
-
-
-        //Setup the request 
-        var http = require('http');
-        Parse.Cloud.httpRequest({
-          method: 'POST',
-          url: 'https://android.googleapis.com/gcm/send',
-          headers: {
-            'Authorization': 'key=' + 'AIzaSyAcNdMVgMV1pLS9axm-2u-KQmINxN5c3xI',
-            'Content-Type': 'application/json',
-          },
-          body: {
-            registration_ids: results[i].get("registrationId"),
-            collapseKey: "applice",
-            timeToLive: 1,
-            data: {
-              "message":job.get("jobTitle"),"title":"New Job Opening","id":job.id
-            }
-          },
-          success: function(httpResponse) {
-            // Do something
-          },
-          error: function(httpResponse) {
-            console.error('GCM Request failed' + JSON.stringify(httpResponse));
-          }
+      /*
+      // setup and call cloud function to send SMS
+      var smsMsg = isUpdated ? 'YJC - Job Updated: ' : 'YJC - New Job Opening: ';
+      smsMsg += job.get('jobTitle');
+      // send SMS message
+      if (results[i].get('enableSMS'))
+        Parse.Cloud.run('sendSMS', { 
+          number: results[i].get('phoneNumber'),
+          message: smsMsg
         });
-        
-      })(i);
-      //console.log(results[i].get('dateOfBirth') < dateOfBirth);
+      //*/
+
+      // setup and call cloud function to send push notifications
+      var userCountry = 'US';
+      var userMaxRows = 500;
+      var userPostcode = results[i].get('zipcode');
+      var userRadius = results[i].get('jobRadius') * 1.609;   // convert to km
+      if(userRadius > 30) { userRadius = 30; }
+
+      var userNameForGeoQuery = 'YJCApp';
+      var callURL = 'http://api.geonames.org/findNearbyPostalCodesJSON' + 
+                    '?postalcode=' + userPostcode + 
+                    '&country=' + userCountry + 
+                    '&radius=' + userRadius + 
+                    '&username=' + userNameForGeoQuery + 
+                    '&maxRows=' + userMaxRows;
+
+      var registrationIds = results[i].get('registrationId');
+
+      if (registrationIds) {
+        var pushTitle = isUpdated ? 'YJC - Job Updated' : 'YJC - New Job Opening';
+        var pushMessage = jobTitle;
+        Parse.Cloud.run('sendPush', {
+          jobId: jobId,
+          jobPostalCode: jobPostalCode,
+          geonameURL: callURL,
+          registrationIds: registrationIds,
+          messageTitle: pushTitle,
+          messageBody: pushMessage
+        });
+      }
     }
     //console.log('Matches: ' + results.length);
     callback.success(job);
