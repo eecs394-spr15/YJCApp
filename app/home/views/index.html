@@ -17,13 +17,11 @@
             <div style="margin-left:20px; color:#ffffff; font-weight:bold; font-size:120%">
                 Youth Job Center
             </div>
-
+            
             <label class="item item-select filter-type ion-search">
-                <select ng-change="interested(filter)"ng-model="filter" ng-options="opt as opt for opt in options" ng-init="filter = options[1]">
+                <select ng-change="interested(filter)"ng-model="filter" ng-options="opt as opt for opt in options">Filter
                 </select>
             </label>
-
-            
         </label>
     </div>
    
@@ -40,7 +38,7 @@
         </super-navigate>
         <button id="contact-btn" class="item item-icon-left assertive" ng-click="showInterest(job)" ng-class-odd="'odd'" ng-class-even="'even'">
             <i class="icon super-email"></i>
-            <span>Contact about </span><span ng-bind="job.get('company')"></span>
+            <span>Contact Advisor About </span><span ng-bind="job.get('company')"></span>
         </button>
     </div>
 </div>

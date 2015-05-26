@@ -11,20 +11,15 @@ angular
 
   supersonic.ui.views.current.whenVisible( function () {
    // delete this
+
   //Parse.User.logIn("test","test");
-  steroids.logger.log("Here in 1");
   supersonic.bind($scope, "globaluser");
 
-  steroids.logger.log($scope.globaluser);
-  //$scope.currentUser = Parse.User.current();
-    steroids.logger.log("Here in 2");
-
-  //$scope.currentUser = $scope.globaluser;
-  steroids.logger.log("Here in 3");
   if($scope.globaluser == "undefined"){
     $scope.globaluser = null;
     $scope.$apply();
   }
+
      $scope.options = [
       'All Jobs',
       'Match Jobs',
@@ -44,7 +39,7 @@ angular
     var userRadius;
     appliedJobs = [];
 
-    
+
 
 
     if (user !== null){

@@ -6,11 +6,12 @@ var express = require('express'),
 //app.job = require('cloud/job');
 //app.profile = require('cloud/profile');
 
+
 user = null;
 
 
 // Require the configuration and the routes files, and pass
-// the app and io as arguments to the returned functions.
+// the app as argument to the returned functions.
 require('cloud/config')(app);
 require('cloud/routes')(app);
 

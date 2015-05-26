@@ -1,10 +1,4 @@
 /* new view */
-.error-input {
-  border-color: FF3333;
-  border-style: solid;
-  border-width: 2px;
-  
-}
 
 /* show view */
 hr {
@@ -24,7 +18,7 @@ hr {
 	font-size: 0.8em;
 }
 
-.posted {
+.created {
 	padding-right: 5px;
 	color: #23a;
 }
@@ -33,19 +27,22 @@ hr {
 	color: #e33;
 }
 
-.company, .location {
-	display: inline-block;
-	margin: 0;
+.advisor-sidebar {
+	padding-top: 0px;
 }
 
 .sidebar-block {
 	padding-bottom: 20px;
 }
 
-.sidebar-block hr {
-	margin-bottom: 10px;
-}
-
 .sidebar-block p {
 	font-size: 1em;
+}
+
+.clients {
+
+}
+
+.clients ul {
+	list-style: none;
 }
