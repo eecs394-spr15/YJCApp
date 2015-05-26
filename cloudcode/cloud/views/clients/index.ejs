@@ -1,0 +1,96 @@
+<% var page = 'clients' %>
+
+<html>
+  <head>
+    <% include ../shared/_header %>
+    <script src="/scripts/jquery-latest.js"></script> 
+    <script src="/scripts/jquery.tablesorter.js"></script> 
+    <link rel="stylesheet" href="/css/table.css">
+ 
+  </head>
+ 
+  <body>
+  	<% include ../shared/_navbar %>
+    <script>
+      $(function () {
+            var trInstance = $('#clientTable').find('tr');
+            trInstance.click(function () {
+                trInstance.removeClass('selected');
+                trInstance.find('td').removeClass('selected');
+
+                var instance = $(this);
+                instance.addClass('selected');
+                instance.find('td').addClass('selected');
+            });
+        });
+
+    </script>
+
+  	<div class="container-fluid">
+
+      <% if (user && user['admin']){ %>
+        <!-- <button type="button" class="btn btn-warning" onClick="/clients/new">Warning</button> -->
+         <a style="top: 120px;left: 10px;"href="/clients/new" class="btn btn-warning btn-xs" role="button">Add new client</a>
+        <!-- <a href="/clients/new">Add new client</a> -->
+      <% } %>
+      <br>
+	  	<br>
+
+      <div class="row">
+        <div class="col-sm-4 col-sm-offset-0">
+          <div class="input-group stylish-input-group">
+            <input type="text" class="form-control" id="search" name="search" placeholder="Type to search" value="">
+            </div>
+        </div>
+      </div>
+
+
+      <br>
+      <br>
+      <table id="clientTable"  class="table  table-bordered tablesorter table-striped table-hover">
+        <thead>
+        <tr>
+          <th></th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>E-mail</th>
+          <th>Joined On</th>
+          <th>Advisor</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for(var i = 0; i < clients.length; i++ ){ %>
+          <% var client = clients[i] %>
+          <% include _client %>
+        <% } %>
+        </tbody>
+      </table>
+  	</div>
+ 	</body>
+
+  <script>
+  $(document).load(function() 
+    { 
+      $("#clientTable").tablesorter(); 
+    } 
+  ); 
+  $(document).ready(function() 
+    { 
+      $("#clientTable").tablesorter( {sortList: [[0,0], [1,0]]} );
+      var $rows = $('#clientTable > tbody > tr');
+      $('#search').keyup(function() {
+          var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+          
+          $rows.show().filter(function() {
+              var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+              return !~text.indexOf(val);
+          }).hide();
+      }); 
+    } 
+  ); 
+
+  </script>
+</html>
