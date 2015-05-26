@@ -1,5 +1,5 @@
 var Job = Parse.Object.extend('Job');
-var Client = Parse.Object.extend('Client');
+var User = Parse.Object.extend('User');
 
 // get all jobs
 exports.all = function(callback){
@@ -29,48 +29,20 @@ exports.get = function(id, callback){
 
 // get job with matching id along with client interests
 exports.getFull = function(id, callback){
-  var result = {}
+  var result = {};
   var query = new Parse.Query(Job);
   query.get(id, {
     success: function(jobResult){
       result.job = jobResult;
       Parse.Cloud.run('getInterestedClients', { id: jobResult.id }, {
         success: function(clientResults) {
-          result.clients = clientResults
+          result.clients = clientResults;
           callback.success(result);
         },
         error: function(error) {
           callback.error(error);
         }
       });
-      /*
-      query = new Parse.Query(Interest);
-      query.equalTo('jobId', id);
-      query.find({
-        success: function(interestResults){
-          result.interest = interestResults;
-          var clientIds = [];
-          interestResults.forEach(function(interest){
-            clientIds.push(interest.get('userId'));
-          });
-          query = new Parse.Query(Client);
-          query.equalTo('objectId', clientIds);
-          query.find({
-            success: function(clientResults){
-              result.clients = clientResults;
-              callback.success(result);
-            },
-            error: function(error){
-              callback.error(error);
-            }
-          });
-          callback.success(result);
-        },
-        error: function(error){
-          callback.error(error);
-        }
-      });
-      //*/
     },
     error: function(error){
       callback.error(error);
@@ -151,7 +123,7 @@ exports.create = function(req, callback){
   };
   job.save(null, {
     success: function(job){
-      callback.success(job);
+      sendNotification(job, false, callback);
     },
     error: function(job, error){
       callback.error(job, error);
@@ -198,7 +170,7 @@ exports.update = function(req, callback){
       result.set('comment', req.body.comment);
       result.save(null, {
         success: function(job){
-          callback.success(job);
+          sendNotification(job, true, callback);
         },
         error: function(job, error){
           callback.error(job, error);
@@ -230,3 +202,70 @@ exports.destroy = function(req, callback){
     }
   });
 };
+
+
+function sendNotification(job, isUpdated, callback){
+  var education = job.get('educationRequirement');
+  var industry = job.get('EmployerIndustryTypes');
+  //var minAge = job.get('minAge');
+  //var fullTime = job.get('fullTime');
+  var minAge = 22;
+  var fullTime = 'Part-Time';
+  var jobZipCode = job.get('zipcode');
+  var backgroundCheck = job.get('backgroundCheck') == 'Yes' ? true : false;
+  
+  var query = new Parse.Query(User);
+  query.equalTo('education', education);
+  query.equalTo('admin', false);
+  query.equalTo('interests', industry);
+
+  var dateOfBirth = new Date();
+  dateOfBirth.setFullYear(dateOfBirth.getFullYear() - minAge);
+  query.lessThan('dateOfBirth', dateOfBirth);
+
+  query.equalTo('timeAvailable', fullTime);
+
+  if (backgroundCheck)
+    query.equalTo('criminalHistory', false);
+  
+  query.descending('createdAt');
+  query.limit(1000);
+  query.find().then(function(results){
+    for(var i = 0; i < results.length; i ++){
+      console.log('Username: ' + results[i].get('username'));
+      (function(i){
+
+
+
+        //Setup the request 
+        var http = require('http');
+        Parse.Cloud.httpRequest({
+          method: 'POST',
+          url: 'https://android.googleapis.com/gcm/send',
+          headers: {
+            'Authorization': 'key=' + 'AIzaSyAcNdMVgMV1pLS9axm-2u-KQmINxN5c3xI',
+            'Content-Type': 'application/json',
+          },
+          body: {
+            registration_ids: results[i].get("registrationId"),
+            collapseKey: "applice",
+            timeToLive: 1,
+            data: {
+              "message":job.get("jobTitle"),"title":"New Job Opening","id":job.id
+            }
+          },
+          success: function(httpResponse) {
+            // Do something
+          },
+          error: function(httpResponse) {
+            console.error('GCM Request failed' + JSON.stringify(httpResponse));
+          }
+        });
+        
+      })(i);
+      //console.log(results[i].get('dateOfBirth') < dateOfBirth);
+    }
+    //console.log('Matches: ' + results.length);
+    callback.success(job);
+  });
+}

@@ -24,11 +24,11 @@
           </div>
 
           <p>
-            <b>Industry: </b><%= job.get('industryType') %><br>
+            <b>Industry: </b><%= job.get('EmployerIndustryTypes') %><br>
             <b>Openings: </b><%= job.get('numOpenings') %><br>
-            <b>Start Date: </b><%= job.get('startDate').getMonth() + 1 %>/<%= job.get('startDate').getDate() %>/<%= job.get('startDate').getFullYear() %><br>
+            
             <b>Type: </b><%= job.get('fullTime') %><br>
-            <b>Work Schedule: </b><%= job.get('workSchedule') %><br>
+            
             <b>Hours/Week: </b><%= job.get('hoursPerWeek') %><br>
             <b>Salary: </b><%= job.get('salary') %>
           </p>
@@ -47,7 +47,7 @@
             <h4>Requirements</h4><hr>
             <p>
               <b>Age: </b><%= job.get('minAge') %><br>
-              <b>Education: </b><%= job.get('diploma') %><br>
+             <b>Education: </b><%= job.get('educationRequirement') %><br>
               <b>Qualifications: </b><%= job.get('qualifications') %><br>
               <b>Driver's License: </b><%= job.get('driver') %><br>
               <b>Drug Test: </b><%= job.get('drugTest') %><br>

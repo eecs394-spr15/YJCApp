@@ -24,12 +24,6 @@ angular.module('common', [
         //supersonic.ui.dialog.alert('error = ' + error);
     }
 
-    function registrationHandler (deviceToken) {
-        //supersonic.ui.dialog.alert('deviceToken = ' + deviceToken);
-        //save the deviceToken / registration ID to your Push Notification Server
-
-    }
-
     // result contains any error description text returned from the plugin call
     function errorHandler (error) {
         //supersonic.ui.dialog.alert('error = ' + error);
