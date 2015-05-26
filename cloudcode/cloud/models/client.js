@@ -3,6 +3,7 @@ var Client = Parse.Object.extend('User');
 // get all clients
 exports.all = function(callback){
 	var query = new Parse.Query(Client);
+  query.equalTo('admin', false);
 	query.find({
     success: function(results){
       callback.success(results);

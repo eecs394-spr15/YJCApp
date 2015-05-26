@@ -22,6 +22,7 @@ module.exports = function(app){
   require('cloud/controllers/sessions')(app);
   require('cloud/controllers/jobs')(app);
   require('cloud/controllers/advisors')(app);
+  require('cloud/controllers/clients')(app);
 };
 
 /*
