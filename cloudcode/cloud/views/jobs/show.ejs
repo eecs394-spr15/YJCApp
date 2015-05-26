@@ -1,3 +1,5 @@
+<% var page = 'jobs' %>
+
 <html>
   <head>
     <% include ../shared/_header %>
@@ -47,7 +49,7 @@
             <h4>Requirements</h4><hr>
             <p>
               <b>Age: </b><%= job.get('minAge') %><br>
-             <b>Education: </b><%= job.get('educationRequirement') %><br>
+              <b>Education: </b><%= job.get('educationRequirement') %><br>
               <b>Qualifications: </b><%= job.get('qualifications') %><br>
               <b>Driver's License: </b><%= job.get('driver') %><br>
               <b>Drug Test: </b><%= job.get('drugTest') %><br>

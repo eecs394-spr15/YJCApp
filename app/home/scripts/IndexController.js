@@ -3,6 +3,10 @@ angular
   .controller('IndexController', function($scope, $http, supersonic) {
 
     // Controller functionality here
+  steroids.logger.log("Here in 0");
+  $scope.globaluser = null;
+  supersonic.bind($scope, "globaluser");
+  $scope.$apply();
 
     $scope.newmessage = false;
 
@@ -29,9 +33,14 @@ angular
 
 
    // delete this
+
   //Parse.User.logIn("test","test");
-  $scope.currentUser = Parse.User.current();
-  $scope.$apply();
+  supersonic.bind($scope, "globaluser");
+
+  if($scope.globaluser == "undefined"){
+    $scope.globaluser = null;
+    $scope.$apply();
+  }
 
      $scope.options = [
       'All Jobs',
@@ -42,14 +51,17 @@ angular
 
     postcodesResult = [];
     var postcodeResultMap = {};
-    user = Parse.User.current();
+    //user = Parse.User.current();
+    user = $scope.globaluser;
+    $scope.$apply();
+    steroids.logger.log("getzip " + user);
     var userCountry = "US";
     var userMaxRows = 500;
     var userPostcode;
     var userRadius;
     appliedJobs = [];
 
-    
+
 
 
     if (user !== null){
@@ -224,6 +236,7 @@ angular
   };
 
   $scope.showInterest = function (job) {
+
     var labels = {
         buttonLabels: ["Yes", "No"]
     };
@@ -299,5 +312,4 @@ angular
       }
     });
   };
-
 });

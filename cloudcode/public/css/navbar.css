@@ -4,12 +4,12 @@
 
 .navbar {
   border-bottom: 1px solid #adafb3;
-  background-color: #e7e7e7;
+  background-color:  #3c948b; 
   color: #337ab7;
 }
 
 .green {
-  color: #3c948b;
+  color: #FFFFFF;
   background: none;
   font-weight: 600;
   font-size: 20px;
@@ -43,24 +43,24 @@
 }
 
 .navbar .navbar-nav > .active > a {
-  background-color: #d7d7d7;
-  color: #23527c;
+  background-color: #F7652C;
+  color: #FFFFFF;
 }
 
 .navbar .navbar-nav > .active > a:hover,
 .navbar .navbar-nav > .active > a:focus {
-  background-color: #d7d7d7;
-  color: #23527c;
+   background-color: #F7652C;
+  color: #FFFFFF;
 }
 
 .navbar .navbar-nav > li > a {
-  color: #337ab7;
+ color: #FFFFFF;
 }
 
 .navbar .navbar-nav > li > a:hover,
 .navbar .navbar-nav > li > a:focus {
-  background-color: #dddddd;
-  color: #23527c;
+  background-color: #F7652C;
+ color: #FFFFFF;
 }
 
 .navbar-default .navbar-text {

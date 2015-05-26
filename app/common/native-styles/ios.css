@@ -43,3 +43,7 @@ tab-bar-item#home {
   background-image: url(/icons/search.svg);
 }
 
+tab-bar-item#help {
+  background-image: url(/icons/help.png);
+}
+

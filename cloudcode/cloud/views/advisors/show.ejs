@@ -1,7 +1,9 @@
+<% var page = 'advisors' %>
+
 <html>
   <head>
     <% include ../shared/_header %>
-    <!--<link rel="stylesheet" href="/css/advisors.css">-->
+    <link rel="stylesheet" type="text/css" href="/css/advisors.css">
   </head>
   <body>
   	<% include ../shared/_navbar %>
@@ -18,17 +20,22 @@
             <hr>
           </div>
 
-          <p class="contact">
-            <b>E-mail: </b><%= advisor.get('email') %>
-            <b>Phone: </b><%= advisor.get('phoneNumber') ? advisor.get('phoneNumber') : '' %>
-          </p>
+          <div class="clients">
+            <h3>Clients</h3>
+            <ul>
+              <% clients.forEach(function(client){ %>
+                <li><%= client.get('firstName') %> <%= client.get('lastName') %></li>
+              <% }) %>
+            </ul>
+          </div>
 
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4 advisor-sidebar">
           <div class="sidebar-block">
-            <h4>Heading</h4><hr>
+            <h4>Contact Info</h4><hr>
             <p>
-              Paragraph
+              <b>E-mail: </b><%= advisor.get('email') %><br>
+              <b>Phone: </b><%= advisor.get('phoneNumber') %><br>
             </p>
           </div>
 

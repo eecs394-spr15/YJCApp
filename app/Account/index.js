@@ -3,7 +3,6 @@ angular.module('Account', [
   'common'
 ]);
 
-
 //set the date input as current day, set starttime as right now, set endtime as hour from now
 Date.prototype.toDateInputValue = (function() {
   var local = new Date(this);
