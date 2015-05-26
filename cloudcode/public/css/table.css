@@ -1,21 +1,13 @@
 /* Sortable tables */
-thead { display:block; margin:0px; cell-spacing:0px; left:0px; }
-tbody { display:block; overflow:auto; height:500px; }
+thead { display:block; margin:0px; cell-spacing:0px; left:0px;}
+tbody { display:block; overflow-x:hidden; height:500px; }
 table.tablesorter thead {
     cursor: pointer;
 }
 
 th.headerSortUp { 
-  background-image: url(/imgs/small_asc.gif); 
+  background-image: url(/imgs/small_asc.gif); */
 } 
-/*tr:hover{
-background-color:blue
-}
-*/
-/*td:hover{
-background-color:blue
-}
-*/
 
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
   background-color:#FFEECA;
@@ -50,3 +42,17 @@ th{
 table a {
   cursor: pointer;
 }
+
+.selectt {
+  background-color:#FFEECA;
+
+
+}
+
+.selected {
+    background-color: #faa353;
+}
+
+
+
+
