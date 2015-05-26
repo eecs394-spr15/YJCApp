@@ -1,14 +1,31 @@
 <div ng-controller="IndexController">
-  
+    <div ng-hide="currentUser">
+        <div class="list" >
+        <label class="item item-input" id="yjcbar">
+            <img id="yjclogo" src="/imags/yjclogo.jpg" onclick="location.reload()" width="50px"; height="40px"> <!-- Add the refresh function when click the WildCat-->
+            <div style="margin-left:20px; color:#ffffff; font-weight:bold; font-size:120%">
+                Youth Job Center
+            </div>            
+        </label>
+    </div>
+        <h1>Please Login</h1>
+    </div>
+    <div ng-show="currentUser">
     <div class="list" >
         <label class="item item-input" id="yjcbar">
             <img id="yjclogo" src="/imags/yjclogo.jpg" onclick="location.reload()" width="50px"; height="40px"> <!-- Add the refresh function when click the WildCat-->
             <div style="margin-left:20px; color:#ffffff; font-weight:bold; font-size:120%">
                 Youth Job Center
             </div>
+<<<<<<< HEAD
             
             <label side="right" class="item item-select filter-type ion-search">
                 <select ng-change="interested(filter)"ng-model="filter" ng-options="opt as opt for opt in options">
+=======
+
+            <label class="item item-select filter-type ion-search">
+                <select ng-change="interested(filter)"ng-model="filter" ng-options="opt as opt for opt in options" ng-init="filter = options[1]">
+>>>>>>> f52e85bf528acbbc278dd1636c4d56d120b72301
                 </select>
             </label>
 
@@ -16,7 +33,7 @@
         </label>
     </div>
    
-
+    <div class="indexCard" ng-init="interested('Match Jobs')">
     <div class="repeatcard" ng-repeat = "job in jobs | filter: filterFunction">
     <div class="card" ng-class-odd="'odd'" ng-class-even="'even'" >
         <super-navigate class="item" location="home#show" data-params-id="{{ job.id }}" ng-class-odd="'odd'" ng-class-even="'even'">  
@@ -32,5 +49,7 @@
             <span>Contact Advisor About </span><span ng-bind="job.get('company')"></span>
         </button>
     </div>
+</div>
+</div>
 </div>
 </div>
