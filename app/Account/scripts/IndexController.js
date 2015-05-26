@@ -196,8 +196,12 @@ angular
         }
       });
       // criminal history
-      if ($('#hascriminal').prop("checked"))
+      if ($('#hascriminal').prop("checked")){
         $scope.Account.criminalHistory = true;
+      }else{
+        $scope.Account.criminalHistory = false;
+      }
+
       // get time available
       $scope.Account.timeAvailable = [];
       $('#timeavailable').find('input').each(function(i, element)
