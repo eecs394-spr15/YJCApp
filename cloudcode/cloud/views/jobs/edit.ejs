@@ -190,7 +190,7 @@
                       <option>No</option>
             
                     </select>
-                     <script>
+                    <script>
                       $(function(){
                         var backgroundCheck = <%- JSON.stringify(job.get('backgroundCheck')) %>;
                         $.each($('#backgroundCheck').children('option'), function(index, option){
@@ -202,7 +202,7 @@
 
                     <br>
 
-                     <label for="ex1">Education Requirement:<span style="color:red;"></span></label>
+                    <label for="ex1">Education Requirement:<span style="color:red;"></span></label>
                     <select class="form-control" name="educationRequirement" id="educationRequirement">
                       <option>GED</option>
                       <option>High School Diploma</option>
@@ -220,8 +220,8 @@
                     </script>
                     <br>
 
-                  <label for="qualification">Qualifications:<span style="color:red;"></span></label>
-                  <textarea class="form-control" rows="5" id="qualifications" name="qualifications" value="<%= job.get('qualifications') %>"></textarea>
+                    <label for="qualification">Qualifications:<span style="color:red;"></span></label>
+                    <textarea class="form-control" rows="5" id="qualifications" name="qualifications" value="<%= job.get('qualifications') %>"></textarea>
                     <br>
 
                      <label for="ex1">Driver's License:<span style="color:red;"></span></label>
@@ -241,25 +241,19 @@
                     </script>
                     <br>
                     
-                    
-
-
                     <label for="comment">Comment:<span style="color:red;"></span></label>
                     <textarea class="form-control" rows="5" id="comment" name="comment"><%= job.get('comment') %></textarea>
                     <br>
                     <div style="padding-left: 100px;position: absolute; top: 570px; color:red;">
-                     <font size="1" id="check">
-                     </font>
-                  </div>
-                  
-                    <div style="margin-left: 200px; position: absolute; top: 570px; right:10px">
-                      <button type="submit" class="btn btn-primary" onclick="$('#requestType').attr('value','PUT')">Update Job</button>
-                      <br>
-                      <br>
+                      <font size="1" id="check">
+                      </font>
+                    </div>
+
+                    <div style="display: table; margin: 0 auto;">
+                      <button type="submit" class="btn btn-primary" style="margin-right: 10px" onclick="$('#requestType').attr('value','PUT')">Update Job</button>
                       <button type="submit" class="btn btn-danger" onclick="$('#requestType').attr('value','DELETE')">Delete Job</button>
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>
