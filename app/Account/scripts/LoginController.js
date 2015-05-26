@@ -161,5 +161,14 @@ angular
       Parse.User.logOut();
       $scope.currentUser = null;
       $scope.loggedIn = false;
+      //supersonic.ui.tabs.select(0);
   };
+
+
+  //  document.addEventListener("visibilitychange", onVisibilityChange, false);
+
+  // function onVisibilityChange() {
+  //     location.reload();
+  // }
+
 });

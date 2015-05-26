@@ -11,14 +11,10 @@ angular
   //Parse.User.logIn("test","test");
   $scope.currentUser = Parse.User.current();
 
-
-
-
-
      $scope.options = [
       'All Jobs',
-      'Interested Jobs',
-      'Applied Jobs'
+      'Match Jobs',
+      'Interested Jobs'
     ];
 
 
@@ -122,9 +118,9 @@ angular
 
   $scope.interested = function(filter){
     steroids.logger.log(filter);
-    if(filter == 'Interested Jobs'){
+    if(filter == 'Match Jobs'){
       if(user == null){
-        alert("Please login");
+        //alert("Please login");
         return;
       }
 
@@ -181,7 +177,7 @@ angular
       };
     };
 
-    if(filter == 'Applied Jobs'){
+    if(filter == 'Interested Jobs'){
       if(user == null){
         alert("Please login");
         return;
@@ -275,4 +271,5 @@ angular
       }
     });
   };
+
 });

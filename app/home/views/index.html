@@ -19,7 +19,7 @@
             </div>
 
             <label class="item item-select filter-type ion-search">
-                <select ng-change="interested(filter)"ng-model="filter" ng-options="opt as opt for opt in options">
+                <select ng-change="interested(filter)"ng-model="filter" ng-options="opt as opt for opt in options" ng-init="filter = options[1]">
                 </select>
             </label>
 
@@ -27,7 +27,7 @@
         </label>
     </div>
    
-
+    <div class="indexCard" ng-init="interested('Match Jobs')">
     <div class="repeatcard" ng-repeat = "job in jobs | filter: filterFunction">
     <div class="card" ng-class-odd="'odd'" ng-class-even="'even'" >
         <super-navigate class="item" location="home#show" data-params-id="{{ job.id }}" ng-class-odd="'odd'" ng-class-even="'even'">  
@@ -43,6 +43,7 @@
             <span>Contact about </span><span ng-bind="job.get('company')"></span>
         </button>
     </div>
+</div>
 </div>
 </div>
 </div>
