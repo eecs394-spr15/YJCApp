@@ -8,15 +8,11 @@ angular
 
   supersonic.ui.views.current.whenVisible( function () {
    // delete this
-<<<<<<< HEAD
-  Parse.User.logIn("test","test");
 
-
-=======
   //Parse.User.logIn("test","test");
   $scope.currentUser = Parse.User.current();
-  $scope.$apply();
->>>>>>> f52e85bf528acbbc278dd1636c4d56d120b72301
+
+
 
      $scope.options = [
       'All Jobs',
@@ -34,26 +30,7 @@ angular
     var userRadius;
     appliedJobs = [];
 
-<<<<<<< HEAD
-    var ClientInterest = Parse.Object.extend("ClientInterest");
-    var appliedquery = new Parse.Query(ClientInterest);
-    appliedquery.equalTo("userId", user.id);
-    appliedquery.find({
-      success: function(results) {
-        
-        for (var i = 0; i < results.length; i++) { 
-          appliedJobs.push(results[i].get('jobId'));
-        }
-      },
-      error: function(error) {
-        if(error.code != 209){
-          alert("Error: " + error.code + " " + error.message);
-        }
-      }
-    });
-=======
-    
->>>>>>> f52e85bf528acbbc278dd1636c4d56d120b72301
+
 
 
     if (user !== null){

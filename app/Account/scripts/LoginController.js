@@ -8,6 +8,7 @@ angular
   $scope.signedUp = false;
   $scope.loggedIn = false;
   //username = Parse.User.current();
+  //Parse.User.logIn("test", "test");
 
   supersonic.ui.views.current.whenVisible( function () {
     $scope.currentUser = Parse.User.current();
