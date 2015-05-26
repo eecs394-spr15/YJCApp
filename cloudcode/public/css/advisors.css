@@ -1,0 +1,48 @@
+/* new view */
+
+/* show view */
+hr {
+	margin: 0; 
+	border-color: #aaa
+}
+
+.title {
+  text-align: left;
+}
+
+.subtitle {
+	padding-bottom: 25px;
+}
+
+.timestamp {
+	font-size: 0.8em;
+}
+
+.created {
+	padding-right: 5px;
+	color: #23a;
+}
+
+.updated {
+	color: #e33;
+}
+
+.advisor-sidebar {
+	padding-top: 0px;
+}
+
+.sidebar-block {
+	padding-bottom: 20px;
+}
+
+.sidebar-block p {
+	font-size: 1em;
+}
+
+.clients {
+
+}
+
+.clients ul {
+	list-style: none;
+}
