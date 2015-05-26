@@ -1,7 +1,7 @@
 angular
   .module('Account')
   .controller("LoginPageController", function ($scope, supersonic) {
-  $scope.globaluser = null;
+  $scope.globaluser = "undefined";
   supersonic.bind($scope, "globaluser");
   $scope.$apply();
   $scope.Account = {};

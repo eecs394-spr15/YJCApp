@@ -35,7 +35,6 @@
             </super-navigate>
         </div>
     </div>
-    <div class="indexCard" ng-init="interested('Match Jobs')">
     <div class="repeatcard" ng-repeat = "job in jobs | filter: filterFunction">
     <div class="card" ng-class-odd="'odd'" ng-class-even="'even'" >
         <super-navigate class="item" location="home#show" data-params-id="{{ job.id }}" ng-class-odd="'odd'" ng-class-even="'even'">  
@@ -51,7 +50,6 @@
             <span>Contact Advisor About </span><span ng-bind="job.get('company')"></span>
         </button>
     </div>
-</div>
 </div>
 </div>
 </div>

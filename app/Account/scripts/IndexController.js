@@ -2,7 +2,9 @@ angular
   .module('Account')
   .controller("IndexController", function ($scope, supersonic) {    
 
-
+    $scope.globaluser = "undefined";
+    supersonic.bind($scope, "globaluser");
+    $scope.$apply();
     $scope.advisorFirstName = [];
     $scope.advisorLastName = [];
     $scope.advisorFullName = [];
@@ -232,10 +234,14 @@ angular
 
       $scope.currentUser.save(null, {
         success: function(user) {
+
         },
         error: function(user, error) {
         }
       }); 
+      $scope.globaluser = $scope.currentUser;
+      $scope.$apply();
+      alert("Save: " + $scope.globaluser);
       supersonic.ui.layers.pop();
     };	
 
