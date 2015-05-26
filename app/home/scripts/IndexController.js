@@ -3,15 +3,28 @@ angular
   .controller('IndexController', function($scope, $http, supersonic) {
 
     // Controller functionality here
+  steroids.logger.log("Here in 0");
+  $scope.globaluser = null;
+  supersonic.bind($scope, "globaluser");
+  $scope.$apply();
 
-   
 
   supersonic.ui.views.current.whenVisible( function () {
    // delete this
   //Parse.User.logIn("test","test");
-  $scope.currentUser = Parse.User.current();
-  $scope.$apply();
+  steroids.logger.log("Here in 1");
+  supersonic.bind($scope, "globaluser");
 
+  steroids.logger.log($scope.globaluser);
+  //$scope.currentUser = Parse.User.current();
+    steroids.logger.log("Here in 2");
+
+  //$scope.currentUser = $scope.globaluser;
+  steroids.logger.log("Here in 3");
+  if($scope.globaluser == "undefined"){
+    $scope.globaluser = null;
+    $scope.$apply();
+  }
      $scope.options = [
       'All Jobs',
       'Match Jobs',
@@ -21,7 +34,10 @@ angular
 
     postcodesResult = [];
     var postcodeResultMap = {};
-    user = Parse.User.current();
+    //user = Parse.User.current();
+    user = $scope.globaluser;
+    $scope.$apply();
+    steroids.logger.log("getzip " + user);
     var userCountry = "US";
     var userMaxRows = 500;
     var userPostcode;
@@ -197,7 +213,7 @@ angular
   };
 
 
-  $scope.showInterest = function (job) {
+$scope.showInterest = function (job) {
     var labels = {
         buttonLabels: ["Yes", "No"]
     };
@@ -273,5 +289,4 @@ angular
       }
     });
   };
-
 });
