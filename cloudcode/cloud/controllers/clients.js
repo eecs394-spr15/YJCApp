@@ -33,10 +33,10 @@ module.exports = function(app){
     if (!req.session.user['admin'])
       res.redirect('/clients');
 
-    // create new client then redirect accordingly
+    // create new client then redirect to edit client information
     Job.create(req, {
       success: function(client) {
-        res.redirect('/clients');
+        res.redirect('/clients/' + client.id + '/edit');
       },
       error: function(client, error) {
         res.send('Error saving client!' + error.message);
