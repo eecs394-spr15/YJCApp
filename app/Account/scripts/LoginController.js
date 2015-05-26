@@ -1,9 +1,9 @@
 angular
   .module('Account')
   .controller("LoginPageController", function ($scope, supersonic) {
-
-
-
+  $scope.globaluser = null;
+  supersonic.bind($scope, "globaluser");
+  $scope.$apply();
   $scope.Account = {};
   $scope.signedUp = false;
   $scope.loggedIn = false;
@@ -12,6 +12,8 @@ angular
 
   supersonic.ui.views.current.whenVisible( function () {
     $scope.currentUser = Parse.User.current();
+    supersonic.bind($scope, "globaluser");
+
   });
 
   supersonic.ui.views.current.whenHidden( function () {
@@ -53,10 +55,10 @@ angular
     {
 
       var pushNotification;
-      steroids.logger.log("Fuck Signup 0");
 
       pushNotification = window.plugins.pushNotification;
-      if (device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){
+      if (device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" )
+      {
         pushNotification.register(
           registrationHandler,
           errorHandler, {
@@ -64,7 +66,6 @@ angular
               "senderID":"146165770764",
               });
         }else{
-            steroids.logger.log("Fuck Signup 1");
             var user = new Parse.User();
             user.set("username", $scope.newUser.username);
             user.set("password", $scope.newUser.password);
@@ -74,8 +75,9 @@ angular
             var view = new supersonic.ui.View("Account#index");
             user.signUp(null, {
               success: function(user){
-              //steroids.logger.log("Fuck Signup 2");
               $scope.currentUser = user;
+              $scope.globaluser = user;
+              $scope.$apply();
               //username = $('#signup-username').val();
               //username = user;
               supersonic.ui.dialog.alert("You have successfully signed up!");
@@ -86,11 +88,11 @@ angular
             }
           });
 
-          // save push notification device id
-          user.save();
-          $scope.signedUp = true;
-          $scope.loggedIn = true;
-        }
+        // save push notification device id
+        user.save();
+        $scope.signedUp = true;
+        $scope.loggedIn = true;
+      }
 
       // the result contains any error description text returned from the plugin call
       function errorHandler (error) {
@@ -111,6 +113,8 @@ angular
               $scope.currentUser = user;
               //username = $('#signup-username').val();
               //username = user;
+              $scope.globaluser = user;
+              $scope.$apply();
               supersonic.ui.dialog.alert("You have successfully signed up!");
               supersonic.ui.layers.push(view);
             },
@@ -139,23 +143,22 @@ angular
 
      if ($('#login-username').val() === '' || $('#login-username').val() === undefined || $('#login-username').val() === null)
     {      
-       steroids.logger.log("Fuck login 11");
        numErrors++;
        $('#login-username-lbl').addClass('error-input');
      }
     if ($('#login-password').val() === '' || $('#login-password').val() === undefined || $('#login-password').val() === null)
     {
-      steroids.logger.log("Fuck login 12");
       numErrors++;
       $('#login-password-lbl').addClass('error-input');
     }
     if (numErrors === 0)
     {
-
       var view = new supersonic.ui.View("Account#profile");
       Parse.User.logIn($scope.existingUser.username, $scope.existingUser.password, {
         success: function(user){
           var pushNotification;
+          $scope.globaluser = user;
+          $scope.$apply();
 
           pushNotification = window.plugins.pushNotification;
           if (device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){
@@ -188,7 +191,7 @@ angular
           supersonic.ui.dialog.alert("Failed to login! " + error.message);
         }
       });
-      $scope.loggedIn = true;
+      $scope.loggedIn = true;    
     }
   };
 
@@ -196,6 +199,9 @@ angular
       Parse.User.logOut();
       $scope.currentUser = null;
       $scope.loggedIn = false;
+      $scope.globaluser = "undefined";
+      $scope.$apply();
+      steroids.logger.log("logout: " + $scope.globaluser);
       //supersonic.ui.tabs.select(0);
   };
 

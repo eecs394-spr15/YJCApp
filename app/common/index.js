@@ -5,6 +5,9 @@ angular.module('common', [
 ]);
 
 
+//globaluser = null;
+
+
     //username = null;
 
     /*var pushNotification;

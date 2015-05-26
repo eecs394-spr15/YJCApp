@@ -1,5 +1,5 @@
 <div ng-controller="IndexController">
-    <div ng-hide="currentUser">
+    <div ng-hide="globaluser">
         <div class="list" >
         <label class="item item-input" id="yjcbar">
             <img id="yjclogo" src="/imags/yjclogo.jpg" onclick="location.reload()" width="50px"; height="40px"> <!-- Add the refresh function when click the WildCat-->
@@ -7,10 +7,10 @@
                 Youth Job Center
             </div>            
         </label>
-    </div>
+        </div>
         <h1>Please Login</h1>
     </div>
-    <div ng-show="currentUser">
+    <div ng-show="globaluser">
     <div class="list" >
         <label class="item item-input" id="yjcbar">
             <img id="yjclogo" src="/imags/yjclogo.jpg" onclick="location.reload()" width="50px"; height="40px"> <!-- Add the refresh function when click the WildCat-->
@@ -24,7 +24,17 @@
             </label>
         </label>
     </div>
-   
+    <div ng-show="newmessage">
+        <div class="card" style="box-shadow: 0 1px 3px #33CC33;">
+            <super-navigate class="item" location="home#show" ng-click="clearpushmessage()" data-params-id="{{pushid}}">
+                <div class="item item-text-wrap">
+                    <h2 ng-bind="pushtitle"></h2>
+                    <p ng-bind="pushmessage"></p>
+                    <p>Click for details</p>
+                </div>
+            </super-navigate>
+        </div>
+    </div>
     <div class="indexCard" ng-init="interested('Match Jobs')">
     <div class="repeatcard" ng-repeat = "job in jobs | filter: filterFunction">
     <div class="card" ng-class-odd="'odd'" ng-class-even="'even'" >
