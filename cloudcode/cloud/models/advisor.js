@@ -18,7 +18,7 @@ exports.get = function(id, callback){
   var query = new Parse.Query(Advisor);
   query.get(id, {
     success: function(advisorResult){
-      callback.success(result);
+      callback.success(advisorResult);
     },
     error: function(error){
       callback.error(error);
@@ -26,13 +26,18 @@ exports.get = function(id, callback){
   });
 };
 
+// get advisor with all clients attached
 exports.getFull = function(id, callback){
   var result = {};
   var query = new Parse.Query(Advisor);
   query.get(id, {
     success: function(advisorResult){
       result.advisor = advisorResult;
-      Parse.Cloud.run('getAdvisorClients', { id: advisorResult.id }, {
+      Parse.Cloud.run('getAdvisorClients', { 
+        advisorFirstName: advisorResult.get('firstName'),
+        advisorLastName: advisorResult.get('lastName'),
+        advisorEmail: advisorResult.get('email')
+      }, {
         success: function(clientResults) {
           result.clients = clientResults;
           callback.success(result);

@@ -6,4 +6,4 @@ bower_components
 .sass-cache
 logs/
 cloudcode/config/global.json
-cloudcode/cloud/keys.json
+cloudcode/cloud/keys.js

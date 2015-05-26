@@ -5,12 +5,6 @@ var express = require('express'),
 
 //app.job = require('cloud/job');
 //app.profile = require('cloud/profile');
-var keys = require('cloud/keys.json')
-
-var TWILIO_ACC_SID = keys['twilio']['accountSid'];
-var TWILIO_AUTH_TOKEN = keys['twilio']['authToken'];
-var twilioClient = require('twilio')(TWILIO_ACC_SID, TWILIO_AUTH_TOKEN);
-
 
 
 user = null;

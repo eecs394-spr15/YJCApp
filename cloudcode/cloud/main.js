@@ -25,3 +25,15 @@ Parse.Cloud.define('getInterestedClients', function(request, response){
   	response.error('Client interest lookup failed.');
   });
 });
+
+Parse.Cloud.define('getAdvisorClients', function(request, response){
+  var query = new Parse.Query(Parse.Object.extend('User'));
+  query.equalTo('advisorFirstName', request.params.advisorFirstName);
+  query.equalTo('advisorLastName', request.params.advisorLastName);
+  query.equalTo('advisorEmail', request.params.advisorEmail);
+  query.find().then(function(results){
+    response.success(results);
+  }, function(error){
+    response.error('Advisor clients lookup failed.')
+  });
+});
