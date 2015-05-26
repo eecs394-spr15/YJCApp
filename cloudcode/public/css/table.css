@@ -1,6 +1,9 @@
 /* Sortable tables */
-/*thead { display:block; margin:0px; cell-spacing:0px; left:0px;}
-tbody { display:block; overflow-x:hidden; height:500px; }*/
+
+
+
+
+
 table.tablesorter thead {
     cursor: pointer;
 }

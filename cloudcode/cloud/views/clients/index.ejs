@@ -28,23 +28,21 @@
 
   	<div class="container-fluid">
 
-      <% if (user && user['admin']){ %>
-        <!-- <button type="button" class="btn btn-warning" onClick="/clients/new">Warning</button> -->
-         <a style="top: 120px;left: 10px;" href="/clients/new" class="btn btn-warning btn-md" role="button">Add new client</a>
-        <!-- <a href="/clients/new">Add new client</a> -->
-        <br>
-        <br>
-      <% } %>
-      
+      <h1>Clients</h1>
 
-      <div class="row">
-        <div class="col-sm-4 col-sm-offset-0">
-          <div class="input-group stylish-input-group">
-            <input type="text" class="form-control" id="search" name="search" placeholder="Type to search" value="">
-            </div>
-        </div>
+      <div class="input-group stylish-input-group" style="float:left; margin-right:30px; margin-bottom:20px;">
+        <input type="text" class="form-control" id="search" name="search" placeholder="Type to search" value="">
       </div>
       <br>
+      <br>
+
+      <% if (user && user['admin']){ %>
+        <!-- 
+        <a style="top: 120px;left: 10px;" href="/clients/new" class="btn btn-warning btn-md" role="button">Add new client</a>
+        <br>
+        <br>
+        -->
+      <% } %>
       
       <table id="clientTable"  class="table table-bordered tablesorter table-striped table-hover">
         <thead>

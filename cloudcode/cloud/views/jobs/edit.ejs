@@ -38,12 +38,12 @@
                        <option>Hospitality</option>
                        <option>IT/Technical</option>
                        <option>Retail</option>
-                         <option>Security</option>
-                         <option>Odd-Job/Summer Job</option>
+                       <option>Security</option>
+                       <option>Odd-Job/Summer Job</option>
                     </select>
                      <script>
                       $(function(){
-                        var employerIndustryTypes = <%- JSON.stringify(job.get('employerIndustryTypes')) %>;
+                        var employerIndustryTypes = <%- JSON.stringify(job.get('EmployerIndustryTypes')) %>;
                         $.each($('#employerIndustryTypes').children('option'), function(index, option){
                           if (option.text == employerIndustryTypes)
                             option.selected = true;

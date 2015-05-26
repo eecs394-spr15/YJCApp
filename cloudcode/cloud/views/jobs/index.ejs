@@ -28,22 +28,17 @@
 
   	<div class="container-fluid">
 
+      <h1>All Job Openings</h1>
+
+      <div class="input-group stylish-input-group" style="float: left; margin-right: 30px;">
+        <input type="text" class="form-control" id="search" name="search" placeholder="Type to search" value="">
+      </div>
+
       <% if (user && user['admin']){ %>
-        <!-- <button type="button" class="btn btn-warning" onClick="/jobs/new">Warning</button> -->
          <a style="top: 120px;left: 10px;"href="/jobs/new" class="btn btn-warning btn-md" role="button">Add new job</a>
-        <!-- <a href="/jobs/new">Add new job</a> -->
         <br>
         <br>
       <% } %>
-
-      <div class="row">
-        <div class="col-sm-4 col-sm-offset-0">
-          <div class="input-group stylish-input-group">
-            <input type="text" class="form-control" id="search" name="search" placeholder="Type to search" value="">
-            </div>
-        </div>
-      </div>
-      <br>
 
       <table id="jobTable"  class="table  table-bordered tablesorter table-striped table-hover">
         <thead style="display:block; margin:0px; cell-spacing:0px; left:0px;">
