@@ -5,6 +5,8 @@ angular
     // Controller functionality here
   steroids.logger.log("Here in 0");
   $scope.globaluser = null;
+  $scope.globaluser = $scope.globaluser || Parse.User.current();
+
   supersonic.bind($scope, "globaluser");
   $scope.$apply();
 
@@ -13,11 +15,12 @@ angular
 
 
   supersonic.ui.views.current.whenVisible( function () {
+    
     supersonic.device.push.foregroundNotifications().onValue(function(notification) {
       $scope.newmessage = true;
       $scope.pushtitle = notification.payload.title;
       $scope.pushmessage = notification.message;
-      $scope.pushid = "2LUFSXgW3q";
+      $scope.pushid = notification.payload.id;
       $scope.$apply();
 
     });
@@ -26,7 +29,7 @@ angular
       $scope.newmessage = true;
       $scope.pushtitle = notification.payload.title;
       $scope.pushmessage = notification.message;
-      $scope.pushid = "2LUFSXgW3q";
+      $scope.pushid = notification.payload.id;
       $scope.$apply();
 
     });
@@ -41,6 +44,7 @@ angular
     $scope.globaluser = null;
     $scope.$apply();
   }
+
 
      $scope.options = [
       'All Jobs',
@@ -66,6 +70,8 @@ angular
 
     if (user !== null){
      userPostcode = user.get('zipcode');
+     steroids.logger.log("getzip fucking " + userPostcode);
+
      userRadius = user.get('jobRadius');
      userRadius = userRadius*1.666;
      if(userRadius > 30){
@@ -93,8 +99,6 @@ angular
     });
 
     if(user != null){
-
-
       var ClientInterest = Parse.Object.extend("ClientInterest");
       var appliedquery = new Parse.Query(ClientInterest);
       appliedquery.equalTo("userId", user.id);
@@ -112,8 +116,6 @@ angular
         }
       });
 
-
-
       userInterests = user.get('interests');
       userEducations = user.get('education');
       var ageDifMs = Date.now() - user.get('dateOfBirth').getTime();
@@ -122,6 +124,8 @@ angular
       steroids.logger.log("interest is: " + userInterests[0]);
       steroids.logger.log("education: " + userEducations[0]);
       steroids.logger.log("age: " + userAge);
+      steroids.logger.log("dateOfBirth: " + user.get('dateOfBirth'));
+
     }
       steroids.logger.log("2222");
 
@@ -149,21 +153,21 @@ angular
     });
   });
 
-
   $scope.interested = function(filter){
     steroids.logger.log(filter);
     //var user = Parse.User.current();
     if(filter == 'Match Jobs'){
       if(user == null){
-        //alert("Please login");
+        alert("Please login");
         return;
       }
 
       steroids.logger.log("s");
       $scope.filterFunction = function(element){
         var result;
-        var now = element.get("zipcode").toString();
+        steroids.logger.log("got here before zipcode!");
 
+        var now = element.get("zipcode").toString();
         if(postcodesResult.indexOf(now) == -1){
           result = false;
         } else {
@@ -172,6 +176,8 @@ angular
         if(!result){
           return false;
         }
+        steroids.logger.log("got here before edu!");
+
         var eduRequirement = element.get("educationRequirement").toString();
         if(userEducations.indexOf(eduRequirement) == -1){
           result = false;
@@ -181,6 +187,8 @@ angular
         if(!result){
           return false;
         }
+        steroids.logger.log("got here before employer!");
+
         var industrialType = element.get("EmployerIndustryTypes").toString();
         if(userInterests.indexOf("All") != -1){
           result = true;
@@ -192,6 +200,8 @@ angular
         if(!result){
           return false;
         }
+        steroids.logger.log("got here before minAge!" + userAge);
+
         var minAge = element.get("minAge");
         if(userAge < minAge){
           result = false;
@@ -201,7 +211,8 @@ angular
         if(!result){
           return false;
         }
-        
+        steroids.logger.log("got here in match!");
+
         return true;
       
       };

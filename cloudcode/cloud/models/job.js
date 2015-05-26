@@ -210,10 +210,8 @@ function sendNotification(job, isUpdated, callback){
   var jobPostalCode = job.get('zipcode');
   var education = job.get('educationRequirement');
   var industry = job.get('EmployerIndustryTypes');
-  //var minAge = job.get('minAge');
-  //var fullTime = job.get('fullTime');
-  var minAge = 1;
-  var fullTime = 'Part-Time';
+  var minAge = job.get('minAge');
+  var fullTime = job.get('fullTime');
   var jobZipCode = job.get('zipcode');
   var backgroundCheck = job.get('backgroundCheck') == 'Yes' ? true : false;
   
@@ -237,8 +235,6 @@ function sendNotification(job, isUpdated, callback){
     for(var i = 0; i < results.length; i ++){
       console.log('Username: ' + results[i].get('username'));
 
-
-      /*
       // setup and call cloud function to send SMS
       var smsMsg = isUpdated ? 'YJC - Job Updated: ' : 'YJC - New Job Opening: ';
       smsMsg += job.get('jobTitle');
@@ -248,7 +244,6 @@ function sendNotification(job, isUpdated, callback){
           number: results[i].get('phoneNumber'),
           message: smsMsg
         });
-      //*/
 
       // setup and call cloud function to send push notifications
       var userCountry = 'US';
