@@ -32,9 +32,9 @@
         <!-- <button type="button" class="btn btn-warning" onClick="/jobs/new">Warning</button> -->
          <a style="top: 120px;left: 10px;"href="/jobs/new" class="btn btn-warning btn-md" role="button">Add new job</a>
         <!-- <a href="/jobs/new">Add new job</a> -->
+        <br>
+        <br>
       <% } %>
-      <br>
-	  	<br>
 
       <div class="row">
         <div class="col-sm-4 col-sm-offset-0">
@@ -43,15 +43,15 @@
             </div>
         </div>
       </div>
-
-
       <br>
-      <br>
+
       <table id="jobTable"  class="table  table-bordered tablesorter table-striped table-hover">
         <thead style="display:block; margin:0px; cell-spacing:0px; left:0px;">
         <tr>
           <th style="min-width:50px"></th>
-          <th style="min-width:52px;max-width:52px"></th>
+          <% if (user && user['admin']){ %>
+            <th style="min-width:52px;max-width:52px"></th>
+          <% } %>
   
           <th style="min-width:113px;max-width:113px">Created Date&nbsp;&nbsp;&nbsp;</th>
           <th style="min-width:130px;max-width:130px">IndustryTypes&nbsp;&nbsp;&nbsp;</th>
@@ -78,9 +78,11 @@
           <th style="min-width:120px;max-width:120px">Contact Name&nbsp;&nbsp;&nbsp;</th>
           <th style="min-width:148px;max-width:148px">Contact Eamil&nbsp;&nbsp;&nbsp;</th>
           <th style="min-width:120px;max-width:120px">Contact Phone&nbsp;&nbsp;&nbsp;</th>
-          <th style="min-width:52px;max-width:52px"></th>
-          <th style="min-width:46px;max-width:46px"></th>
-          <th style="min-width:60px;max-width:60px"></th>
+          <% if (user && user['admin']){ %>
+            <th style="min-width:52px;max-width:52px"></th>
+            <th style="min-width:46px;max-width:46px"></th>
+            <th style="min-width:60px;max-width:60px"></th>
+          <% } %>
         </tr>
         </thead>
         <tbody style="display:block; overflow-x:hidden; height:500px;">

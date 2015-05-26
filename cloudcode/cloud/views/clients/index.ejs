@@ -32,9 +32,10 @@
         <!-- <button type="button" class="btn btn-warning" onClick="/clients/new">Warning</button> -->
          <a style="top: 120px;left: 10px;" href="/clients/new" class="btn btn-warning btn-md" role="button">Add new client</a>
         <!-- <a href="/clients/new">Add new client</a> -->
+        <br>
+        <br>
       <% } %>
-      <br>
-	  	<br>
+      
 
       <div class="row">
         <div class="col-sm-4 col-sm-offset-0">
@@ -43,10 +44,8 @@
             </div>
         </div>
       </div>
-
-
       <br>
-      <br>
+      
       <table id="clientTable"  class="table table-bordered tablesorter table-striped table-hover">
         <thead>
         <tr>
@@ -56,9 +55,11 @@
           <th>E-mail</th>
           <th>Joined On</th>
           <th>Advisor</th>
-          <th></th>
-          <th></th>
-          <th></th>
+          <% if (user && user['admin']){ %>
+            <th></th>
+            <th></th>
+            <th></th>
+          <% } %>
         </tr>
         </thead>
         <tbody>
