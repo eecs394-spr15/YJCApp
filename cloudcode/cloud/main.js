@@ -33,6 +33,20 @@ Parse.Cloud.define('getInterestedClients', function(request, response){
   });
 });
 
+// returns clients associated to given advisor
+Parse.Cloud.define('getAdvisorClients', function(request, response){
+  var query = new Parse.Query(Parse.Object.extend('User'));
+  query.equalTo('advisorFirstName', request.params.advisorFirstName);
+  query.equalTo('advisorLastName', request.params.advisorLastName);
+  query.equalTo('advisorEmail', request.params.advisorEmail);
+  query.find().then(function(results){
+    response.success(results);
+  }, function(error){
+    response.error('Advisor clients lookup failed.')
+  });
+});
+
+
 // sends sms with given message to given phone number
 Parse.Cloud.define('sendSMS', function(request, response){
 
@@ -105,4 +119,3 @@ Parse.Cloud.define('sendPush', function(request, response){
     }
   });
 });
-

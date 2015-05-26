@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <% include ../shared/_header %>
+    <script src="/scripts/check_submit.js"></script>
+  </head>
+     
+  <body>
+
+    <% include ../shared/_navbar %>
+
+
+    <div class="container-fluid" style="padding-top: 20px;">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Add New Advisor</h3>
+        </div>
+        <div class="panel-body">
+          <form method="POST" name="createform" action="/advisors" onSubmit="return TestDataCheck()">
+            <div class="form-group">
+              <div class="col-xs-12">
+
+                <div class="row">
+                  <div class="col-md-4"> 
+                    
+                    <font size="1" style="color:red; position:absolute; top: -20px;">* is required</font>
+                    
+                    <label for="ex1">First Name:<span style="color:red;"> *</span></label>
+                    <input class="form-control" name="firstName" id="firstName" type="text" value="">
+                    <br>
+
+                    <label for="ex1">Last Name:<span style="color:red;"> *</span></label>
+                    <input class="form-control" name="lastName" id="lastName" type="text" value="">
+                    <br>
+
+                    <label for="ex1">E-mail:<span style="color:red;"> *</span></label>
+                    <input class="form-control" name="email" id="email" type="text" value="">
+                    <br>
+
+                    <div style=" padding-left: 200px; position: absolute; top: 470px; right:10px">
+                      <button type="submit" class="btn btn-primary">Create</button>
+                    </div>
+
+                  </div>
+
+                   
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>  
+      </div>
+    </div>
+  </body>
+</html>
