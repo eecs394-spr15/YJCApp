@@ -35,16 +35,6 @@ Parse.Cloud.define('getInterestedClients', function(request, response){
 
 // sends sms with given message to given phone number
 Parse.Cloud.define('sendSMS', function(request, response){
-  /*
-  twilio.sendSms({
-    From: '+1 (224) 633-2057',
-    To: request.params.number,
-    Body: request.params.message
-  }, {
-    success: function(httpResponse) { response.success('SMS sent!'); },
-    error: function(httpResponse) { response.error('Uh oh, something went wrong'); }
-  });
-  //*/
 
   //*
   twilio.sendSms({
@@ -66,29 +56,51 @@ Parse.Cloud.define('sendSMS', function(request, response){
 
 // sends push notifications through GCM
 Parse.Cloud.define('sendPush', function(request, response){
-  //Setup the request
+
+  var postalCodesResult = [];
   Parse.Cloud.httpRequest({
-    method: 'POST',
-    url: 'https://android.googleapis.com/gcm/send',
-    headers: {
-      'Authorization': 'key=' + GCMAuth,
-      'Content-Type': 'application/json',
-    },
-    body: {
-      registration_ids: request.params.registrationIds,
-      collapseKey: 'applice',
-      timeToLive: 1,
-      data: {
-        'message': request.params.messageBody,
-        'title': request.params.messageTitle,
-        'id': request.params.jobId
+    method: 'GET',
+    url: request.params.geonameURL,
+    success: function(httpResponse){
+      for (var item in httpResponse.data.postalCodes){
+        postalCodesResult.push(httpResponse.data.postalCodes[item].postalCode); 
       }
+
+      //* run GCM request if job is nearby
+      if (postalCodesResult.indexOf(request.params.jobPostalCode.toString()) == -1)
+        // not nearby
+        response.error('Uh oh, the job is not within the specified radius');
+      else {
+        Parse.Cloud.httpRequest({
+          method: 'POST',
+          url: 'https://android.googleapis.com/gcm/send',
+          headers: {
+            'Authorization': 'key=' + GCMAuth,
+            'Content-Type': 'application/json',
+          },
+          body: {
+            registration_ids: request.params.registrationIds,
+            collapseKey: 'applice',
+            timeToLive: 1,
+            data: {
+              'message': request.params.messageBody,
+              'title': request.params.messageTitle,
+              'id': request.params.jobId
+            }
+          },
+          success: function(httpResponse) {
+            response.success('Push notification sent!');
+          },
+          error: function(httpResponse) {
+            console.error('GCM Request failed' + JSON.stringify(httpResponse));
+            response.error('Uh oh, something went wrong');
+          }
+        });
+      }
+      //*/
     },
-    success: function(httpResponse) {
-      response.success('Push notification sent!');
-    },
-    error: function(httpResponse) {
-      console.error('GCM Request failed' + JSON.stringify(httpResponse));
+    error: function(httpResponse){
+      console.error('Geoname request failed' + JSON.stringify(httpResponse));
       response.error('Uh oh, something went wrong');
     }
   });

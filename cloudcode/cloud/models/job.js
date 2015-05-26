@@ -207,6 +207,7 @@ exports.destroy = function(req, callback){
 function sendNotification(job, isUpdated, callback){
   var jobId = job.id;
   var jobTitle = job.get('jobTitle');
+  var jobPostalCode = job.get('zipcode');
   var education = job.get('educationRequirement');
   var industry = job.get('EmployerIndustryTypes');
   //var minAge = job.get('minAge');
@@ -236,7 +237,7 @@ function sendNotification(job, isUpdated, callback){
     for(var i = 0; i < results.length; i ++){
       console.log('Username: ' + results[i].get('username'));
 
-      //*
+      /*
       // setup and call cloud function to send SMS
       var smsMsg = isUpdated ? 'YJC - Job Updated: ' : 'YJC - New Job Opening: ';
       smsMsg += job.get('jobTitle');
@@ -246,6 +247,7 @@ function sendNotification(job, isUpdated, callback){
           number: results[i].get('phoneNumber'),
           message: smsMsg
         });
+      //*/
 
       // setup and call cloud function to send push notifications
       var userCountry = 'US';
@@ -269,45 +271,13 @@ function sendNotification(job, isUpdated, callback){
         var pushMessage = jobTitle;
         Parse.Cloud.run('sendPush', {
           jobId: jobId,
-          messageTitle: pushTitle,
-          messageBody: pushMessage,
+          jobPostalCode: jobPostalCode,
+          geonameURL: callURL,
           registrationIds: registrationIds,
-          geonameURL: callURL
+          messageTitle: pushTitle,
+          messageBody: pushMessage
         });
       }
-      //*/
-
-      /*
-      (function(i){
-
-        //Setup the request 
-        var http = require('http');
-        Parse.Cloud.httpRequest({
-          method: 'POST',
-          url: 'https://android.googleapis.com/gcm/send',
-          headers: {
-            'Authorization': 'key=' + 'AIzaSyAcNdMVgMV1pLS9axm-2u-KQmINxN5c3xI',
-            'Content-Type': 'application/json',
-          },
-          body: {
-            registration_ids: results[i].get("registrationId"),
-            collapseKey: "applice",
-            timeToLive: 1,
-            data: {
-              "message":job.get("jobTitle"),"title":"New Job Opening","id":job.id
-            }
-          },
-          success: function(httpResponse) {
-            // Do something
-          },
-          error: function(httpResponse) {
-            console.error('GCM Request failed' + JSON.stringify(httpResponse));
-          }
-        });
-        
-      })(i);
-      //*/
-      //console.log(results[i].get('dateOfBirth') < dateOfBirth);
     }
     //console.log('Matches: ' + results.length);
     callback.success(job);
