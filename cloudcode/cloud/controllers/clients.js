@@ -4,7 +4,7 @@ module.exports = function(app){
 
   app.get('/clients', function(req, res){
     // render clients index page
-    Job.all({
+    Client.all({
       success: function (results) {
         res.render('clients/index', { 
           notice: req.session.notice ? req.session.notice : '',
@@ -34,7 +34,7 @@ module.exports = function(app){
       res.redirect('/clients');
 
     // create new client then redirect to edit client information
-    Job.create(req, {
+    Client.create(req, {
       success: function(client) {
         res.redirect('/clients/' + client.id + '/edit');
       },
@@ -51,7 +51,7 @@ module.exports = function(app){
         res.render('clients/show', {
           user: req.session.user,
           client: result.client,
-          jobInterests: result.jobInterests
+          ClientInterests: result.jobInterests
         });
       },
       error: function(error){
