@@ -235,7 +235,7 @@ function sendNotification(job, isUpdated, callback){
       console.log('Username: ' + results[i].get('username'));
       (function(i){
 
-
+        alert()
 
         //Setup the request 
         var http = require('http');
