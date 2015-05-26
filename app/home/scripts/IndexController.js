@@ -10,6 +10,7 @@ angular
    // delete this
   //Parse.User.logIn("test","test");
   $scope.currentUser = Parse.User.current();
+  $scope.$apply();
 
      $scope.options = [
       'All Jobs',
@@ -118,6 +119,7 @@ angular
 
   $scope.interested = function(filter){
     steroids.logger.log(filter);
+    //var user = Parse.User.current();
     if(filter == 'Match Jobs'){
       if(user == null){
         //alert("Please login");
