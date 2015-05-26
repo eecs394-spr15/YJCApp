@@ -7,7 +7,7 @@
                 Youth Job Center
             </div>            
         </label>
-    </div>
+        </div>
         <h1>Please Login</h1>
     </div>
     <div ng-show="currentUser">
@@ -26,7 +26,17 @@
             
         </label>
     </div>
-   
+    <div ng-show="newmessage">
+        <div class="card" style="box-shadow: 0 1px 3px #33CC33;">
+            <super-navigate class="item" location="home#show" ng-click="clearpushmessage()" data-params-id="{{pushid}}">
+                <div class="item item-text-wrap">
+                    <h2 ng-bind="pushtitle"></h2>
+                    <p ng-bind="pushmessage"></p>
+                    <p>Click for details</p>
+                </div>
+            </super-navigate>
+        </div>
+    </div>
     <div class="indexCard" ng-init="interested('Match Jobs')">
     <div class="repeatcard" ng-repeat = "job in jobs | filter: filterFunction">
     <div class="card" ng-class-odd="'odd'" ng-class-even="'even'" >

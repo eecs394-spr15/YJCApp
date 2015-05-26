@@ -4,9 +4,30 @@ angular
 
     // Controller functionality here
 
-   
+    $scope.newmessage = false;
+
+
 
   supersonic.ui.views.current.whenVisible( function () {
+    supersonic.device.push.foregroundNotifications().onValue(function(notification) {
+      $scope.newmessage = true;
+      $scope.pushtitle = notification.payload.title;
+      $scope.pushmessage = notification.message;
+      $scope.pushid = "2LUFSXgW3q";
+      $scope.$apply();
+
+    });
+
+    supersonic.device.push.backgroundNotifications().onValue(function(notification) {     
+      $scope.newmessage = true;
+      $scope.pushtitle = notification.payload.title;
+      $scope.pushmessage = notification.message;
+      $scope.pushid = "2LUFSXgW3q";
+      $scope.$apply();
+
+    });
+
+
    // delete this
   //Parse.User.logIn("test","test");
   $scope.currentUser = Parse.User.current();
@@ -196,6 +217,11 @@ angular
     return;
   };
 
+
+  $scope.clearpushmessage = function() {
+    $scope.newmessage = false;
+    $scope.$apply();
+  };
 
   $scope.showInterest = function (job) {
     var labels = {

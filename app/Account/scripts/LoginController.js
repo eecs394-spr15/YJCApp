@@ -55,41 +55,44 @@ angular
       steroids.logger.log("Fuck Signup 0");
 
       pushNotification = window.plugins.pushNotification;
-      if (device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){
+      if (device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" )
+      {
         pushNotification.register(
           registrationHandler,
           errorHandler, {
               //android options
               "senderID":"146165770764",
               });
-        }else{
-            steroids.logger.log("Fuck Signup 1");
-            var user = new Parse.User();
-            user.set("username", $scope.newUser.username);
-            user.set("password", $scope.newUser.password);
-            user.set("email", $scope.newUser.email);
-            user.set("enableSMS", true);
-            user.set("admin", false);
-            var view = new supersonic.ui.View("Account#index");
-            user.signUp(null, {
-              success: function(user){
-              //steroids.logger.log("Fuck Signup 2");
-              $scope.currentUser = user;
-              //username = $('#signup-username').val();
-              //username = user;
-              supersonic.ui.dialog.alert("You have successfully signed up!");
-              supersonic.ui.layers.push(view);
-            },
-            error: function(user, error){
-              supersonic.ui.dialog.alert("You have not succesfully signed up. " + error.message);
-            }
-          });
+      }
+      else
+      {
+        steroids.logger.log("Fuck Signup 1");
+        var user = new Parse.User();
+        user.set("username", $scope.newUser.username);
+        user.set("password", $scope.newUser.password);
+        user.set("email", $scope.newUser.email);
+        user.set("enableSMS", true);
+        user.set("admin", false);
+        var view = new supersonic.ui.View("Account#index");
+        user.signUp(null, {
+          success: function(user){
+            //steroids.logger.log("Fuck Signup 2");
+            $scope.currentUser = user;
+            //username = $('#signup-username').val();
+            //username = user;
+            supersonic.ui.dialog.alert("You have successfully signed up!");
+            supersonic.ui.layers.push(view);
+          },
+          error: function(user, error){
+            supersonic.ui.dialog.alert("You have not succesfully signed up. " + error.message);
+          }
+        });
 
-          // save push notification device id
-          user.save();
-          $scope.signedUp = true;
-          $scope.loggedIn = true;
-        }
+        // save push notification device id
+        user.save();
+        $scope.signedUp = true;
+        $scope.loggedIn = true;
+      }
 
       // the result contains any error description text returned from the plugin call
       function errorHandler (error) {
