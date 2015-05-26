@@ -205,11 +205,13 @@ exports.destroy = function(req, callback){
 
 
 function sendNotification(job, isUpdated, callback){
+  var jobId = job.id;
+  var jobTitle = job.get('jobTitle');
   var education = job.get('educationRequirement');
   var industry = job.get('EmployerIndustryTypes');
   //var minAge = job.get('minAge');
   //var fullTime = job.get('fullTime');
-  var minAge = 22;
+  var minAge = 1;
   var fullTime = 'Part-Time';
   var jobZipCode = job.get('zipcode');
   var backgroundCheck = job.get('backgroundCheck') == 'Yes' ? true : false;
@@ -234,7 +236,10 @@ function sendNotification(job, isUpdated, callback){
     for(var i = 0; i < results.length; i ++){
       console.log('Username: ' + results[i].get('username'));
 
-      var smsMsg = 'New job opening: ' + job.get('jobTitle');
+      //*
+      // setup and call cloud function to send SMS
+      var smsMsg = isUpdated ? 'YJC - Job Updated: ' : 'YJC - New Job Opening: ';
+      smsMsg += job.get('jobTitle');
       // send SMS message
       if (results[i].get('enableSMS'))
         Parse.Cloud.run('sendSMS', { 
@@ -242,6 +247,37 @@ function sendNotification(job, isUpdated, callback){
           message: smsMsg
         });
 
+      // setup and call cloud function to send push notifications
+      var userCountry = 'US';
+      var userMaxRows = 500;
+      var userPostcode = results[i].get('zipcode');
+      var userRadius = results[i].get('jobRadius') * 1.609;   // convert to km
+      if(userRadius > 30) { userRadius = 30; }
+
+      var userNameForGeoQuery = 'YJCApp';
+      var callURL = 'http://api.geonames.org/findNearbyPostalCodesJSON' + 
+                    '?postalcode=' + userPostcode + 
+                    '&country=' + userCountry + 
+                    '&radius=' + userRadius + 
+                    '&username=' + userNameForGeoQuery + 
+                    '&maxRows=' + userMaxRows;
+
+      var registrationIds = results[i].get('registrationId');
+
+      if (registrationIds) {
+        var pushTitle = isUpdated ? 'YJC - Job Updated' : 'YJC - New Job Opening';
+        var pushMessage = jobTitle;
+        Parse.Cloud.run('sendPush', {
+          jobId: jobId,
+          messageTitle: pushTitle,
+          messageBody: pushMessage,
+          registrationIds: registrationIds,
+          geonameURL: callURL
+        });
+      }
+      //*/
+
+      /*
       (function(i){
 
         //Setup the request 
@@ -270,6 +306,7 @@ function sendNotification(job, isUpdated, callback){
         });
         
       })(i);
+      //*/
       //console.log(results[i].get('dateOfBirth') < dateOfBirth);
     }
     //console.log('Matches: ' + results.length);
