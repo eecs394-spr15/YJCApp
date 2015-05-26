@@ -8,7 +8,7 @@ angular
 
   supersonic.ui.views.current.whenVisible( function () {
    // delete this
-  //Parse.User.logIn("test","test");
+  Parse.User.logIn("test","test");
 
 
 
@@ -39,7 +39,9 @@ angular
         }
       },
       error: function(error) {
-        alert("Error: " + error.code + " " + error.message);
+        if(error.code != 209){
+          alert("Error: " + error.code + " " + error.message);
+        }
       }
     });
 
