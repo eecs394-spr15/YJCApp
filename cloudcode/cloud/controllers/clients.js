@@ -22,7 +22,7 @@ module.exports = function(app){
   app.get('/clients/new', function(req, res){
     // redirect to clients if not admin
     if (!req.session.user['admin'])
-      res.redirect('/clients');
+      return res.redirect('/clients');
 
     res.render('clients/new', {
       user: req.session.user
@@ -32,7 +32,7 @@ module.exports = function(app){
   app.post('/clients', function(req, res){
     // redirect to clients if not admin
     if (!req.session.user['admin'])
-      res.redirect('/clients');
+      return res.redirect('/clients');
 
     // create new client then redirect to edit client information
     Client.create(req, {
@@ -65,6 +65,10 @@ module.exports = function(app){
 
   /*
   app.get('/client/:id/edit', function(req, res){
+    // redirect to clients if not admin
+    if (!req.session.user['admin'])
+      return res.redirect('/clients');
+
     Client.getWithAdvisors(req.params.id, {
       success: function(result){
         // render form for editing client listing
@@ -81,6 +85,9 @@ module.exports = function(app){
   });
 
   app.post('/client/:id', function(req, res){
+    // redirect to clients if not admin
+    if (!req.session.user['admin'])
+      return res.redirect('/clients');
 
     var method = req.body._method;
     if (method == 'PUT') {

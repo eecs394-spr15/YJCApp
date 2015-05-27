@@ -20,7 +20,7 @@ module.exports = function(app){
   app.get('/advisors/new', function(req, res){
     // redirect to root if not admin
     if (!req.session.user['admin'])
-      res.redirect('/');
+      return res.redirect('/');
 
     res.render('advisors/new', {
       user: req.session.user
@@ -30,7 +30,7 @@ module.exports = function(app){
   app.post('/advisors', function(req, res){
     // redirect to root if not admin
     if (!req.session.user['admin'])
-      res.redirect('/');
+      return res.redirect('/advisors');
 
     // create new advisor
     // then redirect accordingly
@@ -60,6 +60,10 @@ module.exports = function(app){
   });
 
   app.get('/advisor/:id/edit', function(req, res){
+    // redirect to advisors if not admin
+    if (!req.session.user['admin'])
+      return res.redirect('/advisors');
+
     Advisor.get(req.params.id, {
       success: function(result){
         // render form for editing advisor info
@@ -75,6 +79,9 @@ module.exports = function(app){
   });
 
   app.post('/advisor/:id', function(req, res){
+    // redirect to advisors if not admin
+    if (!req.session.user['admin'])
+      return res.redirect('/advisors');
 
     var method = req.body._method;
     if (method == 'PUT') {
