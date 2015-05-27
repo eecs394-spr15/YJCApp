@@ -12,6 +12,9 @@ var twilio = require("twilio")(TWILIO_ACC_SID, TWILIO_AUTH_TOKEN);
 var http = require('http');
 var GCMAuth = keys['google']['GCM']['auth'];
 
+
+/* Cloud functions */
+
 // takes job id and returns all users who have expressed interest in the job
 Parse.Cloud.define('getInterestedClients', function(request, response){
 	var query = new Parse.Query(Parse.Object.extend('ClientInterest'));

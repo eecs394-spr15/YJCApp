@@ -23,7 +23,8 @@ module.exports = function(app){
       res.redirect('/');
 
     res.render('advisors/new', {
-      user: req.session.user
+      user: req.session.user,
+      formErrors: {}
     });
   });
 
