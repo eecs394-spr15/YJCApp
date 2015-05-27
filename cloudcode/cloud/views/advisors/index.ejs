@@ -14,14 +14,12 @@
 
       <h1>Advisors</h1>
 
-      <div class="input-group stylish-input-group" style="float:left; margin-right:30px;">
+      <div class="input-group stylish-input-group" style="float:left; margin-right:30px; margin-bottom:20px">
         <input type="text" class="form-control" id="search" name="search" placeholder="Type to search" value="">
       </div>
 
       <% if (user && user['admin']){ %>
         <a style="top: 120px;left: 10px;" href="/advisors/new" class="btn btn-warning btn-md" role="button">Add new advisor</a>
-        <br>
-        <br>
       <% } %>
       
       <table id="advisorTable" class="table table-striped table-bordered table-hover tablesorter">
