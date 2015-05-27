@@ -21,7 +21,7 @@ module.exports = function(app){
   app.get('/jobs/new', function(req, res){
     // redirect to jobs if not admin
     if (!req.session.user['admin'])
-      res.redirect('/jobs');
+      return res.redirect('/jobs');
 
     res.render('jobs/new', {
       user: req.session.user
@@ -31,10 +31,9 @@ module.exports = function(app){
   app.post('/jobs', function(req, res){
     // redirect to jobs if not admin
     if (!req.session.user['admin'])
-      res.redirect('/jobs');
+      return res.redirect('/jobs');
 
-    // create new job
-    // then redirect accordingly
+    // create new job then redirect accordingly
     Job.create(req, {
       success: function(job) {
         res.redirect('/jobs');
@@ -63,6 +62,10 @@ module.exports = function(app){
   });
 
   app.get('/job/:id/edit', function(req, res){
+    // redirect to jobs if not admin
+    if (!req.session.user['admin'])
+      return res.redirect('/jobs');
+
     Job.get(req.params.id, {
       success: function(result){
         // render form for editing job listing
@@ -78,6 +81,9 @@ module.exports = function(app){
   });
 
   app.post('/job/:id', function(req, res){
+    // redirect to jobs if not admin
+    if (!req.session.user['admin'])
+      return res.redirect('/jobs');
 
     var method = req.body._method;
     if (method == 'PUT') {
