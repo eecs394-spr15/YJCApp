@@ -43,14 +43,17 @@ tab-bar tab-bar-item:selected {
 
 tab-bar-item#account {
   background-image: url(/icons/cog.svg);
+  background-size: 100;
 }
 
 
 tab-bar-item#home {
   background-image: url(/icons/search.svg);
+  background-size: 100;
 }
 
 tab-bar-item#help {
   background-image: url(/icons/help.png);
+  background-size: 100;
 }
 

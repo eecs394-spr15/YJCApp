@@ -104,6 +104,7 @@ angular
           user.set("username", $scope.newUser.username);
           user.set("password", $scope.newUser.password);
           user.set("email", $scope.newUser.email);
+          user.set("enableSMS", true);
 
           var view = new supersonic.ui.View("Account#index");
 

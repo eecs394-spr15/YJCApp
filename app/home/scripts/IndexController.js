@@ -3,9 +3,13 @@ angular
   .controller('IndexController', function($scope, $http, supersonic) {
 
   // Controller functionality here
-  steroids.logger.log("Here in 0");
+  //steroids.logger.log("Here in 0");
   $scope.globaluser = null;
-  $scope.globaluser = $scope.globaluser || Parse.User.current();
+
+  if ($scope.globaluser == "undefined")
+    $scope.globaluser = null;
+  else
+    $scope.globaluser = $scope.globaluser || Parse.User.current();
   user = null;
   supersonic.bind($scope, "globaluser");
   $scope.$apply();
@@ -60,13 +64,13 @@ angular
       var ageDifMs = Date.now() - user.get('dateOfBirth').getTime();
       var ageDate = new Date(ageDifMs); // miliseconds from epoch
       userAge = Math.abs(ageDate.getUTCFullYear() - 1970);
-      steroids.logger.log("interest is: " + userInterests[0]);
-      steroids.logger.log("education: " + userEducations[0]);
-      steroids.logger.log("age: " + userAge);
-      steroids.logger.log("dateOfBirth: " + user.get('dateOfBirth'));
+      //steroids.logger.log("interest is: " + userInterests[0]);
+      //steroids.logger.log("education: " + userEducations[0]);
+      //steroids.logger.log("age: " + userAge);
+      //steroids.logger.log("dateOfBirth: " + user.get('dateOfBirth'));
 
     }
-      steroids.logger.log("2222");
+      //steroids.logger.log("2222");
 
 
     
@@ -111,10 +115,9 @@ angular
 
       postcodesResult = [];
       var postcodeResultMap = {};
-      //user = Parse.User.current();
       user = $scope.globaluser;
       $scope.$apply();
-      steroids.logger.log("getzip " + user);
+      //steroids.logger.log("getzip " + user);
       var userCountry = "US";
       var userMaxRows = 500;
       var userPostcode;
@@ -139,7 +142,7 @@ angular
       }
       var userNameForGeoQuery = "YJCApp";
       var callURL = "http://api.geonames.org/findNearbyPostalCodesJSON?postalcode=" + userPostcode + "&country=" + userCountry + "&radius=" + userRadius + "&username=" + userNameForGeoQuery + "&maxRows=" + userMaxRows;
-      steroids.logger.log(callURL);
+      //steroids.logger.log(callURL);
       $http.get(callURL).success(function(data, status, headers, config) {
         for (var item in data.postalCodes){
             postcodesResult.push(data.postalCodes[item].postalCode); 
@@ -148,7 +151,7 @@ angular
 
       }).
       error(function(data, status, headers, config) {
-        steroids.logger.log(status);
+        //steroids.logger.log(status);
       });
 
     $scope.updatejobsanduser();
@@ -160,17 +163,16 @@ angular
 
 
     steroids.logger.log(filter);
-    //var user = Parse.User.current();
     if(filter == 'Matched Jobs'){
       if(user == null){
         alert("Please login");
         return;
       }
 
-      steroids.logger.log("s");
+      //steroids.logger.log("s");
       $scope.filterFunction = function(element){
         var result;
-        steroids.logger.log("got here before zipcode!");
+        //steroids.logger.log("got here before zipcode!");
 
         var now = element.get("zipcode").toString();
         if(postcodesResult.indexOf(now) == -1){
@@ -205,7 +207,7 @@ angular
         if(!result){
           return false;
         }
-        steroids.logger.log("got here before minAge!" + userAge);
+        //steroids.logger.log("got here before minAge!" + userAge);
 
         var minAge = element.get("minAge");
         if(userAge < minAge){
@@ -216,7 +218,7 @@ angular
         if(!result){
           return false;
         }
-        steroids.logger.log("got here in match!");
+        //steroids.logger.log("got here in match!");
 
         return true;
       
@@ -255,7 +257,7 @@ angular
     alert("Interest recorded, please send email to advisor to setup interview");
           var user = Parse.Object.extend("User");
           var query = new Parse.Query(user);
-          query.equalTo("objectId", Parse.User.current().id);
+          query.equalTo("objectId", $scope.globaluser.id);
           query.first({
             success: function(results) {
               steroids.logger.log("in success of query first");

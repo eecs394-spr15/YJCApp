@@ -20,7 +20,21 @@
         </label>
     </div>
 
+
+
     <div class="button-block button-clear refresh" ng-show="iconstatus"><i class="icon iconhide super-refreshing"></i></div>
+
+    <div ng-show="newmessage">
+        <div class="card" style="box-shadow: 0 1px 3px #33CC33;">
+            <super-navigate class="item" location="home#show" ng-click="clearpushmessage()" data-params-id="{{pushid}}">
+                <div class="item item-text-wrap">
+                    <h2 ng-bind="pushtitle"></h2>
+                    <p ng-bind="pushmessage"></p>
+                    <p>Click for details</p>
+                </div>
+            </super-navigate>
+        </div>
+    </div>
 
     <div class="list list-inset top-list">
     
@@ -37,17 +51,7 @@
 
 
     <div class="main-content">
-    <div ng-show="newmessage">
-        <div class="card" style="box-shadow: 0 1px 3px #33CC33;">
-            <super-navigate class="item" location="home#show" ng-click="clearpushmessage()" data-params-id="{{pushid}}">
-                <div class="item item-text-wrap">
-                    <h2 ng-bind="pushtitle"></h2>
-                    <p ng-bind="pushmessage"></p>
-                    <p>Click for details</p>
-                </div>
-            </super-navigate>
-        </div>
-    </div>
+
     <div class="repeatcard" ng-repeat = "job in jobs | filter: filterFunction | filter: searchText">
     <div class="card" ng-class-odd="'odd'" ng-class-even="'even'" >
         <super-navigate class="item" location="home#show" data-params-id="{{ job.id }}" ng-class-odd="'odd'" ng-class-even="'even'">  
