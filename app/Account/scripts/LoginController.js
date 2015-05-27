@@ -59,12 +59,40 @@ angular
       pushNotification = window.plugins.pushNotification;
       if (device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" )
       {
-        pushNotification.register(
-          registrationHandler,
-          errorHandler, {
-              //android options
-              "senderID":"146165770764",
-              });
+        var view = new supersonic.ui.View("Account#index");
+        var user = new Parse.User();
+        user.set("username", $scope.newUser.username);
+        user.set("password", $scope.newUser.password);
+        user.set("email", $scope.newUser.email);
+        user.set("enableSMS", true);
+        user.set("admin", false);
+
+        user.signUp(null, {
+          success: function(user){
+
+            $scope.currentUser = user;
+            //username = $('#signup-username').val();
+            //username = user;
+            $scope.globaluser = user;
+            $scope.$apply();
+            supersonic.ui.dialog.alert("You have successfully signed up!");
+            pushNotification.register(
+              registrationHandler,
+              errorHandler, {
+                  //android options
+                  "senderID":"146165770764",
+                  });
+            supersonic.ui.layers.push(view);
+          },
+          error: function(user, error){
+            supersonic.ui.dialog.alert("You have not succesfully signed up. " + error.message);
+          }
+        });
+
+        $scope.signedUp = true;
+        $scope.loggedIn = true;
+        //supersonic.ui.layers.push(view);
+
         }else{
             var user = new Parse.User();
             user.set("username", $scope.newUser.username);
@@ -72,8 +100,9 @@ angular
             user.set("email", $scope.newUser.email);
             user.set("enableSMS", true);
             user.set("admin", false);
-            var view = new supersonic.ui.View("Account#index");
+            user.set("registrationId", []);
             user.signUp(null, {
+
               success: function(user){
               $scope.currentUser = user;
               $scope.globaluser = user;
@@ -88,48 +117,18 @@ angular
             }
           });
 
-        // save push notification device id
-        user.save();
         $scope.signedUp = true;
         $scope.loggedIn = true;
       }
 
       // the result contains any error description text returned from the plugin call
       function errorHandler (error) {
-          //supersonic.ui.dialog.alert('error = ' + error);
+          steroids.logger.log('error with registration id = ' + error);
       }
 
       function registrationHandler (deviceToken) {
-          var user = new Parse.User();
-          user.set("username", $scope.newUser.username);
-          user.set("password", $scope.newUser.password);
-          user.set("email", $scope.newUser.email);
-          user.set("enableSMS", true);
-
-          var view = new supersonic.ui.View("Account#index");
-
-
-          user.signUp(null, {
-            success: function(user){
-              $scope.currentUser = user;
-              //username = $('#signup-username').val();
-              //username = user;
-              $scope.globaluser = user;
-              $scope.$apply();
-              supersonic.ui.dialog.alert("You have successfully signed up!");
-              supersonic.ui.layers.push(view);
-            },
-            error: function(user, error){
-              supersonic.ui.dialog.alert("You have not succesfully signed up. " + error.message);
-            }
-          });
-
-          // save push notification device id
-          user.addUnique("registrationId", deviceToken);
-          user.save();
-
-          $scope.signedUp = true;
-          $scope.loggedIn = true;
+        user.addUnique("registrationId", deviceToken);
+        user.save();
       }
     }
   };
@@ -138,7 +137,6 @@ angular
 
   $scope.logIn = function() {
     var numErrors = 0;
-
     $('#login-username-lbl').removeClass('error-input');
     $('#login-password-lbl').removeClass('error-input');
 
@@ -169,6 +167,8 @@ angular
                   //android options
                   "senderID":"146165770764",
                   });
+            supersonic.ui.layers.push(view);
+
           }else{
             user.save();
             supersonic.ui.layers.push(view);
@@ -176,15 +176,13 @@ angular
 
           // the result contains any error description text returned from the plugin call
           function errorHandler (error) {
-              //supersonic.ui.dialog.alert('error = ' + error);
-
+            steroids.logger.log('error with registration id = ' + error);
           }
 
           function registrationHandler (deviceToken) {
 
             user.addUnique("registrationId", deviceToken);
             user.save();   
-            supersonic.ui.layers.push(view);
 
           }
         },

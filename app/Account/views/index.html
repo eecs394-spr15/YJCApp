@@ -224,7 +224,7 @@
         Career Advisor
         </div>
         <label id="event-type-lbl" class="item item-select event-type">
-          <select ng-model="Account['advisorFullName']"
+          <select ng-init="Account['advisorFullName']=advisorFullName[0]" ng-model="Account['advisorFullName']"
               ng-options="opt as opt for opt in advisorFullName">
           </select>
         </label><!-- end peer advisor section -->
