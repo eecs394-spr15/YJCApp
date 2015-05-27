@@ -90,7 +90,7 @@ Parse.Cloud.define('sendSMS', function(request, response){
   //*/
 });
 
-// sends push notifications through GCM
+// sends GCM push notifications
 Parse.Cloud.define('sendPush', function(request, response){
 
   var postalCodesResult = [];
@@ -129,7 +129,73 @@ Parse.Cloud.define('sendPush', function(request, response){
           },
           error: function(httpResponse) {
             console.error('GCM Request failed' + JSON.stringify(httpResponse));
+            response.error('Uh oh, push notification failed.');
+          }
+        });
+      }
+      //*/
+    },
+    error: function(httpResponse){
+      console.error('Geoname request failed' + JSON.stringify(httpResponse));
+      response.error('Uh oh, something went wrong');
+    }
+  });
+});
+
+
+// sends GCM push notification and SMS
+Parse.Cloud.define('sendNotifications', function(request, response){
+  var postalCodesResult = [];
+  Parse.Cloud.httpRequest({
+    method: 'GET',
+    url: request.params.geonameURL,
+    success: function(httpResponse){
+      for (var item in httpResponse.data.postalCodes){
+        postalCodesResult.push(httpResponse.data.postalCodes[item].postalCode); 
+      }
+
+      //* send notifications if nearby
+      if (postalCodesResult.indexOf(request.params.jobPostalCode.toString()) == -1)
+        response.error(request.params.number+': Uh oh, the job is not within the specified radius');
+      else {
+        twilio.sendSms({
+          from: '+12246332057',
+          to: request.params.number,
+          body: request.params.messageTitle + ': ' + request.params.messageBody 
+        }, function(err, responseData) { 
+          if (err) {
+            console.log(err);
             response.error('Uh oh, something went wrong');
+          } else { 
+            console.log(responseData.from); 
+            console.log(responseData.body);
+
+            if (request.params.registrationIds)
+              Parse.Cloud.httpRequest({
+                method: 'POST',
+                url: 'https://android.googleapis.com/gcm/send',
+                headers: {
+                  'Authorization': 'key=' + GCMAuth,
+                  'Content-Type': 'application/json',
+                },
+                body: {
+                  registration_ids: request.params.registrationIds,
+                  collapseKey: 'applice',
+                  timeToLive: 1,
+                  data: {
+                    'message': request.params.messageBody,
+                    'title': request.params.messageTitle,
+                    'id': request.params.jobId
+                  }
+                },
+                success: function(httpResponse) {
+                  response.success('SMS and push notification sent!');
+                },
+                error: function(httpResponse) {
+                  console.error('GCM Request failed' + JSON.stringify(httpResponse));
+                  response.error('Uh oh, push notification failed.');
+                }
+              });
           }
         });
       }
