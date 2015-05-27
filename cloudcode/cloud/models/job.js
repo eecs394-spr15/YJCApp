@@ -53,28 +53,9 @@ exports.getFull = function(id, callback){
 // create new job
 exports.create = function(req, callback){
   var job = new Job();
-  var jobErrors = {};
-  var numErrors = 0;
-  // check null
-  if (req.body.jobTitle === '' || req.body.jobTitle === null || req.body.jobTitle === undefined){
-    jobErrors.jobTitle = 'Invalid Job Title';
-    numErrors++;
-  }
-  if (!req.body.company)
-    jobErrors.company = 'Invalid Company';
-
-  if (numErrors > 0)
-    res.render('jobs/index', { username: 'sysadmin', errors: jobErrors });
-
-
-  // if (req.body.text1 === "") {
-  //   res.status(403).send('Top text cannot be blank');
-  // }
-
-  // Set metadata fields
+  
+  // Set data fields
   job.set('EmployerIndustryTypes', req.body.employerIndustryTypes);
-  //I think it is the post date
-  //job.set('startDate', new Date(req.body.startDate));
   job.set('company', req.body.company);
   job.set('address', String(req.body.address));
   job.set('city', String(req.body.city));
@@ -82,10 +63,7 @@ exports.create = function(req, callback){
   job.set('contact', req.body.contact); 
   job.set('email', req.body.email); 
   job.set('phone', req.body.phone); 
-  job.set('hiringProcess', req.body.hiringProcess); 
-
-
-
+  job.set('hiringProcess', req.body.hiringProcess);
 
   job.set('jobTitle', req.body.jobTitle);
   job.set('jobDescription', req.body.jobDescription);
@@ -97,30 +75,12 @@ exports.create = function(req, callback){
   job.set('backgroundCheck', req.body.backgroundCheck);
   job.set('drugTest', req.body.drugTest);
   
-
-  // job.set('ged', req.body.ged);
   job.set('educationRequirement', String(req.body.educationRequirement));
   job.set('driver', req.body.driver);
-  job.set('comment', req.body.comment);
-
-  //job.set('workSchedule', req.body.workSchedule);
-  
- 
-  
+  job.set('comment', req.body.comment);  
   
   job.set('qualifications', req.body.qualifications);
   
-  
-  
-  // // Jobs are read only
-  // var acl = new Parse.ACL();
-  // acl.setPublicReadAccess(true);
-  // job.setACL(acl);
-  
-  // no errors
-  jobErrors = {
-    jobTitle: ''
-  };
   job.save(null, {
     success: function(job){
       sendNotification(job, false, callback);
@@ -137,7 +97,6 @@ exports.update = function(req, callback){
   query.get(id, {
     success: function(result){
       result.set('EmployerIndustryTypes', req.body.employerIndustryTypes);
-      //result.set('startDate', new Date(req.body.startDate));
       result.set('company', req.body.company);
       result.set('address', String(req.body.address));
       result.set('city', String(req.body.city));
@@ -159,10 +118,6 @@ exports.update = function(req, callback){
       result.set('backgroundCheck', req.body.backgroundCheck);
       result.set('drugTest', req.body.drugTest);
      
-    
-     // result.set('workSchedule', req.body.workSchedule);
-     
-      //result.set('ged', req.body.ged);
       result.set('educationRequirement', String(req.body.educationRequirement));
       result.set('driver', req.body.driver);
       result.set('qualifications', req.body.qualifications);
@@ -235,17 +190,7 @@ function sendNotification(job, isUpdated, callback){
     for(var i = 0; i < results.length; i ++){
       console.log('Username: ' + results[i].get('username'));
 
-      // setup and call cloud function to send SMS
-      var smsMsg = isUpdated ? 'YJC - Job Updated: ' : 'YJC - New Job Opening: ';
-      smsMsg += job.get('jobTitle');
-      // send SMS message
-      if (results[i].get('enableSMS'))
-        Parse.Cloud.run('sendSMS', { 
-          number: results[i].get('phoneNumber'),
-          message: smsMsg
-        });
-
-      // setup and call cloud function to send push notifications
+      // setup and call cloud function to send notifications
       var userCountry = 'US';
       var userMaxRows = 500;
       var userPostcode = results[i].get('zipcode');
@@ -262,21 +207,22 @@ function sendNotification(job, isUpdated, callback){
 
       var registrationIds = results[i].get('registrationId');
 
-
-      if (registrationIds) {
-        var pushTitle = isUpdated ? 'YJC - Job Updated' : 'YJC - New Job Opening';
-        var pushMessage = jobTitle;
-        Parse.Cloud.run('sendPush', {
-          jobId: jobId,
-          jobPostalCode: jobPostalCode,
-          geonameURL: callURL,
-          registrationIds: registrationIds,
-          messageTitle: pushTitle,
-          messageBody: pushMessage
-        });
-      }
+      var pushTitle = isUpdated ? 'YJC - Job Updated' : 'YJC - New Job Opening';
+      var pushMessage = jobTitle;
+      Parse.Cloud.run('sendNotifications', {
+        jobId: jobId,
+        jobPostalCode: jobPostalCode,
+        geonameURL: callURL,
+        registrationIds: registrationIds,
+        messageTitle: pushTitle,
+        messageBody: pushMessage,
+        enableSMS: results[i].get('enableSMS'),
+        number: results[i].get('phoneNumber')
+      }, {
+        success: function(result){ callback.success(job); },
+        error: function(error){ callback.success(job); }
+      });
     }
     //console.log('Matches: ' + results.length);
-    callback.success(job);
   });
 }

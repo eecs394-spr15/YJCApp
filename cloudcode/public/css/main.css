@@ -44,3 +44,9 @@ p {
   font-size: 1.1em;
   line-height: 1.7em;
 }
+
+/* forms */
+form span.form-error {
+  color: red;
+  font-weight: normal;
+}
