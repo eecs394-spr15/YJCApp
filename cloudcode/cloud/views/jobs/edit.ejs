@@ -3,7 +3,7 @@
 <html>
   <head>
     <% include ../shared/_header %>
-    <script src="/scripts/check_submit.js"></script>
+    <script src="/scripts/check_forms.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/jobs.css">
   </head>
   <body>
@@ -18,7 +18,7 @@
           <h3 class="panel-title">Update Job Opening</h3>
         </div>
         <div class="panel-body">
-          <form method="POST" name="createform" action="/job/<%= job.id %>" onSubmit="return TestDataCheck()">
+          <form method="POST" name="jobform" action="/job/<%= job.id %>" onSubmit="return checkJobForm()">
             <div class="form-group">
               <div class="col-xs-12">
 
@@ -27,23 +27,25 @@
                     <input type="hidden" name="_method" id="requestType" value="PUT" />
                     <font size="1" style="color:red; position:absolute; top: -20px;">* is required</font>
 
-                    <label for="ex1">Employer Industry Types:<span style="color:red;"> *</span></label>
+                    <label for="ex1">
+                      Employer Industry Types:<span class="form-error" id="employerIndustryTypesError"> * </span>
+                    </label>
                     <select class="form-control" name="employerIndustryTypes" id="employerIndustryTypes">
                       <option>Automotive</option>
                       <option>Clerical/administrative</option>
                       <option>Healthcare</option>
-                       <option>Child Care and Counseling</option>
-                       <option>Food Service</option>
-                       <option>Healthcare</opton>
-                       <option>Hospitality</option>
-                       <option>IT/Technical</option>
-                       <option>Retail</option>
-                         <option>Security</option>
-                         <option>Odd-Job/Summer Job</option>
+                      <option>Child Care and Counseling</option>
+                      <option>Food Service</option>
+                      <option>Healthcare</opton>
+                      <option>Hospitality</option>
+                      <option>IT/Technical</option>
+                      <option>Retail</option>
+                      <option>Security</option>
+                      <option>Odd-Job/Summer Job</option>
                     </select>
                      <script>
                       $(function(){
-                        var employerIndustryTypes = <%- JSON.stringify(job.get('employerIndustryTypes')) %>;
+                        var employerIndustryTypes = <%- JSON.stringify(job.get('EmployerIndustryTypes')) %>;
                         $.each($('#employerIndustryTypes').children('option'), function(index, option){
                           if (option.text == employerIndustryTypes)
                             option.selected = true;
@@ -51,63 +53,78 @@
                       });
                     </script>
                     <br>
-                           
-                    <label for="ex1">Company:<span style="color:red;"> *</span></label>
-                    <input class="form-control" name="company" id="company" type="text" value="<%= job.get('company') %>">
+                    
+                    <label for="ex1">
+                      Company:<span class="form-error" id="companyError"> * </span>
+                    </label>
+                    <input type="text" class="form-control" name="company" id="company" value="<%= job.get('company') %>">
                     <br>
 
-                    <label for="ex1">City:<span style="color:red;"> *</span></label>
-                    <input class="form-control" name="city" id="city" type="text" value="<%= job.get('city') %>">
+                    <label for="ex1">
+                      City:<span class="form-error" id="cityError"> * </span>
+                    </label>
+                    <input type="text" class="form-control" name="city" id="city" value="<%= job.get('city') %>">
                     <br>
 
-                    <label for="ex1">Address:<span style="color:red;"> *</span></label>
-                    <input class="form-control" name="address" id="address" type="text" value="<%= job.get('address') %>">
+                    <label for="ex1">
+                      Address:<span class="form-error" id="addressError"> * </span>
+                    </label>
+                    <input type="text" class="form-control" name="address" id="address" value="<%= job.get('address') %>">
                     <br>
 
-                   
-
-                    <label for="ex1">Zip:<span style="color:red;"> *</span></label>
-                    <input class="form-control" name="zipcode" id="zipcode" type="text" value="<%= job.get('zipcode') %>">
+                    <label for="ex1">
+                      Zip:<span class="form-error" id="zipcodeError"> * </span>
+                    </label>
+                    <input type="text" class="form-control" name="zipcode" id="zipcode" value="<%= job.get('zipcode') %>">
                     <br>
 
-                    <label for="ex1">Contact Name:<span style="color:red;"> *</span></label>
-                    <input class="form-control" id="contact" name="contact" type="text" value="<%= job.get('contact') %>">
+                    <label for="ex1">
+                      Contact Name:<span class="form-error" id="contactError"> * </span>
+                    </label>
+                    <input type="text" class="form-control" name="contact" id="contact" value="<%= job.get('contact') %>">
                     <br>
 
-                    <label for="ex1">Contact Email:<span style="color:red;"> *</span></label>
-                    <input class="form-control" id="email" name="email" type="text" value="<%= job.get('email') %>">
+                    <label for="ex1">
+                      Contact Email:<span class="form-error" id="emailError"> * </span>
+                    </label>
+                    <input type="text" class="form-control" name="email" id="email" value="<%= job.get('email') %>">
                     <br>
 
-                    <label for="ex1">Contact Phone:<span style="color:red;"></span></label>
-                    <input class="form-control" id="phone" name="phone" type="text" value="<%= job.get('phone') %>">
+                    <label for="ex1">
+                      Contact Phone:<span class="form-error" id="phoneError"></span>
+                    </label>
+                    <input type="text" class="form-control" name="phone" id="phone" value="<%= job.get('phone') %>">
                     <br>
 
-                    <label for="ex1">Hiring Process:<span style="color:red;"></span></label>
-                    <input class="form-control" id="hiringProcess" name="hiringProcess" type="text" value="<%= job.get('phone') %>">
+                    <label for="ex1">
+                      Hiring Process:<span class="form-error" id="hiringProcessError"></span>
+                    </label>
+                    <input type="text" class="form-control" name="hiringProcess" id="hiringProcess" value="<%= job.get('hiringProcess') %>">
                     <br>
-
-
-
-
                   </div>
-                  <div class="col-md-4"> 
-
-                    <label for="ex1">Job Title:<span style="color:red;"> *</span></label>
-
-                    <input class="form-control" name="jobTitle" id="jobTitle" type="text" value="<%= job.get('jobTitle') %>">
+                  
+                  <div class="col-md-4">
+                    
+                    <label for="ex1">
+                      Job Title:<span class="form-error" id="jobTitleError"> * </span>
+                    </label>
+                    <input type="text" class="form-control" name="jobTitle" id="jobTitle" value="<%= job.get('jobTitle') %>">
                     <br>
 
-
-                    <label for="comment">Job Description:<span style="color:red;"></span></label>
-                    <textarea class="form-control" rows="5" id="jobDescription" name="jobDescription"><%= job.get('jobDescription') %></textarea>
+                    <label for="comment">
+                      Job Description:<span class="form-error" id="jobDescriptionError"></span>
+                    </label>
+                    <textarea class="form-control" rows="5" name="jobDescription" id="jobDescription"><%= job.get('jobDescription') %></textarea>
                     <br>
 
-                    <label for="ex1">Full/Part Time:<span style="color:red;"> *</span></label>
-                     <select class="form-control" name="fullTime" id="fullTime">
-                       <option>Full-Time</option>
-                       <option>Part-Time</option>
-                     </select>
-                     <script>
+                    <label for="ex1">
+                      Full/Part Time:<span class="form-error" id="fullTimeError"> * </span>
+                    </label>
+                    <select class="form-control" name="fullTime" id="fullTime">
+                      <option>Full-Time</option>
+                      <option>Part-Time</option>
+                    </select>
+                    <script>
                       $(function(){
                         var fullTime = <%- JSON.stringify(job.get('fullTime')) %>;
                         $.each($('#fullTime').children('option'), function(index, option){
@@ -118,8 +135,9 @@
                     </script>
                     <br>
 
-
-                    <label for="ex1">Min. Age:<span style="color:red;"> *</span></label>
+                    <label for="ex1">
+                      Min. Age:<span class="form-error" id="minAgeError"> * </span>
+                    </label>
                     <select class="form-control" name="minAge" id="minAge">
                      <option>16</option>
                      <option>17</option>
@@ -132,6 +150,7 @@
                      <option>24</option>
                      <option>25</option>
                     </select>
+                    <br>
                     <script>
                       $(function(){
                         var minAge= <%- JSON.stringify(job.get('minAge')) %>;
@@ -143,26 +162,32 @@
                     </script>
                     <br>
 
-
-                    <label for="ex1">Number of Openings:<span style="color:red;"></span></label>
-                    <input class="form-control" name="numOpenings" id="numOpenings" type="text" value="<%= job.get('numOpenings') %>">
+                    <label for="ex1">
+                      Number of Openings:<span class="form-error" id="numOpeningsError"></span>
+                    </label>
+                    <input type="text" class="form-control" name="numOpenings" id="numOpenings" value="<%= job.get('numOpenings') %>">
                     <br>
 
-                    <label for="ex1">Hours/Week:<span style="color:red;"></span></label>
-                    <input class="form-control" name="hoursPerWeek" id="hoursPerWeek" type="text" value="<%= job.get('hoursPerWeek') %>">
+                    <label for="ex1">
+                      Hours/Week:<span class="form-error" id="hoursPerWeekError"></span>
+                    </label>
+                    <input type="text" class="form-control" name="hoursPerWeek" id="hoursPerWeek" value="<%= job.get('hoursPerWeek') %>">
                     <br>
 
-                   <label for="ex1">Salary:<span style="color:red;"></span></label>
-                    <input class="form-control" name="salary" id="salary" type="text" value="<%= job.get('salary') %>" >
-                    <br>
                     
-
-                    <label for="ex1">Drug Test:<span style="color:red;"></span></label>
-                 
-                     <select class="form-control" name="drugTest" id="drugTest">
+                    <label for="ex1">
+                      Salary:<span class="form-error" id="salaryError"></span>
+                    </label>
+                    <input type="text" class="form-control" name="salary" id="salary" value="<%= job.get('salary') %>">
+                    <br>
+              
+                  
+                    <label for="ex1">
+                      Drug Test:<span class="form-error" id="drugTestError"></span>
+                    </label>
+                    <select class="form-control" name="drugTest" id="drugTest">
                       <option>Yes</option>
                       <option>No</option>
-            
                     </select>
                     <script>
                       $(function(){
@@ -174,23 +199,17 @@
                       });
                     </script>
                     <br>
-      
-                  
-
-                 
-                
-             
-                    
                   </div>
                   
                   <div class="col-md-4"> 
-                    <label for="ex1">Background Check:<span style="color:red;"></span></label>
+                    <label for="ex1">
+                      Background Check:<span class="form-error" id="backgroundCheckError"></span>
+                    </label>
                     <select class="form-control" name="backgroundCheck" id="backgroundCheck">
                       <option>Yes</option>
                       <option>No</option>
-            
                     </select>
-                     <script>
+                    <script>
                       $(function(){
                         var backgroundCheck = <%- JSON.stringify(job.get('backgroundCheck')) %>;
                         $.each($('#backgroundCheck').children('option'), function(index, option){
@@ -199,15 +218,15 @@
                         });
                       });
                     </script>
-
                     <br>
-
-                     <label for="ex1">Education Requirement:<span style="color:red;"></span></label>
+                   
+                    <label for="ex1">
+                      Education Requirement:<span class="form-error" id="educationRequirementError"></span>
+                    </label>
                     <select class="form-control" name="educationRequirement" id="educationRequirement">
                       <option>GED</option>
                       <option>High School Diploma</option>
                       <option>Associate's Degree</option>
-                      
                     </select>
                     <script>
                       $(function(){
@@ -220,15 +239,19 @@
                     </script>
                     <br>
 
-                  <label for="qualification">Qualifications:<span style="color:red;"></span></label>
-                  <textarea class="form-control" rows="5" id="qualifications" name="qualifications" value="<%= job.get('qualifications') %>"></textarea>
+                    <label for="qualification">
+                      Qualifications:<span class="form-error" id="qualificationsError"></span>
+                    </label>
+                    <textarea class="form-control" rows="5" name="qualifications" id="qualifications"><%= job.get('qualifications') %></textarea>
                     <br>
 
-                     <label for="ex1">Driver's License:<span style="color:red;"></span></label>
-                    <select class="form-control" name="driver" id="driver">
+
+                    <label for="ex1">
+                      Driver's License:<span class="form-error" id="driversLicenseError"></span>
+                    </label>
+                    <select class="form-control" name="driver" id="driversLicense">
                       <option>Yes</option>
                       <option>No</option>
-            
                     </select>
                     <script>
                       $(function(){
@@ -240,26 +263,23 @@
                       });
                     </script>
                     <br>
-                    
-                    
 
-
-                    <label for="comment">Comment:<span style="color:red;"></span></label>
-                    <textarea class="form-control" rows="5" id="comment" name="comment"><%= job.get('comment') %></textarea>
+                    <label for="comment">
+                      Comment:<span class="form-error" id="commentError"></span>
+                    </label>
+                    <textarea class="form-control" rows="5" name="comment" id="comment"><%= job.get('comment') %></textarea>
                     <br>
+
                     <div style="padding-left: 100px;position: absolute; top: 570px; color:red;">
-                     <font size="1" id="check">
-                     </font>
-                  </div>
-                  
-                    <div style="margin-left: 200px; position: absolute; top: 570px; right:10px">
-                      <button type="submit" class="btn btn-primary" onclick="$('#requestType').attr('value','PUT')">Update Job</button>
-                      <br>
-                      <br>
+                      <font size="1" id="check">
+                      </font>
+                    </div>
+
+                    <div style="display: table; margin: 0 auto;">
+                      <button type="submit" class="btn btn-primary" style="margin-right: 10px" onclick="$('#requestType').attr('value','PUT')">Update Job</button>
                       <button type="submit" class="btn btn-danger" onclick="$('#requestType').attr('value','DELETE')">Delete Job</button>
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>

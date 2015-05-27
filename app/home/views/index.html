@@ -1,4 +1,4 @@
-<div ng-controller="IndexController">
+<div ng-controller="IndexController" scroll>
     <div ng-hide="globaluser">
         <div class="list" >
         <label class="item item-input" id="yjcbar">
@@ -17,13 +17,13 @@
             <div style="margin-left:20px; color:#ffffff; font-weight:bold; font-size:120%">
                 Youth Job Center
             </div>
-            
-            <label class="item item-select filter-type ion-search">
-                <select ng-change="interested(filter)"ng-model="filter" ng-options="opt as opt for opt in options">Filter
-                </select>
-            </label>
         </label>
     </div>
+
+
+
+    <div class="button-block button-clear refresh" ng-show="iconstatus"><i class="icon iconhide super-refreshing"></i></div>
+
     <div ng-show="newmessage">
         <div class="card" style="box-shadow: 0 1px 3px #33CC33;">
             <super-navigate class="item" location="home#show" ng-click="clearpushmessage()" data-params-id="{{pushid}}">
@@ -35,8 +35,24 @@
             </super-navigate>
         </div>
     </div>
-    <div class="indexCard" ng-init="interested('Match Jobs')">
-    <div class="repeatcard" ng-repeat = "job in jobs | filter: filterFunction">
+
+    <div class="list list-inset top-list">
+    
+      <label class="item item-input search-bar">
+        <i class="icon super-ios7-search placeholder-icon"></i>
+        <input type="search" placeholder="Search" ng-model="searchText">
+      </label>
+      <label class="item item-select filter-type">
+          <select ng-init="filter=options[1];" ng-change="interested(filter)"ng-model="filter" ng-options="opt as opt for opt in options">
+          </select>
+      </label>
+    </div>
+
+
+
+    <div class="main-content">
+
+    <div class="repeatcard" ng-repeat = "job in jobs | filter: filterFunction | filter: searchText">
     <div class="card" ng-class-odd="'odd'" ng-class-even="'even'" >
         <super-navigate class="item" location="home#show" data-params-id="{{ job.id }}" ng-class-odd="'odd'" ng-class-even="'even'">  
                 <h2 ng-if="!((job.get('jobTitle') == undefined) || (job.get('jobTitle') == null) || (job.get('jobTitle') == ''))">{{job.get('jobTitle')}}</h2>
@@ -51,7 +67,7 @@
             <span>Contact Advisor About </span><span ng-bind="job.get('company')"></span>
         </button>
     </div>
-</div>
+    </div>
 </div>
 </div>
 </div>

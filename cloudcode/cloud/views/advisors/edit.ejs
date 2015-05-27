@@ -3,6 +3,7 @@
 <html>
   <head>
     <% include ../shared/_header %>
+    <script src="/scripts/check_forms.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/advisors.css">
   </head>
      
@@ -12,41 +13,35 @@
 
 
     <div class="container-fluid" style="padding-top: 20px;">
+      <div class="row">
+        <div class="col-md-4"> 
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Update Advisor Information</h3>
+            </div>
+            <div class="panel-body">
+              <form method="POST" name="advisorForm" action="/advisor/<%= advisor.id %>" onSubmit="return checkAdvisorForm()">
+                <div class="form-group">
+                  
+                  <input type="hidden" name="_method" id="requestType" value="PUT" />
+                  
+                  <font size="1" style="color:red; position:relative; top: -10px;">* is required</font><br>
+                  
+                  <label for="ex1">First Name:<span class="form-error" id="firstNameError"> * </span></label>
+                  <input type="text" class="form-control" name="firstName" id="firstName" value="<%= advisor.get('firstName') %>">
+                  <br>
 
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">Update Advisor Information</h3>
-        </div>
-        <div class="panel-body">
-          <form method="POST" name="createform" action="/advisors" onSubmit="return TestDataCheck()">
-            <div class="form-group">
-              <div class="col-xs-12">
+                  <label for="ex1">Last Name:<span class="form-error" id="lastNameError"> * </span></label>
+                  <input type="text" class="form-control" name="lastName" id="lastName" value="<%= advisor.get('lastName') %>">
+                  <br>
 
-                <div class="row">
-                  <div class="col-md-4"> 
-                    <input type="hidden" name="_method" id="requestType" value="PUT" />
-                    
-                    <font size="1" style="color:red; position:absolute; top: -20px;">* is required</font>
-                    
-                    <label for="ex1">First Name:<span style="color:red;"> *</span></label>
-                    <input class="form-control" name="firstName" id="firstName" type="text" value="<%= advisor.get('firstName') %>">
-                    <br>
+                  <label for="ex1">E-mail:<span class="form-error" id="emailError"> * </span></label>
+                  <input type="text" class="form-control" name="email" id="email" value="<%= advisor.get('email') %>">
+                  <br>
 
-                    <label for="ex1">Last Name:<span style="color:red;"> *</span></label>
-                    <input class="form-control" name="lastName" id="lastName" type="text" value="<%= advisor.get('lastName') %>">
-                    <br>
-
-                    <label for="ex1">E-mail:<span style="color:red;"> *</span></label>
-                    <input class="form-control" name="email" id="email" type="text" value="<%= advisor.get('email') %>">
-                    <br>
-
-                    <div style=" padding-left: 200px; position: absolute; top: 470px; right:10px">
-                      <button type="submit" class="btn btn-primary">Update</button>
-                    </div>
-
+                  <div style="display: table; margin: 0 auto;">
+                    <button type="submit" class="btn btn-primary">Update</button>
                   </div>
-
-                   
                 </div>
               </div>
             </div>

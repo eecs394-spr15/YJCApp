@@ -2,99 +2,46 @@ angular
   .module('home')
   .controller('IndexController', function($scope, $http, supersonic) {
 
-    // Controller functionality here
-  steroids.logger.log("Here in 0");
+  // Controller functionality here
+  //steroids.logger.log("Here in 0");
   $scope.globaluser = null;
+
+  if ($scope.globaluser == "undefined")
+    $scope.globaluser = null;
+  else
+    $scope.globaluser = $scope.globaluser || Parse.User.current();
+  user = null;
   supersonic.bind($scope, "globaluser");
   $scope.$apply();
+  $scope.searchText = "";
 
-    $scope.newmessage = false;
+  $scope.newmessage = false;
 
+  $scope.iconstatus = false;
 
-
-  supersonic.ui.views.current.whenVisible( function () {
+  $scope.updatejobsanduser = function() {
     supersonic.device.push.foregroundNotifications().onValue(function(notification) {
       $scope.newmessage = true;
       $scope.pushtitle = notification.payload.title;
       $scope.pushmessage = notification.message;
-      $scope.pushid = "2LUFSXgW3q";
+      $scope.pushid = notification.payload.id;
       $scope.$apply();
+      $scope.updatejobsanduser();
 
     });
 
-    supersonic.device.push.backgroundNotifications().onValue(function(notification) {     
+    supersonic.device.push.backgroundNotifications().onValue(function(notification) {
+      supersonic.ui.tabs.select(0);     
       $scope.newmessage = true;
       $scope.pushtitle = notification.payload.title;
       $scope.pushmessage = notification.message;
-      $scope.pushid = "2LUFSXgW3q";
+      $scope.pushid = notification.payload.id;
       $scope.$apply();
-
     });
 
 
-   // delete this
-
-  //Parse.User.logIn("test","test");
-  supersonic.bind($scope, "globaluser");
-
-  if($scope.globaluser == "undefined"){
-    $scope.globaluser = null;
-    $scope.$apply();
-  }
-
-     $scope.options = [
-      'All Jobs',
-      'Match Jobs',
-      'Interested Jobs'
-    ];
-
-
-    postcodesResult = [];
-    var postcodeResultMap = {};
-    //user = Parse.User.current();
-    user = $scope.globaluser;
-    $scope.$apply();
-    steroids.logger.log("getzip " + user);
-    var userCountry = "US";
-    var userMaxRows = 500;
-    var userPostcode;
-    var userRadius;
-    appliedJobs = [];
-
-
-
-
-    if (user !== null){
-     userPostcode = user.get('zipcode');
-     userRadius = user.get('jobRadius');
-     userRadius = userRadius*1.666;
-     if(userRadius > 30){
-        userRadius = 30;
-     }
-    }else{
-     userPostcode = "60201";
-     userRadius = 30;
-    }
-    if (userRadius === null){
-         userRadius = 30;
-    }
-    var userNameForGeoQuery = "YJCApp";
-    var callURL = "http://api.geonames.org/findNearbyPostalCodesJSON?postalcode=" + userPostcode + "&country=" + userCountry + "&radius=" + userRadius + "&username=" + userNameForGeoQuery + "&maxRows=" + userMaxRows;
-    steroids.logger.log(callURL);
-    $http.get(callURL).success(function(data, status, headers, config) {
-      for (var item in data.postalCodes){
-          postcodesResult.push(data.postalCodes[item].postalCode); 
-          postcodeResultMap[data.postalCodes[item].postalCode] = data.postalCodes[item].distance;
-      }
-
-    }).
-    error(function(data, status, headers, config) {
-      steroids.logger.log(status);
-    });
 
     if(user != null){
-
-
       var ClientInterest = Parse.Object.extend("ClientInterest");
       var appliedquery = new Parse.Query(ClientInterest);
       appliedquery.equalTo("userId", user.id);
@@ -112,18 +59,18 @@ angular
         }
       });
 
-
-
       userInterests = user.get('interests');
       userEducations = user.get('education');
       var ageDifMs = Date.now() - user.get('dateOfBirth').getTime();
       var ageDate = new Date(ageDifMs); // miliseconds from epoch
       userAge = Math.abs(ageDate.getUTCFullYear() - 1970);
-      steroids.logger.log("interest is: " + userInterests[0]);
-      steroids.logger.log("education: " + userEducations[0]);
-      steroids.logger.log("age: " + userAge);
+      //steroids.logger.log("interest is: " + userInterests[0]);
+      //steroids.logger.log("education: " + userEducations[0]);
+      //steroids.logger.log("age: " + userAge);
+      //steroids.logger.log("dateOfBirth: " + user.get('dateOfBirth'));
+
     }
-      steroids.logger.log("2222");
+      //steroids.logger.log("2222");
 
 
     
@@ -132,7 +79,7 @@ angular
 
     var Job = Parse.Object.extend("Job");
     var query = new Parse.Query(Job);
-
+    query.descending("updatedAt");
     query.find({
       success: function(results) {
         //alert("Successfully retrieved " + results.length + " scores.");
@@ -147,23 +94,87 @@ angular
         }
       }
     });
+  };
+
+
+  supersonic.ui.views.current.whenVisible( function () {
+    supersonic.bind($scope, "globaluser");
+
+    if($scope.globaluser == "undefined"){
+      $scope.globaluser = null;
+      $scope.$apply();
+    }
+
+
+       $scope.options = [
+        'All Jobs',
+        'Matched Jobs',
+        'Interested Jobs'
+      ];
+
+
+      postcodesResult = [];
+      var postcodeResultMap = {};
+      user = $scope.globaluser;
+      $scope.$apply();
+      //steroids.logger.log("getzip " + user);
+      var userCountry = "US";
+      var userMaxRows = 500;
+      var userPostcode;
+      var userRadius;
+      appliedJobs = [];
+
+
+      if (user !== null){
+       userPostcode = user.get('zipcode');
+
+       userRadius = user.get('jobRadius');
+       userRadius = userRadius*1.666;
+       if(userRadius > 30){
+          userRadius = 30;
+       }
+      }else{
+       userPostcode = "60201";
+       userRadius = 30;
+      }
+      if (userRadius === null){
+           userRadius = 30;
+      }
+      var userNameForGeoQuery = "YJCApp";
+      var callURL = "http://api.geonames.org/findNearbyPostalCodesJSON?postalcode=" + userPostcode + "&country=" + userCountry + "&radius=" + userRadius + "&username=" + userNameForGeoQuery + "&maxRows=" + userMaxRows;
+      //steroids.logger.log(callURL);
+      $http.get(callURL).success(function(data, status, headers, config) {
+        for (var item in data.postalCodes){
+            postcodesResult.push(data.postalCodes[item].postalCode); 
+            postcodeResultMap[data.postalCodes[item].postalCode] = data.postalCodes[item].distance;
+        }
+
+      }).
+      error(function(data, status, headers, config) {
+        //steroids.logger.log(status);
+      });
+
+    $scope.updatejobsanduser();
+    
   });
 
-
   $scope.interested = function(filter){
+    $scope.updatejobsanduser();
+
+
     steroids.logger.log(filter);
-    //var user = Parse.User.current();
-    if(filter == 'Match Jobs'){
+    if(filter == 'Matched Jobs'){
       if(user == null){
-        //alert("Please login");
+        alert("Please login");
         return;
       }
 
-      steroids.logger.log("s");
+      //steroids.logger.log("s");
       $scope.filterFunction = function(element){
         var result;
-        var now = element.get("zipcode").toString();
+        //steroids.logger.log("got here before zipcode!");
 
+        var now = element.get("zipcode").toString();
         if(postcodesResult.indexOf(now) == -1){
           result = false;
         } else {
@@ -172,6 +183,8 @@ angular
         if(!result){
           return false;
         }
+        steroids.logger.log("got here before edu!");
+
         var eduRequirement = element.get("educationRequirement").toString();
         if(userEducations.indexOf(eduRequirement) == -1){
           result = false;
@@ -181,6 +194,8 @@ angular
         if(!result){
           return false;
         }
+        steroids.logger.log("got here before employer!");
+
         var industrialType = element.get("EmployerIndustryTypes").toString();
         if(userInterests.indexOf("All") != -1){
           result = true;
@@ -192,6 +207,8 @@ angular
         if(!result){
           return false;
         }
+        //steroids.logger.log("got here before minAge!" + userAge);
+
         var minAge = element.get("minAge");
         if(userAge < minAge){
           result = false;
@@ -201,16 +218,17 @@ angular
         if(!result){
           return false;
         }
-        
+        //steroids.logger.log("got here in match!");
+
         return true;
       
       };
-    };
+    }
     if(filter == 'All Jobs' ){
       $scope.filterFunction = function(element){
         return true;
       };
-    };
+    }
 
     if(filter == 'Interested Jobs'){
       if(user == null){
@@ -220,14 +238,11 @@ angular
       $scope.filterFunction = function(element){
         if( appliedJobs.indexOf(element.id) == -1) return false;
         else return true;
-      }
-
-
+      };
     }
-
-
     return;
   };
+
 
 
   $scope.clearpushmessage = function() {
@@ -242,7 +257,7 @@ angular
     alert("Interest recorded, please send email to advisor to setup interview");
           var user = Parse.Object.extend("User");
           var query = new Parse.Query(user);
-          query.equalTo("objectId", Parse.User.current().id);
+          query.equalTo("objectId", $scope.globaluser.id);
           query.first({
             success: function(results) {
               steroids.logger.log("in success of query first");
@@ -311,4 +326,20 @@ angular
           });
     };
 
-});
+})
+.directive("scroll", function ($window, $document,$timeout) {
+        return function(scope, element, attrs) {
+            angular.element($window).bind("scroll", function() {
+                var height = $document[0].body.offsetHeight - this.innerHeight;
+                if(this.pageYOffset <= 0){
+                    scope.iconstatus = true;
+                    $timeout(function(){
+                        scope.iconstatus = false;
+                        $window.scrollBy(0,1);
+                    },1250);
+                    scope.updatejobsanduser();
+                    steroids.logger.log("in scroll");
+                }
+            });
+        };
+    });

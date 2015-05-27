@@ -13,6 +13,12 @@ navigation-bar button
 
 #yjcbar {
     background-color: #348F92;
+    /*position: fixed;
+    width: 100%;
+    z-index: 9;
+    margin-bottom: 100px;
+    */
+    padding-bottom: 10px;
 }
 
 #contact-btn {
@@ -20,13 +26,22 @@ navigation-bar button
   text-align: left;
 }
 
+.top-list {
+  border-color: #348f92;
+}
+
+.search-bar {
+  border-color: #348f92;
+}
+
 .filter-type {
-	position: relative;
-	left: 20px;
-	padding-left: 30px;
-	padding-right: 10px;
-	background: transparent;
-	color:#348F92;
+  padding-bottom: 30px;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-bottom: 0px;
+  background: transparent;
+  color:#348F92;
+  border-color: #348f92;
 }
 
 .filter-type select {
@@ -34,5 +49,15 @@ navigation-bar button
   width: 100%;
   max-width: 100%;
   background: transparent;
+  color:#348F92;
+}
 
+.refresh{
+    height:30px;
+    position:center;
+    text-align: center;
+    padding-bottom:10px;
+}
+.iconhide{
+    background-size:15px;
 }

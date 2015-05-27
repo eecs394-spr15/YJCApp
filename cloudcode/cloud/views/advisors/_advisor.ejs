@@ -7,16 +7,19 @@
   <td><%= advisor.get('lastName') %></td>  
   <td><%= advisor.get('email') %></td>  
   <td><%= advisor.createdAt.getMonth() + 1 + "/" + advisor.createdAt.getDate() + "/" + advisor.createdAt.getFullYear() %></td>
-  <td>
-    <a href="/advisor/<%= advisor.id %>" >More</a>
-  </td>
-  <td>
-    <a href="/advisor/<%= advisor.id %>/edit" >Edit</a>
-  </td>
-  <td>
-    <form id="delete<%= advisor.id %>" method="POST" action="/advisor/<%= advisor.id %>" onsubmit="return confirm('Are you sure you want to remove this advisor?')">
-      <input type="hidden" name="_method" id="requestType" value="DELETE" />
-      <a onclick="document.getElementById('delete<%= advisor.id %>').submit();">Remove</a>
-    </form>
-  </td>
+  <% if (user && user['admin']){ %>
+    <td>
+      <a href="/advisor/<%= advisor.id %>" >More</a>
+    </td>
+    <td>
+      <a href="/advisor/<%= advisor.id %>/edit" >Edit</a>
+    </td>
+    <td>
+      <form id="delete<%= advisor.id %>" method="POST" action="/advisor/<%= advisor.id %>" onsubmit="return confirm('Are you sure you want to remove this advisor?')">
+        <input type="hidden" name="_method" id="requestType" value="DELETE" />
+        <a onclick="if (confirm('Are you sure you want to remove this advisor?')) { document.getElementById('delete<%= advisor.id %>').submit(); }">Remove</a>
+      </form>
+    </td>
+  <% } %>
+  
 </tr>

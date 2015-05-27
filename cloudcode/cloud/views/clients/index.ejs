@@ -1,4 +1,4 @@
-<% var page = 'advisors' %>
+<% var page = 'clients' %>
 
 <html>
   <head>
@@ -6,23 +6,43 @@
     <script src="/scripts/jquery-latest.js"></script> 
     <script src="/scripts/jquery.tablesorter.js"></script> 
     <link rel="stylesheet" href="/css/table.css">
+ 
   </head>
+ 
   <body>
   	<% include ../shared/_navbar %>
+    <script>
+      $(function () {
+            var trInstance = $('#clientTable').find('tr');
+            trInstance.click(function () {
+                trInstance.removeClass('selected');
+                trInstance.find('td').removeClass('selected');
+
+                var instance = $(this);
+                instance.addClass('selected');
+                instance.find('td').addClass('selected');
+            });
+        });
+
+    </script>
 
   	<div class="container-fluid">
 
-      <h1>Advisors</h1>
+      <h1>Clients</h1>
 
-      <div class="input-group stylish-input-group" style="float:left; margin-right:30px; margin-bottom:20px">
+      <div class="input-group stylish-input-group" style="float:left; margin-right:30px; margin-bottom:20px;">
         <input type="text" class="form-control" id="search" name="search" placeholder="Type to search" value="">
       </div>
 
       <% if (user && user['admin']){ %>
-        <a style="top: 120px;left: 10px;" href="/advisors/new" class="btn btn-warning btn-md" role="button">Add new advisor</a>
+        <!-- 
+        <a style="top: 120px;left: 10px;" href="/clients/new" class="btn btn-warning btn-md" role="button">Add new client</a>
+        <br>
+        <br>
+        -->
       <% } %>
       
-      <table id="advisorTable" class="table table-striped table-bordered table-hover tablesorter">
+      <table id="clientTable"  class="table table-bordered tablesorter table-striped table-hover">
         <thead>
         <tr>
           <th></th>
@@ -30,6 +50,7 @@
           <th>Last Name</th>
           <th>E-mail</th>
           <th>Joined On</th>
+          <th>Advisor</th>
           <% if (user && user['admin']){ %>
             <th></th>
             <th></th>
@@ -38,9 +59,9 @@
         </tr>
         </thead>
         <tbody>
-        <% for(var i = 0; i < advisors.length; i++ ){ %>
-          <% var advisor = advisors[i] %>
-          <% include _advisor %>
+        <% for(var i = 0; i < clients.length; i++ ){ %>
+          <% var client = clients[i] %>
+          <% include _client %>
         <% } %>
         </tbody>
       </table>
@@ -50,13 +71,13 @@
   <script>
   $(document).load(function() 
     { 
-      $("#advisorTable").tablesorter(); 
+      $("#clientTable").tablesorter(); 
     } 
   ); 
   $(document).ready(function() 
     { 
-      $("#advisorTable").tablesorter( {sortList: [[0,0], [1,0]]} );
-      var $rows = $('#advisorTable > tbody > tr');
+      $("#clientTable").tablesorter( {sortList: [[0,0], [1,0]]} );
+      var $rows = $('#clientTable > tbody > tr');
       $('#search').keyup(function() {
           var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
           

@@ -1,15 +1,15 @@
-
- 
 <tr class="new" >  
   <td style="min-width:50px;max-width:50px">
   <%- "<input type=\"checkbox\" name=\"" + job.id + "\" value=\"" + job.id + "\" onClick=\"select()\">"
   %>
   </td>
-  <td style="min-width:52px;max-width:52px">
-    <a href="/job/<%= job.id %>" >More</a>
-    <a href="/job/<%= job.id %>/edit" >Edit</a>
-  </td>
-  
+  <% if (user && user['admin']){ %>
+    <td style="min-width:52px;max-width:52px">
+      <a href="/job/<%= job.id %>" >More</a>
+      <a href="/job/<%= job.id %>/edit" >Edit</a>
+    </td>
+  <% }; %>
+
   <td style="min-width:113px"><%= job.createdAt.getMonth() + 1 + "/" + job.createdAt.getDate() + "/" + job.createdAt.getFullYear() %></td>
   <td style="min-width:130px;max-width:130px"><%= job.get('EmployerIndustryTypes') %></td>
   <td style="min-width:94px;max-width:94px"><%= job.get('jobTitle') %></td>
@@ -36,16 +36,18 @@
   <td style="min-width:120px;max-width:120px"><%= job.get('contact') %></td>
   <td style="min-width:148px;max-width:148px"><%= job.get('email') %></td>
   <td style="min-width:120px;max-width:120px"><%= job.get('phone') %></td>
-  <td style="min-width:52px;max-width:52px">
-  	<a href="/job/<%= job.id %>" >More</a>
-  </td>
-  <td style="min-width:46px;max-width:46px">
-  	<a href="/job/<%= job.id %>/edit" >Edit</a>
-  </td >
-  <td style="min-width:65px;max-width:80px">
-    <form id="delete<%= job.id %>" method="POST" action="/job/<%= job.id %>" onsubmit="return confirm('Are you sure you want to delete this job opening?')">
-      <input type="hidden" name="_method" id="requestType" value="DELETE" />
-      <a onclick="document.getElementById('delete<%= job.id %>').submit();">Delete</a>
-    </form>
-  </td>
+  <% if (user && user['admin']){ %>
+    <td style="min-width:52px;max-width:52px">
+      <a href="/job/<%= job.id %>" >More</a>
+    </td>
+    <td style="min-width:46px;max-width:46px">
+      <a href="/job/<%= job.id %>/edit" >Edit</a>
+    </td >
+    <td style="min-width:65px;max-width:80px">
+      <form id="delete<%= job.id %>" method="POST" action="/job/<%= job.id %>" onSubmit="return confirm('Are you sure you want to delete this job opening?')">
+        <input type="hidden" name="_method" id="requestType" value="DELETE" />
+        <a onclick="if (confirm('Are you sure you want to delete this job opening?')) { document.getElementById('delete<%= job.id %>').submit(); }">Delete</a>
+      </form>
+    </td>
+  <% } %>
 </tr>

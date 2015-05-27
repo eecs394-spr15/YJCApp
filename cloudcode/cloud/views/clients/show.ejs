@@ -1,0 +1,76 @@
+<% var page = 'clients' %>
+
+<html>
+  <head>
+    <% include ../shared/_header %>
+    <link rel="stylesheet" type="text/css" href="/css/clients.css">
+  </head>
+  <body>
+  	<% include ../shared/_navbar %>
+
+  	<div class="container-fluid">
+  		<div class="container">
+  			<div class="col-md-8">
+  				<h1 class="title"><%= client.get('firstName') %> <%= client.get('lastName') %></h1>
+          <div class="subtitle">
+            <p class="timestamp">
+              <span class="created"><b>Joined since: </b><%= client.createdAt.getMonth() + 1 %>/<%= client.createdAt.getDate() %>/<%= client.createdAt.getFullYear() %></span>
+              <span class="updated"><b>Last Updated: </b><%= client.updatedAt.getMonth() + 1 %>/<%= client.updatedAt.getDate() %>/<%= client.updatedAt.getFullYear() %></span>
+            </p>
+            <hr>
+          </div>
+
+          <div class="client-info">
+
+            <h4>E-mail: <span class="detail"><%= client.get('email') %></span></h4>
+
+            <% var phoneNumber = client.get('phoneNumber') %>
+            
+            <h4>Phone: <span class="detail"><%= '('+phoneNumber.substring(0,3)+') ' + phoneNumber.substring(3,6) + '-' + phoneNumber.substring(6) %></span></h4>
+
+            <h4>Advisor: <a href="/advisor/<%= advisor.id %>"><%= advisor.get('firstName') %> <%= advisor.get('lastName') %></a></h4>
+
+            <h4>Jobs I'm interested in:</h4>
+            <ul>
+              <% clientInterests.forEach(function(job){ %>
+                <li><a href="/job/<%= job.id %>"><%= job.get('jobTitle') %> - <%= job.get('company') %>, <%= job.get('address') %></a></li>
+              <% }) %>
+            </ul>
+          </div>
+
+				</div>
+				<div class="col-md-4 advisor-sidebar">
+
+          <div class="sidebar-block profile">
+            <h4>Profile</h4><hr>
+            <p>
+              <b>Location (zipcode): </b><%= client.get('zipcode') %><br>
+
+              <b>Preferred radius: </b><%= client.get('jobRadius') %> miles<br>
+
+              <b>Age: </b><%= new Date(new Date - client.get('dateOfBirth')).getFullYear()-1970 %><br>
+
+              <b>Interests: </b><br>
+              <% client.get('interests').forEach(function(interest){ %>
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> <%= interest %><br>
+              <% }) %><br>
+
+              <b>Education: </b><br>
+              <% client.get('education').forEach(function(education){ %>
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> <%= education %><br>
+              <% }) %><br>
+
+              <b>Available shifts: </b><br>
+              <% client.get('timeAvailable').forEach(function(time){ %>
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> <%= time %><br>
+              <% }) %><br>
+              
+              <b>Criminal History: </b><%= client.get('criminalHistory') ? 'Yes' : 'No' %><br>
+            </p>
+          </div>
+
+				</div>
+  		</div>
+  	</div>
+  </body>
+ </html>

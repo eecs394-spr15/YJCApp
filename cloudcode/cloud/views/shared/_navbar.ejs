@@ -11,14 +11,14 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li>
-          <a href="/jobs">Job Openings <span class="sr-only">(current)</span></a>
+        <li class= <%= page == 'jobs' ? 'active' : '' %> >
+          <a href="/jobs">Job Openings <%- page == 'jobs' ? '<span class="sr-only">(current)</span>': '' %></a>
         </li>
-        <li>
-          <a href="#">Clients</a>
+        <li class= <%= page == 'advisors' ? 'active' : '' %> >
+          <a href="/advisors">Advisors <%- page == 'advisors' ? '<span class="sr-only">(current)</span>': '' %></a>
         </li>
-        <li>
-          <a href="/advisors">Advisors</a>
+        <li class= <%= page == 'clients' ? 'active' : '' %> >
+          <a href="/clients">Clients <%- page == 'clients' ? '<span class="sr-only">(current)</span>': '' %></a>
         </li>
       </ul>
       <% if (user) { %>

@@ -3,7 +3,7 @@
 <html>
   <head>
     <% include ../shared/_header %>
-    <script src="/scripts/check_submit.js"></script>
+    <script src="/scripts/check_forms.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/jobs.css">
   </head>
      
@@ -19,7 +19,7 @@
           <h3 class="panel-title">Add New Job Opening</h3>
         </div>
         <div class="panel-body">
-          <form method="POST" name="createform" action="/jobs" onSubmit="return TestDataCheck()">
+          <form method="POST" name="jobform" action="/jobs" onSubmit="return checkJobForm() ">
             <div class="form-group">
               <div class="col-xs-12">
 
@@ -27,67 +27,91 @@
                   <div class="col-md-4"> 
                     
                     <font size="1" style="color:red; position:absolute; top: -20px;">* is required</font>
-                    <label for="ex1">Employer Industry Types:<span style="color:red;"> *</span></label>
+                    <label for="ex1">
+                      Employer Industry Types:<span class="form-error" id="employerIndustryTypesError"> *</span>
+                    </label>
                     <select class="form-control" name="employerIndustryTypes" id="employerIndustryTypes">
                       <option>Automotive</option>
                       <option>Clerical/administrative</option>
                       <option>Healthcare</option>
-                       <option>Child Care and Counseling</option>
-                       <option>Food Service</option>
-                       <option>Healthcare</opton>
-                       <option>Hospitality</option>
-                       <option>IT/Technical</option>
-                       <option>Retail</option>
-                         <option>Security</option>
-                         <option>Odd-Job/Summer Job</option>
+                      <option>Child Care and Counseling</option>
+                      <option>Food Service</option>
+                      <option>Healthcare</opton>
+                      <option>Hospitality</option>
+                      <option>IT/Technical</option>
+                      <option>Retail</option>
+                      <option>Security</option>
+                      <option>Odd-Job/Summer Job</option>
                     </select>
                     <br>
 
-                    <label for="ex1">Company:<span style="color:red;"> *</span></label>
-                    <input class="form-control" name="company" id="company" type="text" value="">
+                    <label for="ex1">
+                      Company:<span class="form-error" id="companyError"> * </span>
+                    </label>
+                    <input type="text" class="form-control" name="company" id="company" value="">
                     <br>
 
-                    <label for="ex1">City:<span style="color:red;"> *</span></label>
-                    <input class="form-control" name="city" id="city" type="text" value="">
+                    <label for="ex1">
+                      City:<span class="form-error" id="cityError"> * </span>
+                    </label>
+                    <input type="text" class="form-control" name="city" id="city" value="">
                     <br>
 
-                    <label for="ex1">Address:<span style="color:red;"> *</span></label>
-                    <input class="form-control" name="address" id="address" type="text" value="">
+                    <label for="ex1">
+                      Address:<span class="form-error" id="addressError"> * </span>
+                    </label>
+                    <input type="text" class="form-control" name="address" id="address" value="">
                     <br>
 
-                    <label for="ex1">Zip:<span style="color:red;"> *</span></label>
-                    <input class="form-control" name="zipcode" id="zipcode" type="text" value="">
+                    <label for="ex1">
+                      Zip:<span class="form-error" id="zipcodeError"> * </span>
+                    </label>
+                    <input type="text" class="form-control" name="zipcode" id="zipcode" value="">
                     <br>
 
-                     <label for="ex1">Contact Name:<span style="color:red;"> *</span></label>
-                    <input class="form-control" id="contact" name="contact" type="text">
+                    <label for="ex1">
+                      Contact Name:<span class="form-error" id="contactError"> * </span>
+                    </label>
+                    <input type="text" class="form-control" name="contact" id="contact">
                     <br>
 
-                    <label for="ex1">Contact Email:<span style="color:red;"> *</span></label>
-                    <input class="form-control" id="email" name="email" type="text">
+                    <label for="ex1">
+                      Contact Email:<span class="form-error" id="emailError"> * </span>
+                    </label>
+                    <input type="text" class="form-control" name="email" id="email">
                     <br>
 
-                    <label for="ex1">Contact Phone:<span style="color:red;"></span></label>
-                    <input class="form-control" id="phone" name="phone" type="text">
+                    <label for="ex1">
+                      Contact Phone:<span class="form-error" id="phoneError"></span>
+                    </label>
+                    <input type="text" class="form-control" name="phone" id="phone">
                     <br>
 
-                    <label for="ex1">Hiring Process:<span style="color:red;"></span></label>
-                    <input class="form-control" id="hiringProcess" name="hiringProcess" type="text" value="">
+                    <label for="ex1">
+                      Hiring Process:<span class="form-error" id="hiringProcessError"></span>
+                    </label>
+                    <input type="text" class="form-control" name="hiringProcess" id="hiringProcess" value="">
                     <br>
                 
               
                    
                   </div>
                   <div class="col-md-4"> 
-                    <label for="ex1">Job Title:<span style="color:red;"> *</span></label>
-                    <input class="form-control" name="jobTitle" id="jobTitle" type="text">
+                    <label for="ex1">
+                      Job Title:<span class="form-error" id="jobTitleError"> * </span>
+                    </label>
+                    <input type="text" class="form-control" name="jobTitle" id="jobTitle">
                     <br>
 
-                    <label for="comment">Job Description:<span style="color:red;"></span></label>
-                    <textarea class="form-control" rows="5" id="jobDescription" name="jobDescription"></textarea>
+                    <label for="comment">
+                      Job Description:<span class="form-error" id="jobDescriptionError"></span>
+                    </label>
+                    <textarea class="form-control" rows="5" name="jobDescription" id="jobDescription"></textarea>
                     <br>
 
-                    <label for="ex1">Full/Part Time:<span style="color:red;"> *</span></label>
+                    <label for="ex1">
+                      Full/Part Time:<span class="form-error" id="fullTimeError"> * </span>
+                    </label>
                     <select class="form-control" name="fullTime" id="fullTime">
                        <option>Full-Time</option>
                        <option>Part-Time</option>
@@ -95,8 +119,10 @@
                     <br>
                     
 
-                    <label for="ex1">Min. Age:<span style="color:red;"> *</span></label>
-                    <select class="form-control" name="minAge">
+                    <label for="ex1">
+                      Min. Age:<span class="form-error" id="minAgeError"> * </span>
+                    </label>
+                    <select class="form-control" name="minAge" id="minAge">
                      <option>16</option>
                      <option>17</option>
                      <option>18</option>
@@ -110,94 +136,87 @@
                     </select>
                     <br>
 
-                    <label for="ex1">Number of Openings:<span style="color:red;"></span></label>
-                    <input class="form-control" name="numOpenings" id="numOpenings" type="text">
+                    <label for="ex1">
+                      Number of Openings:<span class="form-error" id="numOpeningsError"></span>
+                    </label>
+                    <input type="text" class="form-control" name="numOpenings" id="numOpenings">
                     <br>
 
-                    <label for="ex1">Hours/Week:<span style="color:red;"></span></label>
-                    <input class="form-control" name="hoursPerWeek" id="hoursPerWeek" type="text">
+                    <label for="ex1">
+                      Hours/Week:<span class="form-error" id="hoursPerWeekError"></span>
+                    </label>
+                    <input type="text" class="form-control" name="hoursPerWeek" id="hoursPerWeek">
                     <br>
 
                     
-                    <label for="ex1">Salary:<span style="color:red;"></span></label>
-                    <input class="form-control" name="salary" id="salary" type="text">
+                    <label for="ex1">
+                      Salary:<span class="form-error" id="salaryError"></span>
+                    </label>
+                    <input type="text" class="form-control" name="salary" id="salary">
                     <br>
-                    
-                    
-                
-                    
-
-                    <!-- <label for="ex1">Work Schedule:<span style="color:red;"></span></label>
-                    <input class="form-control" name="workSchedule" id="workSchedule" type="text">
-                    <br>
- -->
               
                   
-                    <label for="ex1">Drug Test:<span style="color:red;"></span></label>
-                 
-                     <select class="form-control" name="drugTest">
+                    <label for="ex1">
+                      Drug Test:<span class="form-error" id="drugTestError"></span>
+                    </label>
+                    <select class="form-control" name="drugTest" id="drugTest">
                       <option>Yes</option>
                       <option>No</option>
-            
                     </select>
                     <br>
-                
-
-                 
-                   
                   </div>
                   
                   <div class="col-md-4"> 
 
-                      <label for="ex1">Background Check:<span style="color:red;"></span></label>
-                    <select class="form-control" name="backgroundCheck">
+                    <label for="ex1">
+                      Background Check:<span class="form-error" id="backgroundCheckError"></span>
+                    </label>
+                    <select class="form-control" name="backgroundCheck" id="backgroundCheck">
                       <option>Yes</option>
                       <option>No</option>
-            
                     </select>
-
                     <br>
 
                    
-                    <label for="ex1">Education Requirement:<span style="color:red;"></span></label>
+                    <label for="ex1">
+                      Education Requirement:<span class="form-error" id="educationRequirementError"></span>
+                    </label>
                     <select class="form-control" name="educationRequirement" id="educationRequirement">
-                     <option>GED</option>
+                      <option>GED</option>
                       <option>High School Diploma</option>
                       <option>Associate's Degree</option>
-                      
                     </select>
                     <br>
 
-                    <label for="qualification">Qualifications:<span style="color:red;"></span></label>
-                  <textarea class="form-control" rows="5" id="qualifications" name="qualifications"></textarea>
+                    <label for="qualification">
+                      Qualifications:<span class="form-error" id="qualificationsError"></span>
+                    </label>
+                    <textarea class="form-control" rows="5" name="qualifications" id="qualifications"></textarea>
                     <br>
 
 
-                    <label for="ex1">Driver's License:<span style="color:red;"></span></label>
-                    <select class="form-control" name="driver">
+                    <label for="ex1">
+                      Driver's License:<span class="form-error" id="driversLicenseError"></span>
+                    </label>
+                    <select class="form-control" name="driver" id="driversLicense">
                       <option>Yes</option>
                       <option>No</option>
             
                     </select>
                     <br>
 
-
-
-                    <label for="comment">Comment:<span style="color:red;"></span></label>
-                    <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
+                    
+                    <label for="comment">
+                      Comment:<span class="form-error" id="commentError"></span>
+                    </label>
+                    <textarea class="form-control" rows="5" name="comment" id="comment"></textarea>
                     <br>
                     <br>
-
-
-                    <div style="padding-left: 100px;position: absolute; top: 570px; color:red;">
-                     <font size="1" id="check">
-                     </font>
-                  </div>
 
                   
-                     <div style=" padding-left: 200px; position: absolute; top: 570px; right:10px">
-                     <button type="submit" class="btn btn-primary">Create Job</button>
-                     </div>
+                    <div style="display: table; margin: 0 auto;">
+                      <button type="submit" class="btn btn-primary">Create Job</button>
+                    </div>
                   </div>
 
                    
