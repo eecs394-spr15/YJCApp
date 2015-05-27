@@ -235,17 +235,7 @@ function sendNotification(job, isUpdated, callback){
     for(var i = 0; i < results.length; i ++){
       console.log('Username: ' + results[i].get('username'));
 
-      // setup and call cloud function to send SMS
-      var smsMsg = isUpdated ? 'YJC - Job Updated: ' : 'YJC - New Job Opening: ';
-      smsMsg += job.get('jobTitle');
-      // send SMS message
-      if (results[i].get('enableSMS'))
-        Parse.Cloud.run('sendSMS', { 
-          number: results[i].get('phoneNumber'),
-          message: smsMsg
-        });
-
-      // setup and call cloud function to send push notifications
+      // setup and call cloud function to send notifications
       var userCountry = 'US';
       var userMaxRows = 500;
       var userPostcode = results[i].get('zipcode');
@@ -262,21 +252,22 @@ function sendNotification(job, isUpdated, callback){
 
       var registrationIds = results[i].get('registrationId');
 
-
-      if (registrationIds) {
-        var pushTitle = isUpdated ? 'YJC - Job Updated' : 'YJC - New Job Opening';
-        var pushMessage = jobTitle;
-        Parse.Cloud.run('sendPush', {
-          jobId: jobId,
-          jobPostalCode: jobPostalCode,
-          geonameURL: callURL,
-          registrationIds: registrationIds,
-          messageTitle: pushTitle,
-          messageBody: pushMessage
-        });
-      }
+      var pushTitle = isUpdated ? 'YJC - Job Updated' : 'YJC - New Job Opening';
+      var pushMessage = jobTitle;
+      Parse.Cloud.run('sendNotifications', {
+        jobId: jobId,
+        jobPostalCode: jobPostalCode,
+        geonameURL: callURL,
+        registrationIds: registrationIds,
+        messageTitle: pushTitle,
+        messageBody: pushMessage,
+        enableSMS: results[i].get('enableSMS'),
+        number: results[i].get('phoneNumber')
+      }, {
+        success: function(result){ callback.success(job); },
+        error: function(error){ callback.success(job); }
+      });
     }
     //console.log('Matches: ' + results.length);
-    callback.success(job);
   });
 }
