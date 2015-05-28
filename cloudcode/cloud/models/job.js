@@ -163,6 +163,7 @@ function sendNotification(job, isUpdated, callback){
   var jobId = job.id;
   var jobTitle = job.get('jobTitle');
   var jobPostalCode = job.get('zipcode');
+  var jobCompany = job.get('company');
   var education = job.get('educationRequirement');
   var industry = job.get('EmployerIndustryTypes');
   var minAge = job.get('minAge');
@@ -208,7 +209,7 @@ function sendNotification(job, isUpdated, callback){
       var registrationIds = results[i].get('registrationId');
 
       var pushTitle = isUpdated ? 'YJC - Job Updated' : 'YJC - New Job Opening';
-      var pushMessage = jobTitle;
+      var pushMessage = jobTitle + ' at ' + jobCompany;
       Parse.Cloud.run('sendNotifications', {
         jobId: jobId,
         jobPostalCode: jobPostalCode,
