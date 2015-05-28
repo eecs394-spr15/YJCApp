@@ -66,6 +66,19 @@ angular
         user.set("email", $scope.newUser.email);
         user.set("enableSMS", true);
         user.set("admin", false);
+        user.set("firstName", "");
+        user.set("lastName", '');
+        user.set("interests", []);
+        user.set("timeAvailable", []);
+        user.set("education", []);
+        user.set("phoneNumber", '');
+        user.set("zipcode", '');
+        user.set("dateOfBirth", new Date());
+        user.set("criminalHistory", false);
+        user.set("advisorFirstName", '');
+        user.set("advisorLastName", '');
+        user.set("advisorEmail", '');
+        user.set("jobRadius", 20);
 
         user.signUp(null, {
           success: function(user){
@@ -101,6 +114,19 @@ angular
             user.set("enableSMS", true);
             user.set("admin", false);
             user.set("registrationId", []);
+            user.set("firstName", "");
+            user.set("lastName", '');
+            user.set("interests", []);
+            user.set("timeAvailable", []);
+            user.set("education", []);
+            user.set("phoneNumber", '');
+            user.set("zipcode", '');
+            user.set("dateOfBirth", new Date());
+            user.set("criminalHistory", false);
+            user.set("advisorFirstName", '');
+            user.set("advisorLastName", '');
+            user.set("advisorEmail", '');
+            user.set("jobRadius", 20);
             user.signUp(null, {
 
               success: function(user){

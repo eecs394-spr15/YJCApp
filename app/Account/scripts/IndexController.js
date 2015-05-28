@@ -241,7 +241,6 @@ angular
       }); 
       $scope.globaluser = $scope.currentUser;
       $scope.$apply();
-      alert("Save: " + $scope.globaluser);
       supersonic.ui.layers.pop();
     };	
 

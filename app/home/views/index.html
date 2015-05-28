@@ -43,7 +43,7 @@
         <input type="search" placeholder="Search" ng-model="searchText">
       </label>
       <label class="item item-select filter-type">
-          <select ng-init="filter=options[1];" ng-change="interested(filter)"ng-model="filter" ng-options="opt as opt for opt in options">
+          <select id="select-filter"ng-init="filter=options[1]; interested(filter);" ng-change="interested(filter)"ng-model="filter" ng-options="opt as opt for opt in options">
           </select>
       </label>
     </div>

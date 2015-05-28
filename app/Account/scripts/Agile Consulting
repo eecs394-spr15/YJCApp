@@ -1,0 +1,68 @@
+Hi Travis,
+
+Since you do not know the background of your teammates, there is a good 
+chance that your team has a great variety in coding skill. There is even 
+a risk that their coding abilities are not as good as you would want 
+which could lead to buggy code or bad programming style. I reccomend 
+that your team get together and start by practicing pair programming. 
+Pair programming will help to better diffuse all of your combined 
+technical knowledge among the members of the team, and help you produce 
+less buggy code. 
+
+From my own experience at work, pair programming makes it much easier to 
+debug buggy code and create quality code. For example, a teammate was 
+working on setting up a user login and profile page but got stuck at 
+points where the page was not showing the user's saved profile settings. 
+We were able to quickly fix the bugs after pair programming and we were 
+able to accomplish our project goals and complete the project in a 
+timely manner. 
+
+
+Try to find regular times to meet with your team where you can engage in 
+pair programming. If you are having a hard time scheduling meetings due 
+to conflicting schedules, try to pair program remotely. 
+team will sometimes use an application called screenhero. It is very
+easy to set up and a great way to pair program when you and your 
+teammates do not have the time to physically  meet. (ssh + tmux 
+is an option too)
+
+
+For more information about pair programming:
+
+http://www.allaboutagile.com/pair-programming-an-extremely-agile-practice/
+
+For information about screen hero:
+
+https://screenhero.com/
+
+Best regards,
+
+
+Eric
+
+
+Hi Travis,
+
+You should start by building something that the various college departments can see, use, and understand right away. Start by creating a page by creating a page where the various departments can enter their desired software packages and then returns information about the vendors and prices for that software package. Once you have that simple page setup, show it to CA and the department staff. Get their feedback and then add on to this basic functionality depending on the needs/wishes of CA and the various departments (such as the groupon-like purchase groups feature you mentioned). You should try to deliver new features/functionality to CA and the departments at regular intervals for them to try out, test, and give feedback on. This way you keep the clients involved, making them feel that what you are doing is worthwhile while at the same time they can provide you and your team with vital information about how to best complete the project. From past experience, clients are much more involved when you provide them with new features that they can interact with. In my past project for the youth job center, my client's eyes light up and has a lot of suggestions whenever we show him a new feature he can play with such as click to send email to career advisor, but he gets bored at talk of documentation or when we tell him about non tangible progress we've made, like setting up ssl certificates and databases. Giving them something small but useable will create a good first impression and make it easier to establish a healthy relationsip between your team and CA/departments.
+
+For more imformation about client interaction and delivering useable features: 
+
+http://www.extremeprogramming.org/rules/customer.html
+
+Best regards,
+
+Eric
+
+
+
+
+
+---------------------- Chaotic Client -----------------------------------
+
+Hi Chet,
+
+You shouldn't try to force your client to commit to a MVP. There seems to be a disconnect between your team and the client. Your team is naturally unhappy that the work they put into the first MVP had to be scraped and then to see client change their mind again must be doubly disheartening. I feel your dev's pain my friend. Unfortunately changing requirements will always a part of software development. Your client may not have had a clear picture of what they wanted and your two previous minimum viable products likely helped them to understand and visualize what they actually wanted. Forcing them to commit to a MVP for a month's time is a bad idea because it will very well waste your and the client's time because the client's expectations and requirements will most likely change during that time. 
+
+Instead I reccomend you communicate to the client the team's unease with having to throw away so much code. Let the client know that you are happy to make changes but when some of those changes are too extensive don't be afraid to push back and let them know that "this change is possible but will push the deadline by X time, so you need to make a choice". 
+
+

@@ -18,6 +18,13 @@ angular
   $scope.newmessage = false;
 
   $scope.iconstatus = false;
+   $scope.options = [
+    'All Jobs',
+    'Matched Jobs',
+    'Interested Jobs'
+  ];
+
+
 
   $scope.updatejobsanduser = function() {
     supersonic.device.push.foregroundNotifications().onValue(function(notification) {
@@ -40,11 +47,15 @@ angular
     });
 
 
-
     if(user != null){
+      if (user.id == null || user.id == undefined)
+        id = user.objectId;
+      else
+        id = user.id;
+
       var ClientInterest = Parse.Object.extend("ClientInterest");
       var appliedquery = new Parse.Query(ClientInterest);
-      appliedquery.equalTo("userId", user.id);
+      appliedquery.equalTo("userId", id);
       appliedquery.find({
         success: function(results) {
           
@@ -59,9 +70,17 @@ angular
         }
       });
 
-      userInterests = user.get('interests');
-      userEducations = user.get('education');
-      var ageDifMs = Date.now() - user.get('dateOfBirth').getTime();
+      try {
+        userInterests = user.get('interests');
+        userEducations = user.get('education');
+        userDob = user.get('dateOfBirth');
+      }
+      catch(e) {
+        userInterests = user.interests;
+        userEducations = user.education;
+        userDob = new Date(user.dateOfBirth);
+      }
+      var ageDifMs = Date.now() - userDob.getTime();
       var ageDate = new Date(ageDifMs); // miliseconds from epoch
       userAge = Math.abs(ageDate.getUTCFullYear() - 1970);
       //steroids.logger.log("interest is: " + userInterests[0]);
@@ -102,33 +121,32 @@ angular
 
     if($scope.globaluser == "undefined"){
       $scope.globaluser = null;
+      user = $scope.globaluser;
       $scope.$apply();
     }
-
-
-       $scope.options = [
-        'All Jobs',
-        'Matched Jobs',
-        'Interested Jobs'
-      ];
-
 
       postcodesResult = [];
       var postcodeResultMap = {};
       user = $scope.globaluser;
       $scope.$apply();
-      //steroids.logger.log("getzip " + user);
+      steroids.logger.log(user);
       var userCountry = "US";
       var userMaxRows = 500;
       var userPostcode;
       var userRadius;
       appliedJobs = [];
 
-
       if (user !== null){
-       userPostcode = user.get('zipcode');
 
-       userRadius = user.get('jobRadius');
+        try {
+          userPostcode = user.get('zipcode');
+          userRadius = user.get('jobRadius');
+        }
+        catch (e) {
+          userPostcode = user.zipcode;
+          userRadius = user.jobRadius;
+        }
+
        userRadius = userRadius*1.666;
        if(userRadius > 30){
           userRadius = 30;
@@ -155,8 +173,20 @@ angular
       });
 
     $scope.updatejobsanduser();
-    
+    if ($('#select-filter').val() == "Matched Jobs" || $('#select-filter option:selected').text() == "Matched Jobs")
+    {
+      $scope.interested("Matched Jobs");
+    }
+    if ($('#select-filter').val() == "All Jobs" || $('#select-filter option:selected').text() == "All Jobs")
+    {
+      $scope.interested("All Jobs");
+    }
+    if ($('#select-filter').val() == "Interested Jobs" || $('#select-filter option:selected').text() == "Interested Jobs")
+    {
+      $scope.interested("Interested Jobs");
+    }
   });
+
 
   $scope.interested = function(filter){
     $scope.updatejobsanduser();
@@ -164,8 +194,8 @@ angular
 
     steroids.logger.log(filter);
     if(filter == 'Matched Jobs'){
-      if(user == null){
-        alert("Please login");
+      if(user === null){
+        //alert("Please login");
         return;
       }
 
@@ -183,7 +213,6 @@ angular
         if(!result){
           return false;
         }
-        steroids.logger.log("got here before edu!");
 
         var eduRequirement = element.get("educationRequirement").toString();
         if(userEducations.indexOf(eduRequirement) == -1){
@@ -194,7 +223,6 @@ angular
         if(!result){
           return false;
         }
-        steroids.logger.log("got here before employer!");
 
         var industrialType = element.get("EmployerIndustryTypes").toString();
         if(userInterests.indexOf("All") != -1){
@@ -232,7 +260,7 @@ angular
 
     if(filter == 'Interested Jobs'){
       if(user == null){
-        alert("Please login");
+        //alert("Please login");
         return;
       }
       $scope.filterFunction = function(element){
@@ -254,10 +282,18 @@ angular
     var labels = {
         buttonLabels: ["Yes", "No"]
     };
+    steroids.logger.log($scope.globaluser);
+
+    if ($scope.globaluser.id === null || $scope.globaluser.id === undefined)
+      id = $scope.globaluser.objectId;
+    else
+      id = $scope.globaluser.id;
     alert("Interest recorded, please send email to advisor to setup interview");
+    steroids.logger.log("id for email " + id);
+
           var user = Parse.Object.extend("User");
           var query = new Parse.Query(user);
-          query.equalTo("objectId", $scope.globaluser.id);
+          query.equalTo("objectId", id);
           query.first({
             success: function(results) {
               steroids.logger.log("in success of query first");
@@ -316,12 +352,12 @@ angular
                   }
                 },
                 error: function(result) {
-                  alert(result);
+                  alert("Could not send query job id");
                 }
               });
             },
             error: function(error) {
-              alert(error);
+              alert("Could not query for user");
             }
           });
     };
@@ -336,7 +372,7 @@ angular
                     $timeout(function(){
                         scope.iconstatus = false;
                         $window.scrollBy(0,1);
-                    },1250);
+                    },2500);
                     scope.updatejobsanduser();
                     steroids.logger.log("in scroll");
                 }
