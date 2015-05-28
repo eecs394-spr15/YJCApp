@@ -79,6 +79,8 @@ angular
         user.set("advisorLastName", '');
         user.set("advisorEmail", '');
         user.set("jobRadius", 20);
+        user.set("registrationId", []);
+
 
         user.signUp(null, {
           success: function(user){
@@ -95,7 +97,6 @@ angular
                   //android options
                   "senderID":"146165770764",
                   });
-            supersonic.ui.layers.push(view);
           },
           error: function(user, error){
             supersonic.ui.dialog.alert("You have not succesfully signed up. " + error.message);
@@ -155,6 +156,8 @@ angular
       function registrationHandler (deviceToken) {
         user.addUnique("registrationId", deviceToken);
         user.save();
+        supersonic.ui.layers.push(view);
+
       }
     }
   };

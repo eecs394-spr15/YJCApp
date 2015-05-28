@@ -15,3 +15,8 @@
 .odd {
   background-color: #F0F0F0 !important;
 }
+
+.item-divider {
+  background-color: #348F92;
+  color: #ffffff;
+}
