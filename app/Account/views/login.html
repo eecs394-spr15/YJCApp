@@ -16,27 +16,23 @@
           New Users
           </div>  
           <label id="signup-username-lbl" class="item item-input">
-            <input id="signup-username" type="text" placeholder="Username" ng-model="newUser.username">
+            <input id="signup-username" type="text" placeholder="Email" ng-model="newUser.username">
           </label>
 
           <label id="signup-password-lbl" class="item item-input">
             <input id="signup-password" type="password" placeholder="Password" ng-model="newUser.password">
           </label>
 
-          <label id="signup-email-lbl" class="item item-input">
-            <input id="signup-email" type="email" placeholder="Email" ng-model="newUser.email">
-          </label>
-
           <button ng-click= "signUp()" class="button button-block" style="background-color: #F7652C; color: #ffffff;">Sign Up</button>
         </div>
-      
+
         <div ng-hide="currentUser">
           <div class="item item-divider">
           Existing Users
           </div>
 
           <label id="login-username-lbl" class="item item-input">
-            <input id="login-username" type="text" placeholder="Username" ng-model="existingUser.username">
+            <input id="login-username" type="text" placeholder="Email" ng-model="existingUser.username">
           </label>
 
           <label id="login-password-lbl" class="item item-input">

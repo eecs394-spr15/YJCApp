@@ -33,7 +33,6 @@ angular
 
     $('#signup-username-lbl').removeClass('error-input');
     $('#signup-password-lbl').removeClass('error-input');
-    $('#signup-email-lbl').removeClass('error-input');
 
     if ($('#signup-username').val() === '' || $('#signup-username').val() === undefined || $('#signup-username').val() === null)
     {
@@ -44,11 +43,6 @@ angular
     {
       numErrors++;
       $('#signup-password-lbl').addClass('error-input');
-    }
-    if ($('#signup-email').val() === '' || $('#signup-email').val() === undefined || $('#signup-email').val() === null)
-    {
-      numErrors++;
-      $('#signup-email-lbl').addClass('error-input');
     }
 
     if (numErrors === 0)
@@ -63,7 +57,7 @@ angular
         var user = new Parse.User();
         user.set("username", $scope.newUser.username);
         user.set("password", $scope.newUser.password);
-        user.set("email", $scope.newUser.email);
+        user.set("email", $scope.newUser.username);
         user.set("enableSMS", true);
         user.set("admin", false);
         user.set("firstName", "");
@@ -111,7 +105,7 @@ angular
             var user = new Parse.User();
             user.set("username", $scope.newUser.username);
             user.set("password", $scope.newUser.password);
-            user.set("email", $scope.newUser.email);
+            user.set("email", $scope.newUser.username);
             user.set("enableSMS", true);
             user.set("admin", false);
             user.set("registrationId", []);
@@ -150,7 +144,7 @@ angular
 
       // the result contains any error description text returned from the plugin call
       function errorHandler (error) {
-          steroids.logger.log('error with registration id = ' + error);
+        supersonic.ui.dialog.alert('error with registration id = ' + error.message);
       }
 
       function registrationHandler (deviceToken) {
@@ -205,7 +199,7 @@ angular
 
           // the result contains any error description text returned from the plugin call
           function errorHandler (error) {
-            steroids.logger.log('error with registration id = ' + error);
+            supersonic.ui.dialog.alert('error with registration id = ' + error.message);
           }
 
           function registrationHandler (deviceToken) {

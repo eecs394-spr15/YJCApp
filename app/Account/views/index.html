@@ -14,7 +14,9 @@
   			<div class="item item-divider">
           	About Me
       	</div>
-
+        <label id="email-lbl" class="item item-input">
+          <input id="email" type="text" placeholder="Email" ng-model="Account['email']">
+        </label>
       	<label id="firstname-lbl" class="item item-input">
       		<input id="firstname" type="text" placeholder="First Name" ng-model="Account['firstName']">
     		</label>
@@ -230,7 +232,7 @@
         </label><!-- end peer advisor section -->
 
     	</ul>
-      <button class="button button-block" style="background-color: #348f92; color: #ffffff;" ng-click="checkForm()">Save</button>
+      <button class="button button-block" style="background-color: #F7652C; color: #ffffff;" ng-click="checkForm()">Save</button>
   	</form>
   </div>
 </div>

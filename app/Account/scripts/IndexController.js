@@ -49,6 +49,7 @@ angular
               $scope.Account.education = [];
               $scope.Account.timeAvailable = [];
               $scope.currentUser = results;
+              $scope.Account.email = $scope.current.get("email");
               $scope.Account.firstName = $scope.currentUser.get('firstName');
               $scope.Account.lastName = $scope.currentUser.get('lastName');
               $scope.Account.phoneNumber = $scope.currentUser.get('phoneNumber');
@@ -128,12 +129,17 @@ angular
 
     $scope.checkForm = function () {
       var numErrors = 0;
+      $('email-lbl').removeClass('error-input');
       $('#firstname-lbl').removeClass('error-input');
       $('#lastname-lbl').removeClass('error-input');
       $('#phonenumber-lbl').removeClass('error-input');
       $('#zipcode-lbl').removeClass('error-input');
       $('#advisor-lbl').removeClass('error-input');
-
+      if ($('#email').val() === '' || $('#email').val() === undefined || $('#email').val() === null)
+      {
+        numErrors++;
+        $('#email-lbl').addClass('error-input');
+      }
       if ($('#firstname').val() === '' || $('#firstname').val() === undefined || $('#firstname').val() === null)
       {
         numErrors++;
@@ -214,6 +220,7 @@ angular
           $scope.Account.timeAvailable.push($(parent).text().trim());
         }
       });
+      $scope.currentUser.set("email", $scope.Account.email);
       $scope.currentUser.set("firstName", $scope.Account.firstName);
       $scope.currentUser.set("lastName", $scope.Account.lastName);
       $scope.currentUser.set("phoneNumber", $scope.Account.phoneNumber);
@@ -237,6 +244,7 @@ angular
 
         },
         error: function(user, error) {
+          supersonic.ui.dialog.alert("Failed to save profile: " + error.message);
         }
       }); 
       $scope.globaluser = $scope.currentUser;
