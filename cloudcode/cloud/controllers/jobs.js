@@ -3,6 +3,10 @@ var Job = require('cloud/models/job');
 module.exports = function(app){
 
   app.get('/jobs', function(req, res){
+    // redirect to login if not logged in
+    if (!req.session.user)
+      return res.redirect('/login');
+
     // render jobs index page
     Job.all({
       success: function (results) {
@@ -19,6 +23,10 @@ module.exports = function(app){
   });
 
   app.get('/jobs/new', function(req, res){
+    // redirect to login if not logged in
+    if (!req.session.user)
+      return res.redirect('/login');
+
     // redirect to jobs if not admin
     if (!req.session.user['admin'])
       return res.redirect('/jobs');
@@ -45,6 +53,10 @@ module.exports = function(app){
   });
 
   app.get('/job/:id', function(req, res){
+    // redirect to login if not logged in
+    if (!req.session.user)
+      return res.redirect('/login');
+
     // render page to show job listing with more details
     Job.getFull(req.params.id, {
       success: function(result){
@@ -62,6 +74,10 @@ module.exports = function(app){
   });
 
   app.get('/job/:id/edit', function(req, res){
+    // redirect to login if not logged in
+    if (!req.session.user)
+      return res.redirect('/login');
+    
     // redirect to jobs if not admin
     if (!req.session.user['admin'])
       return res.redirect('/jobs');

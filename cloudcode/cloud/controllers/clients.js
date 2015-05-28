@@ -3,6 +3,10 @@ var Client = require('cloud/models/client');
 module.exports = function(app){
 
   app.get('/clients', function(req, res){
+    // redirect to login if not logged in
+    if (!req.session.user)
+      return res.redirect('/login');
+
     // render clients index page
     Client.all({
       success: function (results) {
@@ -47,6 +51,10 @@ module.exports = function(app){
   //*/
 
   app.get('/client/:id', function(req, res){
+    // redirect to login if not logged in
+    if (!req.session.user)
+      return res.redirect('/login');
+
     // render page to show client listing with more details
     Client.getFull(req.params.id, {
       success: function(result){
