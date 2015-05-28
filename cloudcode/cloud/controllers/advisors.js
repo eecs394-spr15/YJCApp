@@ -3,6 +3,10 @@ var Advisor = require('cloud/models/advisor');
 module.exports = function(app){
 
 	app.get('/advisors', function(req, res){
+    // redirect to login if not logged in
+    if (!req.session.user)
+      return res.redirect('/login');
+
     // render advisors index page
     Advisor.all({
       success: function (results) {
@@ -18,6 +22,10 @@ module.exports = function(app){
   });
 
   app.get('/advisors/new', function(req, res){
+    // redirect to login if not logged in
+    if (!req.session.user)
+      return res.redirect('/login');
+
     // redirect to root if not admin
     if (!req.session.user['admin'])
       return res.redirect('/');
@@ -45,6 +53,10 @@ module.exports = function(app){
   });
 
   app.get('/advisor/:id', function(req, res){
+    // redirect to login if not logged in
+    if (!req.session.user)
+      return res.redirect('/login');
+
     Advisor.getFull(req.params.id, {
       success: function(result){
         res.render('advisors/show', {
@@ -60,6 +72,10 @@ module.exports = function(app){
   });
 
   app.get('/advisor/:id/edit', function(req, res){
+    // redirect to login if not logged in
+    if (!req.session.user)
+      return res.redirect('/login');
+    
     // redirect to advisors if not admin
     if (!req.session.user['admin'])
       return res.redirect('/advisors');
