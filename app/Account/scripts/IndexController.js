@@ -49,7 +49,7 @@ angular
               $scope.Account.education = [];
               $scope.Account.timeAvailable = [];
               $scope.currentUser = results;
-              $scope.Account.email = $scope.current.get("email");
+              $scope.Account.email = $scope.currentUser.get("email");
               $scope.Account.firstName = $scope.currentUser.get('firstName');
               $scope.Account.lastName = $scope.currentUser.get('lastName');
               $scope.Account.phoneNumber = $scope.currentUser.get('phoneNumber');
@@ -220,6 +220,21 @@ angular
           $scope.Account.timeAvailable.push($(parent).text().trim());
         }
       });
+
+      //check education
+      if ($scope.Account.education.indexOf("Bachelor's Degree") != -1)
+      {
+        if ($scope.Account.education.indexOf("Associate's Degree") == -1)
+          $scope.Account.education.push("Associate's Degree");
+        if ($scope.Account.education.indexOf("GED/High School Diploma") == -1)
+          $scope.Account.education.push("GED/High School Diploma");
+      }
+      if ($scope.Account.education.indexOf("Associate's Degree") != -1)
+      {
+        if ($scope.Account.education.indexOf("GED/High School Diploma") == -1)
+          $scope.Account.education.push("GED/High School Diploma");
+      }
+
       $scope.currentUser.set("email", $scope.Account.email);
       $scope.currentUser.set("firstName", $scope.Account.firstName);
       $scope.currentUser.set("lastName", $scope.Account.lastName);
