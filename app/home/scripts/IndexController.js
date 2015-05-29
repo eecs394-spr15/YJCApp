@@ -278,6 +278,10 @@ angular
     $scope.$apply();
   };
 
+  $scope.gotoLogin = function() {
+    supersonic.ui.tabs.select(1);
+  };
+
   $scope.showInterest = function (job) {
     var labels = {
         buttonLabels: ["Yes", "No"]
