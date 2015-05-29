@@ -32,9 +32,9 @@
       <p ng-if="!((job.get('fullTime') == undefined) || (job.get('fullTime') == null) || (job.get('fullTime') == ''))">Time Available: {{job.get('fullTime')}}</p>
       <p ng-if="!((job.get('jobDescription') == undefined) || (job.get('jobDescription') == null) || (job.get('jobDescription') == ''))">Job Description: {{job.get('jobDescription')}}</p>
     </div>
-    <button class="item item-icon-left assertive" ng-click="showInterest(job)">
+    <button class="item item-icon-left item-text-wrap assertive" ng-click="showInterest(job)">
         <i class="icon super-email"></i>
-        Contact about {{job.get('company')}}
+        Contact advisor about {{job.get('jobTitle')}}
     </button>
   </div>
 </div>

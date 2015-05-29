@@ -62,9 +62,9 @@
                 <p ng-if="!((job.get('fullTime') == undefined) || (job.get('fullTime') == null) || (job.get('fullTime') == ''))">Type: {{job.get('fullTime')}}</p>
 
         </super-navigate>
-        <button id="contact-btn" class="item item-icon-left assertive" ng-click="showInterest(job)" ng-class-odd="'odd'" ng-class-even="'even'">
+        <button id="contact-btn" class="item item-icon-left item-text-wrap assertive" ng-click="showInterest(job)" ng-class-odd="'odd'" ng-class-even="'even'">
             <i class="icon super-email"></i>
-            <span>Contact Advisor About </span><span ng-bind="job.get('company')"></span>
+            <span>Contact advisor about </span><span ng-bind="job.get('jobTitle')"></span>
         </button>
     </div>
     </div>
