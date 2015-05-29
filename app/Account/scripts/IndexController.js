@@ -135,30 +135,36 @@ angular
       $('#phonenumber-lbl').removeClass('error-input');
       $('#zipcode-lbl').removeClass('error-input');
       $('#advisor-lbl').removeClass('error-input');
-      if ($('#email').val() === '' || $('#email').val() === undefined || $('#email').val() === null)
+      
+      if ($('#zipcode').val() === '' || $('#zipcode').val() === undefined || $('#zipcode').val() === null)
       {
         numErrors++;
-        $('#email-lbl').addClass('error-input');
-      }
-      if ($('#firstname').val() === '' || $('#firstname').val() === undefined || $('#firstname').val() === null)
-      {
-        numErrors++;
-        $('#firstname-lbl').addClass('error-input');
-      }
-      if ($('#lastname').val() === '' || $('#lastname').val() === undefined || $('#lastname').val() === null)
-      {
-        numErrors++;
-        $('#lastname-lbl').addClass('error-input');
+        $('#zipcode-lbl').addClass('error-input');
+        $('zipcode-lbl').focus();
       }
       if ($('#phonenumber').val() === '' || $('#phonenumber').val() === undefined || $('#phonenumber').val() === null)
       {
         numErrors++;
         $('#phonenumber-lbl').addClass('error-input');
+        $('phonenumber-lbl').focus();
       }
-      if ($('#zipcode').val() === '' || $('#zipcode').val() === undefined || $('#zipcode').val() === null)
+      if ($('#lastname').val() === '' || $('#lastname').val() === undefined || $('#lastname').val() === null)
       {
         numErrors++;
-        $('#zipcode-lbl').addClass('error-input');
+        $('#lastname-lbl').addClass('error-input');
+        $('lastname-lbl').focus();
+      }
+      if ($('#firstname').val() === '' || $('#firstname').val() === undefined || $('#firstname').val() === null)
+      {
+        numErrors++;
+        $('#firstname-lbl').addClass('error-input');
+        $('firstname-lbl').focus();
+      }
+      if ($('#email').val() === '' || $('#email').val() === undefined || $('#email').val() === null)
+      {
+        numErrors++;
+        $('#email-lbl').addClass('error-input');
+        $('email-lbl').focus();
       }
       if (numErrors === 0)
       {

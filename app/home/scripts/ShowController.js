@@ -29,44 +29,79 @@ angular
     });
 
     $scope.showInterest = function (job) {
-      var user = Parse.Object.extend("User");
-      var query = new Parse.Query(user);
-      query.equalTo("objectId", Parse.User.current().id);
-      query.first({
-        success: function(results) {
-          $scope.Account = {};
-          $scope.Account.skills = [];
-          $scope.interests = [];
-          $scope.Account.education = [];
-          $scope.Account.timeAvailable = [];
-          $scope.currentUser = results;
-          $scope.Account.firstName = $scope.currentUser.get('firstName');
-          $scope.Account.lastName = $scope.currentUser.get('lastName');
-          $scope.Account.phoneNumber = $scope.currentUser.get('phoneNumber');
-          $scope.Account.zipcode = $scope.currentUser.get('zipcode');
-          $scope.Account.email = $scope.currentUser.get('email');
-          $scope.Account.dateOfBirth = $scope.currentUser.get('dateOfBirth');
-          $scope.Account.dateOfBirthStr = $scope.Account.dateOfBirth.toLocaleDateString();
-          $scope.Account.criminalHistory = $scope.currentUser.get('criminalHistory');
-          $scope.Account.advisorEmail = $scope.currentUser.get('advisorEmail');
-          // array values
-          $scope.Account.interests = $scope.currentUser.get("interests");
-          $scope.Account.education = $scope.currentUser.get("education");
-          $scope.Account.timeAvailable = $scope.currentUser.get("timeAvailable");
-          $scope.Account.skills = $scope.currentUser.get("skills");
-          $scope.$apply();
-        },
-        error: function(error) {
-        }
-      });
-      var recipient = $scope.Account.advisorEmail;
-      var subject = "Interest in " + job.get("jobTitle") + " position at " + job.get("company") + " in " + job.get("city");
-      var body = "Hi,\nI am interested in applying for the ";
-      body += job.get("jobTitle") + " position at " + job.get("company") + " in " + job.get("city") + ". ";
-      body += "Could you provide me with more information and how I might apply for this position?\n\n";
-      body += "Thanks,\n\n" + $scope.Account.firstName + " " + $scope.Account.lastName;
-      supersonic.app.openURL("mailto:" + recipient + "?subject=" + subject + "&body=" + body).then(function() {
-        supersonic.logger.log("SMS app successfully opened");
-      });
-    };
+
+      alert("Interest recorded, please send email to advisor to setup interview");
+      steroids.logger.log("id for email " + id);
+
+        var user = Parse.Object.extend("User");
+        var query = new Parse.Query(user);
+        query.equalTo("objectId", Parse.User.current().id);
+        query.first({
+          success: function(results) {
+            steroids.logger.log("in success of query first");
+            var Account = {};
+            Account.skills = [];
+            Account.education = [];
+            Account.timeAvailable = [];
+            currentUser = results;
+            Account.firstName = currentUser.get('firstName');
+            Account.lastName = currentUser.get('lastName');
+            Account.phoneNumber = currentUser.get('phoneNumber');
+            Account.zipcode = currentUser.get('zipcode');
+            Account.email = currentUser.get('email');
+            Account.dateOfBirth = currentUser.get('dateOfBirth');
+            Account.dateOfBirthStr = Account.dateOfBirth.toLocaleDateString();
+            Account.criminalHistory = currentUser.get('criminalHistory');
+            Account.advisorEmail = currentUser.get('advisorEmail');
+            // array values
+            Account.interests = currentUser.get("interests");
+            Account.education = currentUser.get("education");
+            Account.timeAvailable = currentUser.get("timeAvailable");
+            Account.skills = currentUser.get("skills");
+            var ClientInterest = Parse.Object.extend("ClientInterest");
+            var query = new Parse.Query(ClientInterest);
+            query.equalTo("userId", currentUser.id);
+            query.equalTo("jobId", job.id);
+            query.first({
+              success: function(result) {
+                steroids.logger.log("in success of 2nd query first");
+
+                if (result === null || result === undefined)
+                {
+                  var newinterest = new ClientInterest();
+                  newinterest.set("userId", currentUser.id);
+                  newinterest.set("jobId", job.id);
+                  newinterest.save(null, {
+                    success: function(result) {
+                      var recipient = Account.advisorEmail;
+                      var subject = "Interest%20in%20" + job.get("jobTitle").replace(" ", "%20") + "%20position%20at%20" + job.get("company").replace(" ", "%20") + "%20in%20" + job.get("city").replace(" ", "%20");
+                      var body = "Hi,%0A%0AI%20am%20interested%20in%20applying%20for%20the%20";
+                      body += job.get("jobTitle").replace(" ", "%20") + "%20position%20at%20" + job.get("company").replace(" ", "%20") + "%20in%20" + job.get("city").replace(" ", "%20") + ".%20";
+                      body += "Could%20you%20provide%20me%20with%20more%20information%20and%20how%20I%20might%20apply%20for%20this%20position?%0A%0A";
+                      body += "Thanks,%0A%0A" + Account.firstName.replace(" ", "%20") + "%20" + Account.lastName.replace(" ", "%20");
+                      supersonic.app.openURL("mailto:" + recipient + "?subject=" + subject + "&body=" + body).then(function() {
+                      });
+                      steroids.logger.log("in success of 3rd query first");
+
+                    },
+                    error: function(result) {
+                    }
+                  });
+                }
+                else{
+                  steroids.logger.log("already applied");
+                  supersonic.ui.dialog.alert("You have already applied for this job");
+                }
+              },
+              error: function(result) {
+                alert("Could not send query job id");
+              }
+            });
+          },
+          error: function(error) {
+            alert("Could not query for user");
+          }
+        });
+
+      };
   });

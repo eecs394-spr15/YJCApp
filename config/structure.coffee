@@ -25,8 +25,8 @@ module.exports =
     
   ]
 
-  # rootView:
-  #   location: "home#index"
+  rootView:
+    location: "home#index"
 
   preloads: [
     {

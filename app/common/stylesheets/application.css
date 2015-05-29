@@ -20,3 +20,10 @@
   background-color: #348F92;
   color: #ffffff;
 }
+
+.checkbox input:before, .checkbox .checkbox-icon:before {
+  border-color: #F7652C;
+}
+.checkbox input:checked:before, .checkbox input:checked + .checkbox-icon:before {
+  background: #F7652C;
+  border-color: #F7652C; }
