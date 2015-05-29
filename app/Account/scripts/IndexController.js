@@ -140,31 +140,31 @@ angular
       {
         numErrors++;
         $('#zipcode-lbl').addClass('error-input');
-        $('zipcode-lbl').focus();
+        $('#zipcode').focus();
       }
       if ($('#phonenumber').val() === '' || $('#phonenumber').val() === undefined || $('#phonenumber').val() === null)
       {
         numErrors++;
         $('#phonenumber-lbl').addClass('error-input');
-        $('phonenumber-lbl').focus();
+        $('#phonenumber').focus();
       }
       if ($('#lastname').val() === '' || $('#lastname').val() === undefined || $('#lastname').val() === null)
       {
         numErrors++;
         $('#lastname-lbl').addClass('error-input');
-        $('lastname-lbl').focus();
+        $('#lastname').focus();
       }
       if ($('#firstname').val() === '' || $('#firstname').val() === undefined || $('#firstname').val() === null)
       {
         numErrors++;
         $('#firstname-lbl').addClass('error-input');
-        $('firstname-lbl').focus();
+        $('#firstname').focus();
       }
       if ($('#email').val() === '' || $('#email').val() === undefined || $('#email').val() === null)
       {
         numErrors++;
         $('#email-lbl').addClass('error-input');
-        $('email-lbl').focus();
+        $('#email').focus();
       }
       if (numErrors === 0)
       {
