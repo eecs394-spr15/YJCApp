@@ -1,7 +1,7 @@
 angular
   .module('Account')
   .controller("LoginPageController", function ($scope, supersonic) {
-  $scope.globaluser = "undefined";
+  $scope.globaluser = null;
   supersonic.bind($scope, "globaluser");
   $scope.$apply();
   $scope.Account = {};
@@ -11,14 +11,25 @@ angular
   //Parse.User.logIn("test", "test");
 
   supersonic.ui.views.current.whenVisible( function () {
-    $scope.currentUser = Parse.User.current();
     supersonic.bind($scope, "globaluser");
+    if($scope.globaluser == "undefined"){
+      $scope.currentUser = null;
+    }
+    else
+      $scope.currentUser = Parse.User.current();
+    $scope.$apply();
 
   });
 
   supersonic.ui.views.current.whenHidden( function () {
-    $scope.currentUser = Parse.User.current();
-    location.reload();
+    supersonic.bind($scope, "globaluser");
+    if($scope.globaluser == "undefined"){
+      $scope.currentUser = null;
+    }
+    else
+      $scope.currentUser = Parse.User.current();
+    $scope.$apply();
+    //location.reload();
   });
 
   document.addEventListener("visibilitychange", onVisibilityChange, false);

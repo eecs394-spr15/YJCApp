@@ -242,6 +242,7 @@ angular
       }
 
       $scope.currentUser.set("email", $scope.Account.email);
+      $scope.currentUser.set("username", $scope.Account.email);
       $scope.currentUser.set("firstName", $scope.Account.firstName);
       $scope.currentUser.set("lastName", $scope.Account.lastName);
       $scope.currentUser.set("phoneNumber", $scope.Account.phoneNumber);
