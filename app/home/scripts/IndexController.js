@@ -52,13 +52,11 @@ angular
         id = user.objectId;
       else
         id = user.id;
-
       var ClientInterest = Parse.Object.extend("ClientInterest");
       var appliedquery = new Parse.Query(ClientInterest);
       appliedquery.equalTo("userId", id);
       appliedquery.find({
         success: function(results) {
-          
           for (var i = 0; i < results.length; i++) { 
             appliedJobs.push(results[i].get('jobId'));
           }
@@ -294,7 +292,6 @@ angular
       id = $scope.globaluser.id;
     alert("Interest recorded, please send email to advisor to setup interview");
     steroids.logger.log("id for email " + id);
-
           var user = Parse.Object.extend("User");
           var query = new Parse.Query(user);
           query.equalTo("objectId", id);
@@ -361,7 +358,7 @@ angular
               });
             },
             error: function(error) {
-              alert("Could not query for user");
+              alert("Could not query for user: " + error.message);
             }
           });
     };

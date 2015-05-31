@@ -1,6 +1,6 @@
 <div ng-controller="IndexController" scroll>
     <div ng-hide="globaluser">
-        <div class="list" >
+        <div class="list">
         <label class="item item-input" id="yjcbar">
             <img id="yjclogo" src="/imags/yjclogo.jpg" onclick="location.reload()" width="50px"; height="40px"> <!-- Add the refresh function when click the WildCat-->
             <div style="margin-left:20px; color:#ffffff; font-weight:bold; font-size:120%">
@@ -9,7 +9,10 @@
         </label>
         </div>
 
-        <div class="list list-inset item-text-wrap">
+        <div class="list list-inset item-text-wrap" style="height:90%;">
+            <center>
+                <img src="/imags/start.jpg" id="slide" style="width:90%; height:70%;"/>
+            </center>
             <button class="button button-block" style="background-color: #F7652C; color: #ffffff;" ng-click="gotoLogin()">Click to Login</button>
         </div>
 

@@ -60,11 +60,10 @@ angular
     {
 
       var pushNotification;
-
+      var view = new supersonic.ui.View("Account#index");
       pushNotification = window.plugins.pushNotification;
       if (device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" )
       {
-        var view = new supersonic.ui.View("Account#index");
         var user = new Parse.User();
         user.set("username", $scope.newUser.username);
         user.set("password", $scope.newUser.password);

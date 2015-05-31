@@ -1,4 +1,5 @@
 Parse.initialize("v6YwqsYvW2DhyiVxJrte9crarPE0DGIR5GOttEhC", "PDnSHyyq8kRBosmIwZHHbhsN5JqyzDoJVmkNvqDF");
+Parse.User.enableRevocableSession();
 angular.module('common', [
   // Declare here all AngularJS dependencies that are shared by all modules.
   'supersonic'

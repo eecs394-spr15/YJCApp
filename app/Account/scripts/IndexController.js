@@ -142,7 +142,19 @@ angular
         $('#zipcode-lbl').addClass('error-input');
         $('#zipcode').focus();
       }
+      if ((!isNaN(parseFloat($('#zipcode').val())) && isFinite($('#zipcode').val())) == false)
+      {
+        numErrors++;
+        $('#zipcode-lbl').addClass('error-input');
+        $('#zipcode').focus();
+      }
       if ($('#phonenumber').val() === '' || $('#phonenumber').val() === undefined || $('#phonenumber').val() === null)
+      {
+        numErrors++;
+        $('#phonenumber-lbl').addClass('error-input');
+        $('#phonenumber').focus();
+      }
+      if ((!isNaN(parseFloat($('#phonenumber').val())) && isFinite($('#phonenumber').val())) == false)
       {
         numErrors++;
         $('#phonenumber-lbl').addClass('error-input');
@@ -241,6 +253,15 @@ angular
           $scope.Account.education.push("GED/High School Diploma");
       }
 
+
+      var newUser = false;
+      // check if user is new or just signed up
+      if ($scope.currentUser.get("firstName") == '' && $scope.currentUser.get("lastName") == '' &&
+        $scope.currentUser.get("phoneNumber") == '' && $scope.currentUser.get("zipcode") == '')
+      {
+        newUser = true;
+      }
+
       $scope.currentUser.set("email", $scope.Account.email);
       $scope.currentUser.set("username", $scope.Account.email);
       $scope.currentUser.set("firstName", $scope.Account.firstName);
@@ -271,7 +292,16 @@ angular
       }); 
       $scope.globaluser = $scope.currentUser;
       $scope.$apply();
-      supersonic.ui.layers.pop();
+
+      // go to help page if new 
+      if (newUser)
+      {
+        supersonic.ui.layers.popAll().then(function() {
+          supersonic.ui.tabs.select(2);
+        });
+      }
+      else
+        supersonic.ui.layers.pop();
     };	
 
     $scope.showSkillsInput = function() {
