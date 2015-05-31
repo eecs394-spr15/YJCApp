@@ -1,26 +1,35 @@
+/**
+ * application.css
+ *
+ * general styles for all modules
+ *
+ */
+
 .supersonic-navbar-mock {
   background-color: #00B5FF !important;
   text-align: center;
   font-weight: 600;
 }
 
-
+/* style for when user input is incorrect */
 .error-input {
   border-color: red;
   border-style: solid;
   border-width: 2px;
 }
 
-
+/* odd numbered cards on home page */
 .odd {
   background-color: #F0F0F0 !important;
 }
 
+/* set item divider to use yjc green color */
 .item-divider {
   background-color: #348F92;
   color: #ffffff;
 }
 
+/* give all checkboxes yjc orange color */
 .checkbox input:before, .checkbox .checkbox-icon:before {
   border-color: #F7652C;
 }

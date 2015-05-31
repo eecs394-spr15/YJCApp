@@ -96,6 +96,9 @@ angular
 
     var Job = Parse.Object.extend("Job");
     var query = new Parse.Query(Job);
+    var twoMonthsAgo = new Date();   // only get jobs from 2 month time period
+    twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+    query.greaterThanOrEqualTo("updatedAt", twoMonthsAgo);
     query.descending("updatedAt");
     query.find({
       success: function(results) {

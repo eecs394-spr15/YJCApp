@@ -37,7 +37,9 @@
 
       <% if (user && user['admin']){ %>
          <a style="top: 120px;left: 10px;"href="/jobs/new" class="btn btn-warning btn-md" role="button">Add new job</a>
+         <a style="top: 120px; left: 10px;" id="delete-selected" class="btn btn-warning btn-md" role="button">Delete Selected</a>
       <% } %>
+
 
       <table id="jobTable"  class="table  table-bordered tablesorter table-striped table-hover">
         <thead style="display:block; margin:0px; cell-spacing:0px; left:0px;">
@@ -91,12 +93,11 @@
 
   <script>
   $(document).load(function() 
-    { 
+  { 
       $("#jobTable").tablesorter(); 
-    } 
-  ); 
+  }); 
   $(document).ready(function() 
-    { 
+  { 
       $("#jobTable").tablesorter( {sortList: [[0,0], [1,0]]} );
       var $rows = $('#jobTable > tbody > tr');
       $('#search').keyup(function() {
@@ -107,8 +108,41 @@
               return !~text.indexOf(val);
           }).hide();
       }); 
-    } 
-  ); 
+      var ids = [];
+      $('input[type=checkbox]').change(
+        function(){
+          if (this.checked) {
+            ids.push(this.value);
+
+          }
+          else {
+            var index = ids.indexOf(this.value);
+            ids.splice(index, 1);
+          }
+        });
+      $('#delete-selected').click(function() {
+        if (ids.length == 0)
+          alert("no jobs selected");
+        else
+        {
+          var c = confirm("Are you sure you want to delete these selected jobs");
+          if (c)
+          {
+            var Job = Parse.Object.extend('Job');
+            var query = new Parse.Query(Job);
+            query.containedIn("objectId", ids);
+            query.find().then(function (results) {
+              for (var i = 0; i < results.length; i++) {
+                results[i].destroy({ wait : true});
+              }
+              location.reload(); 
+            });
+          }
+        }
+      });
+  }); 
+
+
 
   </script>
 </html>

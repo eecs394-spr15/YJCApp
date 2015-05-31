@@ -1,3 +1,11 @@
+/**
+ * home.css
+ *
+ * general styles for home module
+ *
+ */
+
+/* youth job center logo */
 #yjclogo {
     border-style: solid;
     border-color: #f58723;
@@ -11,6 +19,7 @@ navigation-bar button
   background-size: 20px;
 }
 
+/* youth job center custom bar */
 #yjcbar {
     background-color: #348F92;
     /*position: fixed;
@@ -21,19 +30,24 @@ navigation-bar button
     padding-bottom: 10px;
 }
 
+/* contact advisor button */
 #contact-btn {
   width: 100%;
   text-align: left;
 }
 
+
+/* search and dropdown filter parent div */
 .top-list {
   border-color: #348f92;
 }
 
+/* search bar */
 .search-bar {
   border-color: #348f92;
 }
 
+/* filter by interested/matched/all jobs drop down */
 .filter-type {
   padding-bottom: 30px;
   padding-left: 0px;
@@ -52,6 +66,7 @@ navigation-bar button
   color:#348F92;
 }
 
+/* slide down to refresh */
 .refresh{
     height:30px;
     position:center;

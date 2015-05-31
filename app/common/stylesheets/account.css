@@ -1,13 +1,21 @@
-/* style for event type on new event page */
+/**
+ * account.css
+ *
+ * Styles for account module.
+ *
+ */
 
-.event-type {
+
+/* style for advisor drop down on profile page (index.html) */
+
+.advisor-select {
   padding-bottom: 30px;
   padding-left: 0px;
   padding-right: 0px;
   margin-bottom: 0px;
 }
 
-.event-type select {
+.advisor-select select {
   direction: ltr;
   width: 100%;
   max-width: 100%;
