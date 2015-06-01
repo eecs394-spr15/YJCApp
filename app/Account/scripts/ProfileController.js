@@ -1,9 +1,10 @@
 angular
   .module('Account')
   .controller("ProfileController", function ($scope, supersonic) {
-
+  // profile page controller 
 
     supersonic.ui.views.current.whenVisible( function () {
+    // get information currently saved in the parse database about the current user
       var user = Parse.Object.extend("User");
       var query = new Parse.Query(user);
       query.equalTo("objectId", Parse.User.current().id);

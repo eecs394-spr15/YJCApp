@@ -1,19 +1,20 @@
 angular
   .module('Account')
   .controller("IndexController", function ($scope, supersonic) {    
-
-    $scope.globaluser = "undefined";
+  // edit profile page controller 
+    $scope.globaluser = "undefined";  // global logged in user, supersonic binding only returns objects or string
     supersonic.bind($scope, "globaluser");
     $scope.$apply();
-    $scope.advisorFirstName = [];
+    $scope.advisorFirstName = []; //advisor information
     $scope.advisorLastName = [];
     $scope.advisorFullName = [];
     $scope.advisorEmail = [];
-    $scope.Account = {};
+    $scope.Account = {};  // empty account object
+
 
     supersonic.ui.views.current.whenVisible( function () {
-      
-      var advisor = Parse.Object.extend("Advisor");
+    // called every time the account/index.html page is visible   
+      var advisor = Parse.Object.extend("Advisor"); // find advisors in parse db
       var query = new Parse.Query(advisor);
       query.find({
         success: function(results) {
@@ -21,7 +22,7 @@ angular
           $scope.advisorLastName = [];
           $scope.advisorFullName = [];
           $scope.advisorEmail = [];
-          if (results.length === 0)
+          if (results.length === 0) // if there are no advisors
           {
             $scope.advisorFullName.push("No Advisors");
             $scope.advisorFirstName.push("No Advisors");
@@ -29,7 +30,7 @@ angular
             $scope.advisorEmail.push("No Advisors");
           }
 
-          for (var i = 0; i < results.length; i++)
+          for (var i = 0; i < results.length; i++)  // populate advisor arrays with the advisor information
           {
             $scope.advisorFirstName.push(results[i].get("firstName"));
             $scope.advisorLastName.push(results[i].get("lastName"));
@@ -37,7 +38,7 @@ angular
             $scope.advisorEmail.push(results[i].get("email")); 
             $scope.$apply();
           }
-          var user = Parse.Object.extend("User");
+          var user = Parse.Object.extend("User"); // find the currently logged in user
           query = new Parse.Query(user);
 
 
@@ -119,8 +120,8 @@ angular
       });
     });
  
-    // Controller functionality here
     $scope.selectAll = function () {
+    // select all interests
       if ($('#all').prop("checked") === true)
         $("#industries :input").prop("checked", true);
       else
@@ -128,6 +129,7 @@ angular
     };  
 
     $scope.checkForm = function () {
+    // check form for errors, display red border on any inputs with errors 
       var numErrors = 0;
       $('email-lbl').removeClass('error-input');
       $('#firstname-lbl').removeClass('error-input');
@@ -138,42 +140,49 @@ angular
       
       if ($('#zipcode').val() === '' || $('#zipcode').val() === undefined || $('#zipcode').val() === null)
       {
+      // check zipcode field has value
         numErrors++;
         $('#zipcode-lbl').addClass('error-input');
         $('#zipcode').focus();
       }
       if ((!isNaN(parseFloat($('#zipcode').val())) && isFinite($('#zipcode').val())) == false)
       {
+      // check zipcode is a number
         numErrors++;
         $('#zipcode-lbl').addClass('error-input');
         $('#zipcode').focus();
       }
       if ($('#phonenumber').val() === '' || $('#phonenumber').val() === undefined || $('#phonenumber').val() === null)
       {
+      // check phoneumber exists 
         numErrors++;
         $('#phonenumber-lbl').addClass('error-input');
         $('#phonenumber').focus();
       }
       if ((!isNaN(parseFloat($('#phonenumber').val())) && isFinite($('#phonenumber').val())) == false)
       {
+      // check phonenumber is a number
         numErrors++;
         $('#phonenumber-lbl').addClass('error-input');
         $('#phonenumber').focus();
       }
       if ($('#lastname').val() === '' || $('#lastname').val() === undefined || $('#lastname').val() === null)
       {
+      // check last name
         numErrors++;
         $('#lastname-lbl').addClass('error-input');
         $('#lastname').focus();
       }
       if ($('#firstname').val() === '' || $('#firstname').val() === undefined || $('#firstname').val() === null)
       {
+      // check first name
         numErrors++;
         $('#firstname-lbl').addClass('error-input');
         $('#firstname').focus();
       }
       if ($('#email').val() === '' || $('#email').val() === undefined || $('#email').val() === null)
       {
+      // check email
         numErrors++;
         $('#email-lbl').addClass('error-input');
         $('#email').focus();
@@ -185,6 +194,7 @@ angular
     };
     
     $scope.addNewAccount = function () {   
+    // add new account/update existing 
       // get new dob
       var startDate = $('#dateofbirth').val().split("-");
       startDate[0] = parseInt(startDate[0]);
@@ -262,6 +272,7 @@ angular
         newUser = true;
       }
 
+      // save the values to parse db
       $scope.currentUser.set("email", $scope.Account.email);
       $scope.currentUser.set("username", $scope.Account.email);
       $scope.currentUser.set("firstName", $scope.Account.firstName);
@@ -293,18 +304,19 @@ angular
       $scope.globaluser = $scope.currentUser;
       $scope.$apply();
 
-      // go to help page if new 
+      // go to help page if new user was signed up
       if (newUser)
       {
         supersonic.ui.layers.popAll().then(function() {
           supersonic.ui.tabs.select(2);
         });
       }
-      else
+      else // go back to the profile page
         supersonic.ui.layers.pop();
     };	
 
     $scope.showSkillsInput = function() {
+      // get skills (not being used in app currently)
       var skill = document.getElementById("skill");
       var skillval = skill.value;
 

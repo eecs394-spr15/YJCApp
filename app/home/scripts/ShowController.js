@@ -70,17 +70,20 @@ angular
                 newinterest.set("jobId", job.id);
                 newinterest.save(null, {
                   success: function(result) {
-                    var recipient = Account.advisorEmail;
-                    var subject = "Interest%20in%20" + job.get("jobTitle").replace(" ", "%20") + "%20position%20at%20" + job.get("company").replace(" ", "%20") + "%20in%20" + job.get("city").replace(" ", "%20");
+                    var recipient = encodeURIComponent(Account.advisorEmail);
+                    var subject = "Interest%20in%20" + encodeURIComponent(job.get("jobTitle")) + "%20position%20at%20" + encodeURIComponent(job.get("company")) + "%20in%20" + encodeURIComponent(job.get("city"));
                     var body = "Hi,%0A%0AI%20am%20interested%20in%20applying%20for%20the%20";
-                    body += job.get("jobTitle").replace(" ", "%20") + "%20position%20at%20" + job.get("company").replace(" ", "%20") + "%20in%20" + job.get("city").replace(" ", "%20") + ".%20";
+                    body += encodeURIComponent(job.get("jobTitle")) + "%20position%20at%20" + encodeURIComponent(job.get("company")) + "%20in%20" + encodeURIComponent(job.get("city")) + ".%20";
                     body += "Could%20you%20provide%20me%20with%20more%20information%20and%20how%20I%20might%20apply%20for%20this%20position?%0A%0A";
-                    body += "Thanks,%0A%0A" + Account.firstName.replace(" ", "%20") + "%20" + Account.lastName.replace(" ", "%20");
+                    body += "Thanks,%0A%0A" + encodeURIComponent(Account.firstName) + "%20" + encodeURIComponent(Account.lastName);
+                    steroids.logger.log(body);
+                    steroids.logger.log(subject);
                     supersonic.app.openURL("mailto:" + recipient + "?subject=" + subject + "&body=" + body).then(function() {
                     });
 
                   },
                   error: function(result) {
+                    supersonic.ui.dialog.alert(result.message);
                   }
                 });
               }

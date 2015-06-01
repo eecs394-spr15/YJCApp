@@ -1,28 +1,29 @@
 <div ng-controller="ProfileController">
+<!-- profile page view -->
   <super-navbar>
     <super-navbar-title>
       My Profile
     </super-navbar-title>
     <super-navbar-button side="right" location="Account#index">Edit</super-navbar-button>
   </super-navbar>
-  <div class="padding">
+  <div class="padding"><!-- start padding div -->
   	<ul>
-    	<div class="card">
+    	<div class="card"><!-- start personal information card -->
   			<div class="item item-text-wrap">
-    				<h2>
-              <span ng-bind="Account['firstName']"></span> <span ng-bind="Account['lastName']"></span>
-    				</h2>
-    				<p><b>Date of Birth:</b> <span ng-bind="Account['dateOfBirthStr']"></span>
-    				</p>
-            <p><b>Location:</b> <span ng-bind="Account['zipcode']"></span>
-            </p>
-    				<p><b>Phone Number:</b> <span ng-bind="Account['phoneNumber']"></span>
-    				</p>
-    				<p> <b>Email:</b> <span ng-bind="Account['email']"></span>
-    				</p>
+  				<h2>
+            <span ng-bind="Account['firstName']"></span> <span ng-bind="Account['lastName']"></span>
+  				</h2>
+  				<p><b>Date of Birth:</b> <span ng-bind="Account['dateOfBirthStr']"></span>
+  				</p>
+          <p><b>Location:</b> <span ng-bind="Account['zipcode']"></span>
+          </p>
+  				<p><b>Phone Number:</b> <span ng-bind="Account['phoneNumber']"></span>
+  				</p>
+  				<p> <b>Email:</b> <span ng-bind="Account['email']"></span>
+  				</p>
   			</div>
-		</div>
-      <div class="card">
+		  </div><!-- end personal information card -->
+      <div class="card"><!-- start distance to search card -->
         <div class="item item-text-wrap">
           <div class="item item-divider">
             <center>Search Radius</center>
@@ -31,8 +32,8 @@
             <span ng-bind="Account['jobRadius']"></span>
           </li>
         </div>
-      </div>
-		  <div class="card">
+      </div><!-- end distance to search card -->
+		  <div class="card"><!-- start interests card -->
   			<div class="item item-text-wrap">
   				<div class="item item-divider">
         		<center>Interests</center>
@@ -41,8 +42,8 @@
     		    <span ng-bind="i"></span>
     			</li>
     		</div>
-    	</div>
-    	<div class="card">
+    	</div><!-- end interests card -->
+    	<div class="card"><!-- start education card -->
   			<div class="item item-text-wrap">
   				<div class="item item-divider">
         		<center>Education</center>
@@ -51,8 +52,8 @@
             <span ng-bind="e"></span>
     			</li>
     		</div>
-    	</div>
-    	<div class="card">
+    	</div><!-- end education card -->
+    	<div class="card"><!-- start times available card -->
   			<div class="item item-text-wrap">
   				<div class="item item-divider">
         		<center>Times Available</center>
@@ -61,8 +62,8 @@
             <span ng-bind="t"></span>
           </li>
     		</div>
-    	</div>
-      <div class="card">
+    	</div><!-- end times available card -->
+      <div class="card"><!-- start career advisor card -->
         <div class="item item-text-wrap">
           <div class="item item-divider">
             <center>Career Advisor</center>
@@ -75,8 +76,7 @@
             <span ng-bind="Account['advisorEmail']"></span>
           </li>
         </div>
-      </div>
-
-	</ul>
-</div>
+      </div><!-- end carrer advisor card -->
+	  </ul>
+  </div><!-- end class padding -->
 </div>

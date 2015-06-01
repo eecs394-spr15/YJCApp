@@ -1,32 +1,30 @@
 <div ng-controller="IndexController">
-
+<!-- edit profile page --> 
   <super-navbar>
     <super-navbar-title>
       Edit
     </super-navbar-title>
   </super-navbar>
 
-  <div class="padding">
+  <div class="padding"><!-- holds the form used to edit the page -->
   	<form>
-
   		<ul class="list">
-
-  			<div class="item item-divider">
+  			<div class="item item-divider"><!-- about me section divider -->
           	About Me
       	</div>
-        <label id="email-lbl" class="item item-input">
+        <label id="email-lbl" class="item item-input"><!-- email input -->
           <input id="email" type="text" placeholder="Email" ng-model="Account['email']">
-        </label>
-      	<label id="firstname-lbl" class="item item-input">
+        </label><!-- end email input -->
+      	
+        <label id="firstname-lbl" class="item item-input"><!-- first name input -->
       		<input id="firstname" type="text" placeholder="First Name" ng-model="Account['firstName']">
-    		</label>
-    		<label id="lastname-lbl" class="item item-input">
+    		</label><!-- end first name input -->
+    		
+        <label id="lastname-lbl" class="item item-input"><!-- last name input -->
       		<input id="lastname" type="text" placeholder="Last Name" ng-model="Account['lastName']">
-    		</label>
-
-
-
-    		<label id="phonenumber-lbl" class="item item-input">
+    		</label><!-- end last name input -->
+    		
+        <label id="phonenumber-lbl" class="item item-input">
       		<input id="phonenumber" type="tel" placeholder="Phone Number" ng-model="Account['phoneNumber']">
     		</label>
 
@@ -41,8 +39,7 @@
           <input id="dateofbirth" type="date" placeholder="Date Of Birth">
         </label>
 
-        <!-- start search distance -->
-        <div class="item item-divider">
+        <div class="item item-divider"><!-- start search distance -->
           Max Job Search Distance
         </div>
         <div id="distance">
@@ -67,9 +64,9 @@
               </div>
               <i class="radio-icon super-checkmark"></i>
           </label>
-        </div>
-        <!-- start job industries of interest -->
-  		  <div class="item item-divider">
+        </div><!-- end start search distance --> 
+        
+  		  <div class="item item-divider"><!-- start job industries of interest -->
           	Industries 
       	</div>
         <div id="industries">
@@ -141,8 +138,7 @@
           </li>
         </div><!-- end job industries -->
 
-        <!-- start higher education -->
-  		  <div class="item item-divider">
+  		  <div class="item item-divider"><!-- start higher education -->
           	Education 
       	</div>
         <div id="education"> 
@@ -166,8 +162,7 @@
         	</li>
         </div><!-- end higher education -->
 
-        <!-- start crminal history section -->
-        <div class= "item item-divider">
+        <div class= "item item-divider"><!-- start crminal history section -->
             Criminal History
         </div>
         <li class="item item-checkbox">
@@ -177,8 +172,7 @@
           Yes
         </li><!-- end crminal history section -->
 
-        <!-- start times available section -->
-      	<div class= "item item-divider">
+      	<div class= "item item-divider"><!-- start times available section -->
           	Times Available
       	</div>
         <div id="timeavailable">
@@ -221,18 +215,17 @@
         	</li>
         </div><!-- end times available section -->
 
-        <!-- start peer advsor section -->
-        <div class= "item item-divider">
-        Career Advisor
+        <div class= "item item-divider"><!-- start career advsor section -->
+          Career Advisor
         </div>
         <label id="advisor-select-lbl" class="item item-select advisor-select">
           <select ng-init="Account['advisorFullName']=advisorFullName[0]" ng-model="Account['advisorFullName']"
               ng-options="opt as opt for opt in advisorFullName">
           </select>
-        </label><!-- end peer advisor section -->
-
+        </label><!-- end career advisor section -->
     	</ul>
+      <!-- submit form button -->
       <button class="button button-block" style="background-color: #F7652C; color: #ffffff;" ng-click="checkForm()">Save</button>
   	</form>
-  </div>
+  </div><!-- end class padding -->
 </div>

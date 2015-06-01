@@ -1,17 +1,18 @@
 <div ng-controller="LoginPageController">
-  <div class="list" >
+<!-- login/signup view -->
+  <div class="list" ><!-- yjc nav bar -->
       <label class="item item-input" id="yjcbar">
-          <img id="yjclogo" src="/imags/yjclogo.jpg" onclick="location.reload()" width="50px"; height="40px"> <!-- Add the refresh function when click the WildCat-->
+          <img id="yjclogo" src="/imags/yjclogo.jpg" onclick="location.reload()" width="50px"; height="40px"> <!-- Add the refresh function when click the yjc logo -->
           <div style="margin-left:20px; color:#ffffff; font-weight:bold; font-size:120%">
               Login
           </div>
       </label>
-  </div>
+  </div><!-- end yjc nav bar -->
 
-  <div class="padding">
-    <form>
+  <div class="padding"><!-- start padding div -->
+    <form><!-- start login form -->
       <ul class="list">
-        <div ng-hide="currentUser"> 
+        <div ng-hide="currentUser"><!-- start signup user section, hide if logged in --> 
           <div class="item item-divider">
           New Users
           </div>  
@@ -24,9 +25,9 @@
           </label>
 
           <button ng-click= "signUp()" class="button button-block" style="background-color: #F7652C; color: #ffffff;">Sign Up</button>
-        </div>
+        </div><!-- end signup user section -->
 
-        <div ng-hide="currentUser">
+        <div ng-hide="currentUser"><!-- start login for existing users form, hide if logged in -->
           <div class="item item-divider">
           Existing Users
           </div>
@@ -39,21 +40,20 @@
             <input id="login-password" type="password" placeholder="Password" ng-model="existingUser.password">
           </label>
             <button ng-click= "logIn()" class="button button-block" style="background-color: #F7652C; color: #ffffff;">Log In</button>
-        </div>
+        </div><!-- end login form -->
 
         
-        <div ng-show="currentUser">
+        <div ng-show="currentUser"><!-- show if current user is logged in -->
           <h1> Welcome {{currentUser.get('firstName')}}</h1>
-          <super-navigate location="Account#profile">
+          <super-navigate location="Account#profile"><!-- take user to view profile page -->
             <button class="button button-block" style="background-color: #F7652C; color: #ffffff;" >View Profile</button>
           </super-navigate>
-          
+          <!-- logout button -->
           <button class="button button-block" style="background-color: #F7652C; color: #ffffff;" ng-click="logOut()">Logout</button>
-          
-        </div>  
+        </div><!-- end logged in user welcome page -->  
       </ul>
-    </form>
-  </div>
+    </form><!-- end login form -->
+  </div><!-- end padding div -->
 </div>
 
 
