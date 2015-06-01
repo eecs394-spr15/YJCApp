@@ -141,6 +141,49 @@ Parse.Cloud.define('sendNotifications', function(request, response){
         response.error(request.params.number+': Uh oh, the job is not within the specified radius');
       else {
 
+        if (request.params.registrationIds)
+          Parse.Cloud.run('sendPush', {
+            jobId: request.params.jobId,
+            messageTitle: request.params.messageTitle,
+            messageBody: request.params.messageBody,
+            registrationIds: request.params.registrationIds
+          }, {
+            success: function(result){
+              if (request.params.enableSMS)
+                Parse.Cloud.run('sendSMS', {
+                  number: request.params.number,
+                  message: request.params.messageTitle + ': ' + request.params.messageBody
+                }, {
+                  success: function(result){ response.success('SMS and push notification sent!'); },
+                  error: function(error){ response.error('Uh oh, SMS notification failed.'); }
+                });
+              else {
+                console.log('Looks like user has disabled SMS notifications.');
+                response.success('Looks like user has disabled SMS notifications.');
+              }
+            },
+            error: function(error){
+              console.error('GCM Request failed' + JSON.stringify(httpResponse));
+              response.error('Uh oh, push notification failed.');
+            }
+          });
+        else {
+          console.log('No registration id for ' + request.params.number);
+          if (request.params.enableSMS)
+            Parse.Cloud.run('sendSMS', {
+              number: request.params.number,
+              message: request.params.messageTitle + ': ' + request.params.messageBody
+            }, {
+              success: function(result){ response.success('SMS notification sent!'); },
+              error: function(error){ response.error('Uh oh, SMS notification failed.'); }
+            });
+          else {
+            console.log('Looks like user has disabled SMS notifications.');
+            response.success('Looks like user has disabled SMS notifications.');
+          }
+        }
+
+        /*
         if (request.params.enableSMS)
           Parse.Cloud.run('sendSMS', {
             number: request.params.number,
@@ -191,11 +234,11 @@ Parse.Cloud.define('sendNotifications', function(request, response){
             response.error('No registration id for ' + request.params.number);
           }
         }
+        //*/
       }
-      //*/
     },
     error: function(httpResponse){
-      console.error('Geoname request failed' + JSON.stringify(httpResponse));
+      console.error('Zipcode lookup failed' + JSON.stringify(httpResponse));
       response.error('Uh oh, something went wrong');
     }
   });

@@ -17,9 +17,8 @@ The system uses the following to work properly:
 
 ### Web App Structure
 
-    cloudcode/cloud/  
-    controllers/   --all module-specific routing go here
-    models/    --all model functions interacting with Parse backend go here
+  controllers/   --all module-specific routing go here
+  models/    --all model functions interacting with Parse backend go here
 	views/    --all views go here (under respective module folders)
 	app.js    --main application file
 	config.js    --app configurations
