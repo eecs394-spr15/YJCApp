@@ -1,5 +1,6 @@
 var Client = Parse.Object.extend('User');
 var Advisor = Parse.Object.extend('Advisor');
+var Verification = Parse.Object.extend('Verification');
 
 // get all clients
 exports.all = function(callback){
@@ -7,7 +8,14 @@ exports.all = function(callback){
   query.equalTo('admin', false);
 	query.find({
     success: function(results){
-      callback.success(results);
+      var query = new Parse.Query(Verification);
+      query.first({
+        success: function(result) {
+          callback.success(results, result);
+        },
+        error: function(error) {
+        }
+      });
     },
     error: function(error){
       callback.error(error);

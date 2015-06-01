@@ -68,107 +68,119 @@ angular
 
       if (numErrors === 0)
       { // no errors 
-        var pushNotification;
-        var view = new supersonic.ui.View("Account#index");
-        pushNotification = window.plugins.pushNotification;
-        if (device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" )
-        {
-        // if device is android, record the unique registration id neded to send push notifications
-          var user = new Parse.User();
-          user.set("username", $scope.newUser.username);
-          user.set("password", $scope.newUser.password);
-          user.set("email", $scope.newUser.username);
-          user.set("enableSMS", true);
-          user.set("admin", false);
-          user.set("firstName", "");
-          user.set("lastName", '');
-          user.set("interests", []);
-          user.set("timeAvailable", []);
-          user.set("education", []);
-          user.set("phoneNumber", '');
-          user.set("zipcode", '');
-          user.set("dateOfBirth", new Date());
-          user.set("criminalHistory", false);
-          user.set("advisorFirstName", '');
-          user.set("advisorLastName", '');
-          user.set("advisorEmail", '');
-          user.set("jobRadius", 20);
-          user.set("registrationId", []);
 
-          user.signUp(null, { // sign up the user
-            success: function(user){
-              $scope.currentUser = user;
-              $scope.globaluser = user;
-              $scope.$apply();
-              supersonic.ui.dialog.alert("You have successfully signed up!");
-              pushNotification.register(
-                registrationHandler,
-                errorHandler, {
-                    //android options
-                    "senderID":"146165770764",
-                    });
-            },
-            error: function(user, error) {
-              // handles cases where username already taken or when the email address is invalid
-              supersonic.ui.dialog.alert("You have not succesfully signed up. " + error.message);
+        var query = new Parse.Query(Parse.Object.extend('Verification'));
+        query.first().then(function (result) {
+          if (result.get("value") == $scope.newUser.code)
+          {
+            $scope.visitMessage = null;
+            var pushNotification;
+            var view = new supersonic.ui.View("Account#index");
+            pushNotification = window.plugins.pushNotification;
+            if (device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" )
+            {
+            // if device is android, record the unique registration id neded to send push notifications
+              var user = new Parse.User();
+              user.set("username", $scope.newUser.username);
+              user.set("password", $scope.newUser.password);
+              user.set("email", $scope.newUser.username);
+              user.set("enableSMS", true);
+              user.set("admin", false);
+              user.set("firstName", "");
+              user.set("lastName", '');
+              user.set("interests", []);
+              user.set("timeAvailable", []);
+              user.set("education", []);
+              user.set("phoneNumber", '');
+              user.set("zipcode", '');
+              user.set("dateOfBirth", new Date());
+              user.set("criminalHistory", false);
+              user.set("advisorFirstName", '');
+              user.set("advisorLastName", '');
+              user.set("advisorEmail", '');
+              user.set("jobRadius", 20);
+              user.set("registrationId", []);
+
+              user.signUp(null, { // sign up the user
+                success: function(user){
+                  $scope.currentUser = user;
+                  $scope.globaluser = user;
+                  $scope.$apply();
+                  supersonic.ui.dialog.alert("You have successfully signed up!");
+                  pushNotification.register(
+                    registrationHandler,
+                    errorHandler, {
+                        //android options
+                        "senderID":"146165770764",
+                        });
+                },
+                error: function(user, error) {
+                  // handles cases where username already taken or when the email address is invalid
+                  supersonic.ui.dialog.alert("You have not succesfully signed up. " + error.message);
+                }
+              });
+
+              $scope.signedUp = true;
+              $scope.loggedIn = true;
+
             }
-          });
+            else
+            { // ios device, same but do not save registration id
+              var user = new Parse.User();
+              user.set("username", $scope.newUser.username);
+              user.set("password", $scope.newUser.password);
+              user.set("email", $scope.newUser.username);
+              user.set("enableSMS", true);
+              user.set("admin", false);
+              user.set("registrationId", []);
+              user.set("firstName", "");
+              user.set("lastName", '');
+              user.set("interests", []);
+              user.set("timeAvailable", []);
+              user.set("education", []);
+              user.set("phoneNumber", '');
+              user.set("zipcode", '');
+              user.set("dateOfBirth", new Date());
+              user.set("criminalHistory", false);
+              user.set("advisorFirstName", '');
+              user.set("advisorLastName", '');
+              user.set("advisorEmail", '');
+              user.set("jobRadius", 20);
+              user.signUp(null, {
+                success: function(user) {
+                $scope.currentUser = user;
+                $scope.globaluser = user;
+                $scope.$apply();
+                supersonic.ui.dialog.alert("You have successfully signed up!");
+                supersonic.ui.layers.push(view);
+                },
+                error: function(user, error) {
+                  // handles cases where username already taken or when the email address is invalid
+                  supersonic.ui.dialog.alert("You have not succesfully signed up. " + error.message);
+                }
+              });
 
-          $scope.signedUp = true;
-          $scope.loggedIn = true;
-
-        }
-        else
-        { // ios device, same but do not save registration id
-          var user = new Parse.User();
-          user.set("username", $scope.newUser.username);
-          user.set("password", $scope.newUser.password);
-          user.set("email", $scope.newUser.username);
-          user.set("enableSMS", true);
-          user.set("admin", false);
-          user.set("registrationId", []);
-          user.set("firstName", "");
-          user.set("lastName", '');
-          user.set("interests", []);
-          user.set("timeAvailable", []);
-          user.set("education", []);
-          user.set("phoneNumber", '');
-          user.set("zipcode", '');
-          user.set("dateOfBirth", new Date());
-          user.set("criminalHistory", false);
-          user.set("advisorFirstName", '');
-          user.set("advisorLastName", '');
-          user.set("advisorEmail", '');
-          user.set("jobRadius", 20);
-          user.signUp(null, {
-            success: function(user) {
-            $scope.currentUser = user;
-            $scope.globaluser = user;
-            $scope.$apply();
-            supersonic.ui.dialog.alert("You have successfully signed up!");
-            supersonic.ui.layers.push(view);
-            },
-            error: function(user, error) {
-              // handles cases where username already taken or when the email address is invalid
-              supersonic.ui.dialog.alert("You have not succesfully signed up. " + error.message);
+              $scope.signedUp = true;
+              $scope.loggedIn = true;
             }
-          });
 
-          $scope.signedUp = true;
-          $scope.loggedIn = true;
-        }
+            // the result contains any error description text returned from the plugin call
+            function errorHandler (error) {
+              supersonic.ui.dialog.alert('error with registration id = ' + error.message);
+            }
 
-        // the result contains any error description text returned from the plugin call
-        function errorHandler (error) {
-          supersonic.ui.dialog.alert('error with registration id = ' + error.message);
-        }
-
-        function registrationHandler (deviceToken) {
-          // save registration id 
-          user.addUnique("registrationId", deviceToken);
-          user.save();
-          supersonic.ui.layers.push(view);
-        }
+            function registrationHandler (deviceToken) {
+              // save registration id 
+              user.addUnique("registrationId", deviceToken);
+              user.save();
+              supersonic.ui.layers.push(view);
+            }
+          }
+          else
+          {
+            $scope.visitMessage = "Incorrect verification code.\nVisit the Youth Job Center in Evanston for\n a verification code!"
+          }
+        });
       }
     };
 

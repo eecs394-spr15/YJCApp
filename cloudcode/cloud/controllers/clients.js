@@ -9,11 +9,12 @@ module.exports = function(app){
 
     // render clients index page
     Client.all({
-      success: function (results) {
+      success: function (results, result) {
         res.render('clients/index', { 
           notice: req.session.notice ? req.session.notice : '',
           user: req.session.user,
-          clients: results
+          clients: results,
+          verification: result
         });
       },
       error: function (error) {

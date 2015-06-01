@@ -63,7 +63,7 @@ angular
         },
         error: function(error) {
           if(error.code != 209){
-            alert("Error: " + error.code + " " + error.message);
+            alert("Error appliedquery: " + error.code + " " + error.message);
           }
         }
       });
@@ -110,7 +110,7 @@ angular
       },
       error: function(error) {
         if(error.code != 209){
-          alert("Error: " + error.code + " " + error.message);
+          alert("Error query find jobs: " + error.code + " " + error.message);
         }
       }
     });

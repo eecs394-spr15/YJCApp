@@ -302,7 +302,12 @@ angular
       $scope.currentUser.set("advisorEmail", $scope.advisorEmail[index]);
       $scope.Account.jobRadius = parseInt($('input[name=distance]:checked').val());
       $scope.currentUser.set("jobRadius", $scope.Account.jobRadius);
-      $scope.currentUser.set("password", $('#password').val());
+
+      if ($('#password').val() && null || $('#password').val() && undefined && $('#password').val() === '')
+      {
+        supersonic.ui.dialog.alert("Password changed, please restart the app to save changes");
+        alert($('#password').val());
+      }
 
       $scope.currentUser.save(null, {
         success: function(user) {

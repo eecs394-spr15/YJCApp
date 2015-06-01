@@ -29,6 +29,9 @@
   	<div class="container-fluid">
 
       <h1>Clients</h1>
+      <% if (user && user['admin']) { %>
+      <h4>Current Verification Code: <%= verification.get('value') %></h4>
+      <% } %>
 
       <div class="input-group stylish-input-group" style="float:left; margin-right:30px; margin-bottom:20px;">
         <input type="text" class="form-control" id="search" name="search" placeholder="Type to search" value="">

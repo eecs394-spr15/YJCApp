@@ -13,7 +13,7 @@ angular
           $scope.$apply();
         },
         error: function(error) {
-          alert("Error: " + error.code + " " + error.message);
+          alert("Could not query for user: please restart the app");
         }
       });
     };

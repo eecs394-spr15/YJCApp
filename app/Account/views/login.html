@@ -12,7 +12,11 @@
   <div class="padding"><!-- start padding div -->
     <form><!-- start login form -->
       <ul class="list">
-        <div ng-hide="currentUser"><!-- start signup user section, hide if logged in --> 
+        <div ng-hide="currentUser"><!-- start signup user section, hide if logged in -->
+          <div ng-show="visitMessage">
+          <p style="color: red;" ng-bind="visitMessage"></p>
+          </div>
+
           <div class="item item-divider">
           New Users
           </div>  
