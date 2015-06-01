@@ -48,6 +48,7 @@ angular
 
       $('#signup-username-lbl').removeClass('error-input');
       $('#signup-password-lbl').removeClass('error-input');
+      $('#signup-code-lbl').removeClass('error-input');
 
       if ($('#signup-username').val() === '' || $('#signup-username').val() === undefined || $('#signup-username').val() === null)
       {
@@ -58,6 +59,11 @@ angular
       {
         numErrors++;
         $('#signup-password-lbl').addClass('error-input');
+      }
+      if ($('#signup-code').val() === '' || $('#signup-code').val() === undefined || $('#signup-code').val() === null)
+      {
+        numErrors++;
+        $('#signup-code-lbl').addClass('error-input');
       }
 
       if (numErrors === 0)

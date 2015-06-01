@@ -362,7 +362,7 @@ angular
               });
             },
             error: function(error) {
-              alert("Could not query for user: " + error.message);
+              alert("Could not query for user: please restart the app");
             }
           });
     };

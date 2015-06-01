@@ -15,6 +15,22 @@ var GCMAuth = keys['google']['GCM']['auth'];
 
 /* Cloud functions */
 
+Parse.Cloud.job('createVerificationCode', function(request, response) {
+  var query = new Parse.Query(Parse.Object.extend('Verification'));
+  query.first().then(function(result) {
+
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 8; i++ )
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    result.set('value', text);
+    result.save().then(function(result) {
+      response.success(result);
+    });
+  });
+});
+
 // takes job id and returns all users who have expressed interest in the job
 Parse.Cloud.define('getInterestedClients', function(request, response){
 	var query = new Parse.Query(Parse.Object.extend('ClientInterest'));

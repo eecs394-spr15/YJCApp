@@ -17,17 +17,17 @@
 
 
 .dropdown-menu {
-  background-color: #f7f7f7;
+  background-color: #3c948b;
 }
 
 .dropdown-menu > li > a {
-  color: #337ab7; 
+  color: #FFFFFF; 
 }
 
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
-  background-color: #dddddd;
-  color: #23527c;
+  background-color: #F7652C;
+  color: #FFFFFF;
 }
 
 .dropdown-menu .divider {

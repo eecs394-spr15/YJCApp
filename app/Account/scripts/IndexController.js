@@ -137,6 +137,9 @@ angular
       $('#phonenumber-lbl').removeClass('error-input');
       $('#zipcode-lbl').removeClass('error-input');
       $('#advisor-lbl').removeClass('error-input');
+      $('#password-lbl').removeClass('error-input');
+      $('#password2-lbl').removeClass('error-input');
+
       
       if ($('#zipcode').val() === '' || $('#zipcode').val() === undefined || $('#zipcode').val() === null)
       {
@@ -186,6 +189,13 @@ angular
         numErrors++;
         $('#email-lbl').addClass('error-input');
         $('#email').focus();
+      }
+      if ($('#password2').val() != $('#password').val())
+      {
+        numErrors++;
+        $('#password-lbl').addClass('error-input');
+        $('#password2-lbl').addClass('error-input');
+        $('#password').focus();
       }
       if (numErrors === 0)
       {
@@ -292,6 +302,7 @@ angular
       $scope.currentUser.set("advisorEmail", $scope.advisorEmail[index]);
       $scope.Account.jobRadius = parseInt($('input[name=distance]:checked').val());
       $scope.currentUser.set("jobRadius", $scope.Account.jobRadius);
+      $scope.currentUser.set("password", $('#password').val());
 
       $scope.currentUser.save(null, {
         success: function(user) {
