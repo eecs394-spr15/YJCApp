@@ -129,4 +129,22 @@ When configuring the build settings on the appgyver cloud, please include the fo
   
   For more information on plugins, build configuration, and deploying to the play store please view the private google drive document on the developer account.
   
+### Issues and Limitations
+
+Issues:
+
+  1. After change password in app, the user will not be able to view the show details page or express interest in a job due to an invalid session token error. The user will need to restart the app to fix the problem
+  2. Scroll up to refresh works inconsistant on IOS.
+ 
+Limitations:
+
+  1. For now the push notification only works on Androids, will not work on IOS. here are some links may help to set push notification on IOS:
+    * [Appgyver push notification doc](http://docs.appgyver.com/tooling/push-notifications/ios/)
+    * [EECS394 course page](https://www.cs.northwestern.edu/academics/courses/394/ios-push-notification-steps.php)
+  2. Tab bar icons on scanner works well but when deploy to Android, only click on text below the tab icon will work.
+  
+  
+
+
+  
   
