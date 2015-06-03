@@ -9,18 +9,18 @@ module.exports = function(app){
 
     // send all admin info if user is superadmin
     if (!req.session.user['superadmin'])
-    	res.render('admins/show', { 
-        notice: req.session.notice ? req.session.notice : '',
-        user: req.session.user,
-        admins: null
-      });
+  		res.render('admins/show', { 
+  	    notice: req.session.notice ? req.session.notice : '',
+  	    user: req.session.user,
+  	    admins: null
+  	  });
     else {
     	Admin.all({
-    	  success: function (results, admins) {
+    	  success: function (results) {
     	    res.render('admins/index', { 
     	      notice: req.session.notice ? req.session.notice : '',
     	      user: req.session.user,
-    	      admins: admins
+    	      admins: results
     	    });
     	  },
     	  error: function (error) {
@@ -32,6 +32,7 @@ module.exports = function(app){
 
   app.post('/settings', function(req, res){
   	// change account password, etc
+  	
   });
 
   app.get('/admins/new', function(req, res){
