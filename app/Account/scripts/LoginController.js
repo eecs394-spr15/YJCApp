@@ -8,7 +8,6 @@ angular
     $scope.Account = {};
     $scope.signedUp = false;
     $scope.loggedIn = false;
-    $scope.superAdmin = true;
 
     supersonic.ui.views.current.whenVisible( function () {
       supersonic.bind($scope, "globaluser");  // send globaluser to different views
@@ -101,6 +100,7 @@ angular
               user.set("advisorEmail", '');
               user.set("jobRadius", 20);
               user.set("registrationId", []);
+              user.set("superadmin", false);
 
               user.signUp(null, { // sign up the user
                 success: function(user){
@@ -123,7 +123,6 @@ angular
 
               $scope.signedUp = true;
               $scope.loggedIn = true;
-              $scope.superAdmin = false;
 
             }
             else
@@ -148,6 +147,7 @@ angular
               user.set("advisorLastName", '');
               user.set("advisorEmail", '');
               user.set("jobRadius", 20);
+              user.set("superadmin", false);
               user.signUp(null, {
                 success: function(user) {
                 $scope.currentUser = user;
@@ -164,7 +164,7 @@ angular
 
               $scope.signedUp = true;
               $scope.loggedIn = true;
-              $scope.superAdmin = false;
+
             }
 
             // the result contains any error description text returned from the plugin call
