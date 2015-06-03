@@ -147,7 +147,7 @@ Limitations:
   
 ### Additional Links
   * [Parse Twilio doc](https://parse.com/docs/js/guide#cloud-code-modules-twilio)
-  * [Parse](https://www.parse.com/)
+  * [Parse JavaScript Guide](https://www.parse.com/docs/js/guide)
   * [AppGyver push notifications github page](https://github.com/appgyver/pushnotifications)
 
 
