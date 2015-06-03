@@ -67,13 +67,39 @@ exports.create = function(req, callback){
   });
 };
 
-exports.update = function(id, req, callback){
-	var query = new Parse.Query(Admin);
-	query.get(id, {
-		success: function(result){
-			result.set('email', req.body.email);
-			result.set('password', req.body.password);
-      result.save(null, {
+exports.update = function(req, callback){
+	var user = Parse.User.logIn(req.body.username, req.body.password, {
+		success: function(user){
+			var type = req.body._type;
+			if (type == 'credentials') {
+				user.set('username', req.body.newusername);
+				user.set('password', req.body.newpassword);
+			} else {
+				user.set('firstName', req.body.firstName);
+				user.set('lastName', req.body.lastName);
+				user.set('email', req.body.email);
+			}
+				user.save(null, {
+	        success: function(user){
+	          callback.success(user);
+	        },
+	        error: function(user, error){
+	          callback.error(user, error);
+	        }
+	      });
+		},
+		error: function(error){
+			callback.error(null, error)
+		}
+	});
+};
+
+exports.updateInfo = function(req, callback){
+	var user = Parse.User.logIn(req.body.email, req.body.password, {
+		success: function(user){
+			user.set('firstName', req.body.firstName);
+			user.set('lastName', req.body.lastName);
+			user.save(null, {
         success: function(user){
           callback.success(user);
         },
@@ -82,9 +108,7 @@ exports.update = function(id, req, callback){
         }
       });
 		},
-		error: function(error){
-			callback.error(null, error);
-		}
+		error: function(error){}
 	});
 };
 

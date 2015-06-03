@@ -1,0 +1,106 @@
+<% var page = 'settings' %>
+
+<html>
+  <head>
+    <% include ../shared/_header %>
+    <script src="/scripts/check_forms.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/settings.css">
+  </head>
+     
+  <body>
+
+    <% include ../shared/_navbar %>
+
+
+    <div class="container-fluid" style="padding-top: 20px;">
+      <% if (user['admin']) { %>
+        <div class="row">
+          <div class="col-md-4"> 
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Update Login Credentials</h3>
+              </div>
+              <div class="panel-body">
+                <form method="POST" name="adminCredentialsForm" action="/settings" onSubmit="return checkAdminCredentialsForm()">
+                  <div class="form-group">
+                    
+                    <input type="hidden" name="_method" id="requestType" value="PUT" />
+                    <input type="hidden" name="_type" value="credentials" />
+                    
+                    <font size="1" style="color:red; position:relative; top: -10px;">* is required</font><br>
+
+                    <label for="ex1">Old username:<span class="form-error" id="emailError"> * </span></label>
+                    <input type="text" class="form-control" name="username" id="username" value="<%= user['username'] %>">
+                    <br>
+
+                    <label for="ex1">Old password:<span class="form-error" id="passwordError"> * </span></label>
+                    <input type="password" class="form-control" name="password" id="password" value="">
+                    <br>
+                    <hr style="margin: 0 -15px; border-color:#ddd;">
+                    <br>
+
+                    <label for="ex1">New username:<span class="form-error" id="emailError"> * </span></label>
+                    <input type="text" class="form-control" name="newusername" id="newusername" value="">
+                    <br>
+
+                    <label for="ex1">New password:<span class="form-error" id="passwordError"> * </span></label>
+                    <input type="password" class="form-control" name="newpassword" id="newpassword" value="">
+                    <br>
+
+                    <label for="ex1">Re-enter new password:<span class="form-error" id="passwordError"> * </span></label>
+                    <input type="password" class="form-control" name="newpassword2" id="newpassword2" value="">
+                    <br>              
+
+                    <div style="display: table; margin: 0 auto;">
+                      <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>  
+          <div class="col-md-4"> 
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Update Account Info</h3>
+              </div>
+              <div class="panel-body">
+                <form method="POST" name="adminInfoForm" action="/settings" onSubmit="return checkAdminInfoForm()">
+                  <div class="form-group">
+                    
+                    <input type="hidden" name="_method" id="requestType" value="PUT" />
+                    <input type="hidden" name="_type" value="info" />
+                    
+                    <font size="1" style="color:red; position:relative; top: -10px;">* is required</font><br>
+
+                    <label for="ex1">First Name:<span class="form-error" id="firstNameError"> * </span></label>
+                    <input type="text" class="form-control" name="firstName" id="firstName" value="<%= user['firstName'] %>">
+                    <br>
+
+                    <label for="ex1">Last Name:<span class="form-error" id="lastNameError"> * </span></label>
+                    <input type="text" class="form-control" name="lastName" id="lastName" value="<%= user['lastName'] %>">
+                    <br>
+                    <hr style="margin: 0 -15px; border-color:#ddd;">
+                    <br>
+
+                    <label for="ex1">Username:<span class="form-error" id="emailError"> * </span></label>
+                    <input type="text" class="form-control" name="username" id="username" value="<%= user['username'] %>">
+                    <br>
+
+                    <label for="ex1">Password:<span class="form-error" id="passwordError"> * </span></label>
+                    <input type="password" class="form-control" name="password" id="password" value="">   
+                    <br>          
+
+                    <div style="display: table; margin: 0 auto;">
+                      <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>  
+        </div>
+      <% } %>
+    </div>
+  </body>
+</html>

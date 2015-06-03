@@ -73,8 +73,44 @@ module.exports = function(app){
   });
 
   app.post('/settings', function(req, res){
-  	// change account password, etc
+  	// redirect to home if not admin
+  	if (!req.session.user['admin'])
+      return res.redirect('/');
 
+    Admin.update(req, {
+      success: function(admin){
+      	req.session.user = Parse.User.current();
+        res.redirect('/settings');
+      },
+      error: function(admin, error){
+        res.send('Error: ' + error.code + ' ' + error.message);
+      }
+    });
+
+    /*
+    var type = req.body._type;
+    if (type == 'credentials') {
+	    Admin.updateCredentials(req, {
+	      success: function(admin){
+	      	req.session.user = Parse.User.current();
+	        res.redirect('/settings');
+	      },
+	      error: function(admin, error){
+	        res.send('Error: ' + error.code + ' ' + error.message);
+	      }
+	    });
+	  }
+	  else if (type == 'info') {
+	  	Admin.updateInfo(req, {
+	      success: function(admin){
+	        res.redirect('/settings');
+	      },
+	      error: function(admin, error){
+	        res.send('Error: ' + error.code + ' ' + error.message);
+	      }
+	    });
+	  }
+	  //*/
   });
 
   app.get('/admins/new', function(req, res){
