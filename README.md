@@ -27,16 +27,22 @@ The system uses the following to work properly:
 	
 ### Installation Instructions
 
-  Install appgyver supersonic:
+  To install a working version of the app go to the Google Play Store:
   
-  [AppGyver Supersonic Install Instructions]:https://academy.appgyver.com/installwizard
-  [Helpful tips for Supersonic install]:http://www.cs.northwestern.edu/academics/courses/394/steroids-setup-tips.php
+  [YJC]:https://play.google.com/store/apps/details?id=com.yjc.yjcapp.playstore&hl=en
+
+  To download the code for development:
+
+  1. Install appgyver supersonic:
+  
+  [AppGyver Supersonic Install Instructions](https://academy.appgyver.com/installwizard)
+  [Helpful tips for Supersonic install](http://www.cs.northwestern.edu/academics/courses/394/steroids-setup-tips.php)
  
-  Download latest release of application from github:
+  2. Download latest release of application from github:
   
-  [YJC Release]:https://github.com/eecs394-spr15/YJCApp/releases
+  [YJC Release](https://github.com/eecs394-spr15/YJCApp/releases)
   
-  Run the following on your terminal
+  3. Run the following on your terminal
   
   ```sh
   $ steroids login
@@ -44,7 +50,7 @@ The system uses the following to work properly:
   $ bower install jquery
   ```
 
-  Create the following files:
+  4. Create the following files:
   
   1. global.json in the /cloudcode/config directory
   
@@ -67,7 +73,7 @@ The system uses the following to work properly:
   }
   ```
   
-  You can find the parse master key by logging into your parse.com account selecting `YJCApp`, going to `settings`, and then then going to `keys`
+  You can find the parse master key by logging into your parse.com account selecting `YJCApp`, going to `settings`, and then then going to `keys`.
   
   2. keys.js in /cloudcode/cloud/
   
@@ -89,6 +95,38 @@ The system uses the following to work properly:
   module.exports = keys;
   ```
   
-  You can find the twilio api keys by logging in to your twilio account, going to `dashboard` then clicking `Show Api Credentials`
-  You can find the google gcm auth token by logging in to google developer account, going to [Google Developer Console]:https://console.developers.google.com/
-  clicke on the `YJCApp` project, click on `APIs & auth` on the left sidebar, then click on `Credentials`. Copy the `Api key` under `Key for server applications`
+  You can find the twilio api keys by logging in to your twilio account, going to `dashboard` then clicking `Show Api Credentials`.
+  
+  You can find the google gcm auth token by logging in to google developer account, going to [Google Developer Console](https://console.developers.google.com/) click on the `YJCApp` project, click on `APIs & auth` on the left sidebar, then click on `Credentials`. Copy the `Api key` under `Key for server applications`.
+  
+### Build and Deploy
+
+  To build the app run on terminal:
+  
+  ```sh
+  $ steroids connect
+  ```
+  
+  This will open a page in your browser with a QR code. User the AppGyver scanner application from the Play Store to scan this QR code. This will open a test version of the application onto your phone that is useful for debugging.
+  
+  
+  To deploy the application to either the Play Store or Apple App Store use the following instructions:
+  
+  [Deploying app to AppGyver cloud](http://docs.appgyver.com/tooling/build-service/build-settings/)
+  [Build settings for Android](http://docs.appgyver.com/tooling/build-service/build-settings/build-settings-for-android/)
+  [Build settings for IOS](http://docs.appgyver.com/tooling/build-service/build-settings/build-settings-for-ios/)
+  [Android build types](http://docs.appgyver.com/tooling/build-service/build-settings/android-build-types/)
+  [IOS build types](http://docs.appgyver.com/tooling/build-service/build-settings/ios-build-types/)
+  
+  When configuring the build settings on the appgyver cloud, please include the following under the `Plugins` section:
+  
+  ```
+  [
+    {"source":"https://github.com/AppGyver/PushNotifications#next"}
+  ]
+  ```
+  
+  For more information on plugins and build configuration please view the private google drive document on the developer account.
+  
+  
+  
