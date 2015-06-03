@@ -1,4 +1,4 @@
-var Admin = require('cloud/models/user');
+var Admin = require('cloud/models/admin');
 
 module.exports = function(app){
 
@@ -8,31 +8,73 @@ module.exports = function(app){
       return res.redirect('/login');
 
     // send all admin info if user is superadmin
-    if (!req.session.user['superadmin'])
-  		res.render('admins/show', { 
-  	    notice: req.session.notice ? req.session.notice : '',
-  	    user: req.session.user,
-  	    admins: null
-  	  });
-    else {
-    	Admin.all({
-    	  success: function (results) {
-    	    res.render('admins/index', { 
+    if (!req.session.user['superadmin']) {
+    	res.render('admins/show', { 
+		    notice: req.session.notice ? req.session.notice : '',
+		    user: req.session.user,
+		    admins: null
+		  });
+    	/*
+  		Admin.get(req.session.user.id, {
+  			success: function(result){
+					res.render('admins/show', { 
+				    notice: req.session.notice ? req.session.notice : '',
+				    user: result,
+				    admins: null
+				  });
+  			},
+  			error: function(error){
+  				res.send('Error: ' + error.code + ' ' + error.message);
+  			}
+  		});
+			//*/
+  	} else {
+  		Admin.all({
+    	  success: function(results) {
+    	    res.render('admins/show', { 
     	      notice: req.session.notice ? req.session.notice : '',
     	      user: req.session.user,
     	      admins: results
     	    });
     	  },
-    	  error: function (error) {
+    	  error: function(error) {
     	    res.send('Error: ' + error.code + ' ' + error.message);
     	  }
     	});
+  		/*
+    	Admin.all({
+    	  success: function(results) {
+    	    res.render('admins/show', { 
+    	      notice: req.session.notice ? req.session.notice : '',
+    	      user: results.user,
+    	      admins: results.admins
+    	    });
+    	  },
+    	  error: function(error) {
+    	    res.send('Error: ' + error.code + ' ' + error.message);
+    	  }
+    	});
+			//*/
     }
+  });
+
+	app.get('/settings/edit', function(req, res){
+  	// redirect to login if not logged in
+    if (!req.session.user)
+      return res.redirect('/login');
+
+    // redirect to home if not admin
+    if (!req.session.user['admin'])
+      return res.redirect('/');
+
+    res.render('admins/edit', {
+      user: req.session.user
+    });
   });
 
   app.post('/settings', function(req, res){
   	// change account password, etc
-  	
+
   });
 
   app.get('/admins/new', function(req, res){

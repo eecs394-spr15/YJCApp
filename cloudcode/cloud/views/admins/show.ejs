@@ -1,0 +1,45 @@
+<% var page = 'settings' %>
+
+<html>
+  <head>
+    <% include ../shared/_header %>
+    <link rel="stylesheet" type="text/css" href="/css/settings.css">
+  </head>
+  <body>
+  	<% include ../shared/_navbar %>
+
+  	<div class="container-fluid">
+  		<div class="container">
+  			<div class="col-md-12">
+  				<h1 class="title">Account Settings</h1>
+          <div class="subtitle">
+            <p class="timestamp">
+            	<% var createdAt = new Date(user['createdAt']) %>
+            	<% var updatedAt = new Date(user['updatedAt']) %>
+              <span class="created"><b>Joined since: </b><%= createdAt.getMonth() + 1 %>/<%= createdAt.getDate() %>/<%= createdAt.getFullYear() %></span>
+              <span class="updated"><b>Last Updated: </b><%= updatedAt.getMonth() + 1 %>/<%= updatedAt.getDate() %>/<%= updatedAt.getFullYear() %></span>
+            </p>
+            <hr>
+          </div>
+
+          <div class="admin-info">
+          	<h4>Name: <span class="detail"><%= user['firstName'] %> <%= user['lastName'] %></span></h4>
+
+            <h4>E-mail: <span class="detail"><%= user['email'] %></span></h4>
+
+            <% var phoneNumber = user['phoneNumber'] %>
+            
+            <h4>Phone: <span class="detail"><%= '('+phoneNumber.substring(0,3)+') ' + phoneNumber.substring(3,6) + '-' + phoneNumber.substring(6) %></span></h4>
+
+            <h4>Location (zipcode): <span class="detail"><%= user['zipcode'] %></span></h4>
+
+            <a style="top: 120px;left: 10px;" href="/settings/edit" class="btn btn-warning btn-md" role="button">Edit account</a>
+
+          </div>
+
+				</div>
+
+  		</div>
+  	</div>
+  </body>
+ </html>

@@ -23,6 +23,7 @@ module.exports = function(app){
   require('cloud/controllers/jobs')(app);
   require('cloud/controllers/advisors')(app);
   require('cloud/controllers/clients')(app);
+  require('cloud/controllers/admins')(app);
 };
 
 /*

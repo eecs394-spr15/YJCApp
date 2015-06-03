@@ -1,11 +1,51 @@
-var User = Parse.Object.extend('User');
+var Admin = Parse.Object.extend('User');
 
-exports.all = function(callback){
-	var query = new Parse.Query(User);
+exports.all = function(id, callback){
+	query = new Parse.Query(Admin);
 	query.equalTo('admin', true);
+	query.notEqualTo('objectId', id);
 	query.find({
-    success: function(results){
+    success: function(adminResults){
+      results.admins = adminResults;
       callback.success(results);
+    },
+    error: function(error){
+      callback.error(error);
+    }
+  });
+
+	/*
+	results = {};
+	var query = new Parse.Query(Admin);
+  query.get(id, {
+    success: function(userResult){
+      results.user = userResult;
+
+    	query = new Parse.Query(Admin);
+    	query.equalTo('admin', true);
+    	query.notEqualTo('objectId', id);
+    	query.find({
+        success: function(adminResults){
+          results.admins = adminResults;
+          callback.success(results);
+        },
+        error: function(error){
+          callback.error(error);
+        }
+      });
+    },
+    error: function(error){
+      callback.error(error);
+    }
+  });
+	//*/
+};
+
+exports.get = function(id, callback){
+	var query = new Parse.Query(Admin);
+  query.get(id, {
+    success: function(result){
+      callback.success(result);
     },
     error: function(error){
       callback.error(error);
@@ -28,7 +68,7 @@ exports.create = function(req, callback){
 };
 
 exports.update = function(id, req, callback){
-	var query = new Parse.Query(User);
+	var query = new Parse.Query(Admin);
 	query.get(id, {
 		success: function(result){
 			result.set('email', req.body.email);
@@ -50,7 +90,7 @@ exports.update = function(id, req, callback){
 
 exports.destroy = function(req, callback){
 	var id = req.params.id;
-	var query = new Parse.Query(User);
+	var query = new Parse.Query(Admin);
 	query.get(id, {
 	  success: function(result){
 	    result.destroy({
