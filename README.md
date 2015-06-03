@@ -41,8 +41,10 @@ The system uses the following to work properly:
   2. Download latest release of application from github:
   
   [YJC Release](https://github.com/eecs394-spr15/YJCApp/releases)
+
+  3. Change directory in termial to unzipped folder `YJCApp-X.X`
   
-  3. Run the following on your terminal
+  4. Run the following on your terminal
   
   ```sh
   $ steroids login
@@ -50,11 +52,11 @@ The system uses the following to work properly:
   $ bower install jquery
   ```
 
-  4. Create the following files:
+  5. Create the following files:
   
-  1. global.json in the /cloudcode/config directory
+  1. global.json in the cloudcode/config directory
   
-  put the following in /cloudcode/config/global.json:
+  put the following in cloudcode/config/global.json:
 
   ```
   {
@@ -75,9 +77,9 @@ The system uses the following to work properly:
   
   You can find the parse master key by logging into your parse.com account selecting `YJCApp`, going to `settings`, and then then going to `keys`.
   
-  2. keys.js in /cloudcode/cloud/
+  2. keys.js in cloudcode/cloud/
   
-  put the following in /cloudcode/cloud/keys.js:
+  put the following in cloudcode/cloud/keys.js:
 
   ```javascript
   var keys =  {
@@ -143,7 +145,10 @@ Limitations:
     * [EECS394 course page](https://www.cs.northwestern.edu/academics/courses/394/ios-push-notification-steps.php)
   2. Tab bar icons on scanner works well but when deploy to Android, only click on text below the tab icon will work.
   
-  
+### Additional Links
+  * [Parse Twilio doc](https://parse.com/docs/js/guide#cloud-code-modules-twilio)
+  * [Parse](https://www.parse.com/)
+  * [AppGyver push notifications github page](https://github.com/appgyver/pushnotifications)
 
 
   
