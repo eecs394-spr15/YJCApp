@@ -8,6 +8,7 @@ angular
     $scope.Account = {};
     $scope.signedUp = false;
     $scope.loggedIn = false;
+    $scope.superAdmin = true;
 
     supersonic.ui.views.current.whenVisible( function () {
       supersonic.bind($scope, "globaluser");  // send globaluser to different views
@@ -122,6 +123,7 @@ angular
 
               $scope.signedUp = true;
               $scope.loggedIn = true;
+              $scope.superAdmin = false;
 
             }
             else
@@ -162,6 +164,7 @@ angular
 
               $scope.signedUp = true;
               $scope.loggedIn = true;
+              $scope.superAdmin = false;
             }
 
             // the result contains any error description text returned from the plugin call
