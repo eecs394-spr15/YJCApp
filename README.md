@@ -116,6 +116,7 @@ The system uses the following to work properly:
 * [Build settings for Android](http://docs.appgyver.com/tooling/build-service/build-settings/build-settings-for-android/)
 * [Build settings for IOS](http://docs.appgyver.com/tooling/build-service/build-settings/build-settings-for-ios/)
 * [Android build types](http://docs.appgyver.com/tooling/build-service/build-settings/android-build-types/)
+* fsdfds
 * [IOS build types](http://docs.appgyver.com/tooling/build-service/build-settings/ios-build-types/)
   
   When configuring the build settings on the appgyver cloud, please include the following under the `Plugins` section:
