@@ -126,7 +126,7 @@ The system uses the following to work properly:
   ]
   ```
   
-  For more information on plugins and build configuration please view the private google drive document on the developer account.
   
+  For more information on plugins, build configuration, and deploying to the play store please view the private google drive document on the developer account.
   
   
