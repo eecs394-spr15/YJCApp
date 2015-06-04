@@ -9,6 +9,8 @@ angular
     $scope.signedUp = false;
     $scope.loggedIn = false;
 
+    RegistrationId = null;
+
     supersonic.ui.views.current.whenVisible( function () {
       supersonic.bind($scope, "globaluser");  // send globaluser to different views
       if($scope.globaluser == "undefined"){ // user was logged out
@@ -114,6 +116,13 @@ angular
                         //android options
                         "senderID":"146165770764",
                         });
+                  if (RegistrationId != null)
+                  {
+                    user.addUnique("registrationId", RegistrationId);
+                    user.save();   
+                  }
+                  supersonic.ui.layers.push(view);
+
                 },
                 error: function(user, error) {
                   // handles cases where username already taken or when the email address is invalid
@@ -174,9 +183,9 @@ angular
 
             function registrationHandler (deviceToken) {
               // save registration id 
+              RegistrationId = deviceToken;
               user.addUnique("registrationId", deviceToken);
               user.save();
-              supersonic.ui.layers.push(view);
             }
           }
           else
