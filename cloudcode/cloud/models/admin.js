@@ -12,32 +12,6 @@ exports.all = function(id, callback){
       callback.error(error);
     }
   });
-
-	/*
-	results = {};
-	var query = new Parse.Query(Admin);
-  query.get(id, {
-    success: function(userResult){
-      results.user = userResult;
-
-    	query = new Parse.Query(Admin);
-    	query.equalTo('admin', true);
-    	query.notEqualTo('objectId', id);
-    	query.find({
-        success: function(adminResults){
-          results.admins = adminResults;
-          callback.success(results);
-        },
-        error: function(error){
-          callback.error(error);
-        }
-      });
-    },
-    error: function(error){
-      callback.error(error);
-    }
-  });
-	//*/
 };
 
 exports.get = function(id, callback){
@@ -54,8 +28,12 @@ exports.get = function(id, callback){
 
 exports.create = function(req, callback){
 	var admin = new Admin();
-	admin.set('email', req.body.email);
+	admin.set('username', req.body.username);
 	admin.set('password', req.body.password);
+	admin.set('firstName', req.body.firstName);
+	admin.set('lastName', req.body.lastName);
+	admin.set('email', req.body.email);
+	admin.set('admin', true);
   admin.save(null, {
     success: function(user){
       callback.success(user);
@@ -71,21 +49,29 @@ exports.update = function(req, callback){
 		success: function(user){
 			var type = req.body._type;
 			if (type == 'credentials') {
-				user.set('username', req.body.newusername);
-				user.set('password', req.body.newpassword);
+				user.set('username', req.body.newUsername);
+				user.set('password', req.body.newPassword);
 			} else {
 				user.set('firstName', req.body.firstName);
 				user.set('lastName', req.body.lastName);
 				user.set('email', req.body.email);
 			}
-				user.save(null, {
-	        success: function(user){
-	          callback.success(user);
-	        },
-	        error: function(user, error){
-	          callback.error(user, error);
-	        }
-	      });
+			user.save(null, {
+        success: function(user){
+          Parse.User.logOut();
+          Parse.User.logIn(req.body.newUsername, req.body.newPassword, {
+          	success: function(user){
+          		callback.success(user);
+          	},
+          	error: function(user, error){
+          		callback.error(user, error)
+          	}
+          });
+        },
+        error: function(user, error){
+          callback.error(user, error);
+        }
+      });
 		},
 		error: function(error){
 			callback.error(null, error)
@@ -116,6 +102,7 @@ exports.destroy = function(req, callback){
 	var query = new Parse.Query(Admin);
 	query.get(id, {
 	  success: function(result){
+	  	Parse.Cloud.useMasterKey()
 	    result.destroy({
 	      success: function(user){
 	        callback.success(user);

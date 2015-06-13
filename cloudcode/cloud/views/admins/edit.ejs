@@ -29,7 +29,7 @@
                     
                     <font size="1" style="color:red; position:relative; top: -10px;">* is required</font><br>
 
-                    <label for="ex1">Old username:<span class="form-error" id="emailError"> * </span></label>
+                    <label for="ex1">Old username:<span class="form-error" id="usernameError"> * </span></label>
                     <input type="text" class="form-control" name="username" id="username" value="<%= user['username'] %>">
                     <br>
 
@@ -39,16 +39,16 @@
                     <hr style="margin: 0 -15px; border-color:#ddd;">
                     <br>
 
-                    <label for="ex1">New username:<span class="form-error" id="emailError"> * </span></label>
-                    <input type="text" class="form-control" name="newusername" id="newusername" value="">
+                    <label for="ex1">New username:<span class="form-error" id="newUsernameError"> * </span></label>
+                    <input type="text" class="form-control" name="newUsername" id="newUsername" value="">
                     <br>
 
-                    <label for="ex1">New password:<span class="form-error" id="passwordError"> * </span></label>
-                    <input type="password" class="form-control" name="newpassword" id="newpassword" value="">
+                    <label for="ex1">New password:<span class="form-error" id="newPasswordError"> * </span></label>
+                    <input type="password" class="form-control" name="newPassword" id="newPassword" value="">
                     <br>
 
-                    <label for="ex1">Re-enter new password:<span class="form-error" id="passwordError"> * </span></label>
-                    <input type="password" class="form-control" name="newpassword2" id="newpassword2" value="">
+                    <label for="ex1">Re-enter new password:<span class="form-error" id="newPassword2Error"> * </span></label>
+                    <input type="password" class="form-control" name="newPassword2" id="newPassword2" value="">
                     <br>              
 
                     <div style="display: table; margin: 0 auto;">
@@ -73,6 +73,16 @@
                     
                     <font size="1" style="color:red; position:relative; top: -10px;">* is required</font><br>
 
+                    <label for="ex1">Username:<span class="form-error" id="emailError"> * </span></label>
+                    <input type="text" class="form-control" name="username" id="username" value="<%= user['username'] %>">
+                    <br>
+
+                    <label for="ex1">Password:<span class="form-error" id="passwordError"> * </span></label>
+                    <input type="password" class="form-control" name="password" id="password" value="">
+                    <br>
+                    <hr style="margin: 0 -15px; border-color:#ddd;">   
+                    <br>  
+
                     <label for="ex1">First Name:<span class="form-error" id="firstNameError"> * </span></label>
                     <input type="text" class="form-control" name="firstName" id="firstName" value="<%= user['firstName'] %>">
                     <br>
@@ -80,16 +90,10 @@
                     <label for="ex1">Last Name:<span class="form-error" id="lastNameError"> * </span></label>
                     <input type="text" class="form-control" name="lastName" id="lastName" value="<%= user['lastName'] %>">
                     <br>
-                    <hr style="margin: 0 -15px; border-color:#ddd;">
-                    <br>
 
-                    <label for="ex1">Username:<span class="form-error" id="emailError"> * </span></label>
-                    <input type="text" class="form-control" name="username" id="username" value="<%= user['username'] %>">
-                    <br>
-
-                    <label for="ex1">Password:<span class="form-error" id="passwordError"> * </span></label>
-                    <input type="password" class="form-control" name="password" id="password" value="">   
-                    <br>          
+                    <label for="ex1">E-mail:<span class="form-error" id="emailError"> * </span></label>
+                    <input type="text" class="form-control" name="email" id="email" value="<%= user['email'] %>">
+                    <br>      
 
                     <div style="display: table; margin: 0 auto;">
                       <button type="submit" class="btn btn-primary">Update</button>

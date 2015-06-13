@@ -14,20 +14,6 @@ module.exports = function(app){
 		    user: req.session.user,
 		    admins: null
 		  });
-    	/*
-  		Admin.get(req.session.user.id, {
-  			success: function(result){
-					res.render('admins/show', { 
-				    notice: req.session.notice ? req.session.notice : '',
-				    user: result,
-				    admins: null
-				  });
-  			},
-  			error: function(error){
-  				res.send('Error: ' + error.code + ' ' + error.message);
-  			}
-  		});
-			//*/
   	} else {
   		Admin.all(req.session.user['objectId'], {
     	  success: function(results) {
@@ -41,20 +27,6 @@ module.exports = function(app){
     	    res.send('Error: ' + error.code + ' ' + error.message);
     	  }
     	});
-  		/*
-    	Admin.all({
-    	  success: function(results) {
-    	    res.render('admins/show', { 
-    	      notice: req.session.notice ? req.session.notice : '',
-    	      user: results.user,
-    	      admins: results.admins
-    	    });
-    	  },
-    	  error: function(error) {
-    	    res.send('Error: ' + error.code + ' ' + error.message);
-    	  }
-    	});
-			//*/
     }
   });
 
@@ -79,7 +51,7 @@ module.exports = function(app){
 
     Admin.update(req, {
       success: function(admin){
-      	req.session.user = Parse.User.current();
+      	req.session.user = admin;
         res.redirect('/settings');
       },
       error: function(admin, error){
@@ -138,7 +110,7 @@ module.exports = function(app){
         res.redirect('/settings');
       },
       error: function(admin, error) {
-        res.send('Error saving job!' + error.message);
+        res.send('Error creating admin!' + error.message);
       }
     });
   });
