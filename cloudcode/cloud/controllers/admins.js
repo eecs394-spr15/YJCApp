@@ -29,7 +29,7 @@ module.exports = function(app){
   		});
 			//*/
   	} else {
-  		Admin.all({
+  		Admin.all(req.session.user['objectId'], {
     	  success: function(results) {
     	    res.render('admins/show', { 
     	      notice: req.session.notice ? req.session.notice : '',

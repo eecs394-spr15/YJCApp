@@ -5,8 +5,7 @@ exports.all = function(id, callback){
 	query.equalTo('admin', true);
 	query.notEqualTo('objectId', id);
 	query.find({
-    success: function(adminResults){
-      results.admins = adminResults;
+    success: function(results){
       callback.success(results);
     },
     error: function(error){
