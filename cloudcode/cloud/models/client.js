@@ -14,6 +14,7 @@ exports.all = function(callback){
           callback.success(results, result);
         },
         error: function(error) {
+          callback.error(error);
         }
       });
     },

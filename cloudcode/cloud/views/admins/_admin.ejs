@@ -1,0 +1,16 @@
+<tr>  
+  <td>
+  <%- "<input type=\"checkbox\" name=\"" + admin.id + "\" value=\"" + admin.id + "\">"
+  %>
+  </td>
+  <td><%= admin.get('firstName') %></td>
+  <td><%= admin.get('lastName') %></td>  
+  <td><%= admin.get('email') %></td>  
+  <td><%= admin.createdAt.getMonth() + 1 + "/" + admin.createdAt.getDate() + "/" + admin.createdAt.getFullYear() %></td>
+  <td>
+    <form id="delete<%= admin.id %>" method="POST" action="/admin/<%= admin.id %>" onsubmit="return confirm('Are you sure you want to remove this admin?')">
+      <input type="hidden" name="_method" id="requestType" value="DELETE" />
+      <a onclick="if (confirm('Are you sure you want to delete this admin account?')) { document.getElementById('delete<%= admin.id %>').submit(); }">Delete</a>
+    </form>
+  </td>  
+</tr>

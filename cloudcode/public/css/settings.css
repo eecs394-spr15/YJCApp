@@ -1,0 +1,59 @@
+/* show view */
+hr {
+	margin: 0; 
+	border-color: #aaa
+}
+
+.title {
+  text-align: left;
+}
+
+.subtitle {
+	padding-bottom: 5px;
+}
+
+.timestamp {
+	font-size: 0.8em;
+}
+
+.created {
+	padding-right: 5px;
+	color: #23a;
+}
+
+.updated {
+	color: #e33;
+}
+
+.admin-sidebar {
+	padding-top: 0px;
+}
+
+.sidebar-block {
+	padding-bottom: 20px;
+}
+
+.sidebar-block p {
+	font-size: 1em;
+}
+
+.profile span {
+	color: #3c948b;
+	margin-left: 10px;
+}
+
+.admin-info a {
+	text-decoration: none;
+}
+
+.admin-info a:hover {
+	text-decoration: none;
+}
+
+.admin-info ul {
+	list-style: none;
+}
+
+.admin-info span.detail {
+	font-weight: normal;
+}
