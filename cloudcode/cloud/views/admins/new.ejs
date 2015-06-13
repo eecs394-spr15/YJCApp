@@ -1,0 +1,63 @@
+<% var page = 'settings' %>
+
+<html>
+  <head>
+    <% include ../shared/_header %>
+    <script src="/scripts/check_forms.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/settings.css">
+  </head>
+     
+  <body>
+
+    <% include ../shared/_navbar %>
+
+
+    <div class="container-fluid" style="padding-top: 20px;">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Add New Admin</h3>
+            </div>
+            <div class="panel-body">
+              <form method="POST" name="adminForm" action="/admins" onSubmit="return checkAdminForm()">
+                <div class="form-group">
+
+                  <font size="1em" style="color:red; position:relative; top: -10px;">* is required</font><br>
+                  
+                  <label for="ex1">First Name:<span class="form-error" id="firstNameError"> * </span></label>
+                  <input type="text" class="form-control" name="firstName" id="firstName" value="">
+                  <br>
+
+                  <label for="ex1">Last Name:<span class="form-error" id="lastNameError"> * </span></label>
+                  <input type="text" class="form-control" name="lastName" id="lastName" value="">
+                  <br>
+
+                  <label for="ex1">E-mail:<span class="form-error" id="emailError"> * </span></label>
+                  <input type="text" class="form-control" name="email" id="email" value="">
+                  <br>
+
+                  <label for="ex1">Username:<span class="form-error" id="usernameError"> * </span></label>
+                  <input type="text" class="form-control" name="username" id="username" value="">
+                  <br>
+
+                  <label for="ex1">Password:<span class="form-error" id="passwordError"> * </span></label>
+                  <input type="password" class="form-control" name="password" id="password" value="">
+                  <br>
+
+                  <label for="ex1">Re-enter password:<span class="form-error" id="password2Error"> * </span></label>
+                  <input type="password" class="form-control" name="password2" id="password2" value="">
+                  <br>
+
+                  <div style="display: table; margin: 0 auto;">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>  
+      </div>
+    </div>
+  </body>
+</html>
